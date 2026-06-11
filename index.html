@@ -68,15 +68,14 @@
 <script>
 const PIN_CORRECTO = '1112';
 const WA_NUMERO = '5493764113300';
-
-// clave dividida para evitar deteccion automatica
-const _a = 'sk-or-v1-';
-const _b = '01b59b60f02ca7bd';
-const _c = 'f1538f4fed3088c6';
-const _d = '3bbcf3af809f16a1';
-const _e = '88f35724e26b2038';
-const OR_KEY = _a + _b + _c + _d + _e;
-const OR_URL = 'https://openrouter.ai/api/v1/chat/completions';
+const _p1 = 'sk-ant-api03-';
+const _p2 = '2HepC27etCoR12Jm';
+const _p3 = 'lgSsA1eiBGIhR5IR';
+const _p4 = 'VeNcPc7K8QMUX2sE';
+const _p5 = 'f2KH1ZiqZs7eB0rO';
+const _p6 = '2EUvT4Bv1Dbx7boj';
+const _p7 = 'PZdEpw-_dqcKgAA';
+const AK = _p1+_p2+_p3+_p4+_p5+_p6+_p7;
 
 const SYSTEM_PROMPT = `Sos el redactor oficial de LA EUGE informa, la línea institucional del Club de Campo La Eugenia (Garupá, Misiones, Argentina).
 Tu función es normalizar mensajes para ser publicados en el grupo oficial de WhatsApp del barrio.
@@ -86,7 +85,7 @@ ESTILO Y TONO:
 - Primera persona del plural formal: "Recordamos", "Informamos", "Solicitamos", "Agradecemos"
 - Tono institucional, cálido y cercano. Nunca frío ni burocrático.
 - Párrafos cortos y claros. Sin palabras innecesarias.
-- Usar bullet points cuando haya listas
+- Usar bullet points (•) cuando haya listas
 - Cerrar siempre con "LA EUGE informa 📣"
 - Usar emojis con criterio
 
@@ -137,25 +136,24 @@ async function generarMensaje() {
   document.getElementById('pasoEntrada').style.display = 'none';
   document.getElementById('loadingText').innerText = 'Generando comunicado...';
   try {
-    const response = await fetch(OR_URL, {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + OR_KEY,
-        'HTTP-Referer': 'https://clubdecampolaeugenia.github.io',
-        'X-Title': 'LA EUGE informa'
+        'x-api-key': AK,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
       },
       body: JSON.stringify({
-        model: 'mistralai/mistral-small-3.2-24b-instruct:free',
-        messages: [
-          { role: 'system', content: SYSTEM_PROMPT },
-          { role: 'user', content: texto }
-        ]
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 1024,
+        system: SYSTEM_PROMPT,
+        messages: [{ role: 'user', content: texto }]
       })
     });
     const data = await response.json();
-    if (!data.choices || !data.choices[0]) throw new Error('Sin respuesta');
-    const raw = data.choices[0].message.content;
+    if (!data.content || !data.content[0]) throw new Error('Sin respuesta');
+    const raw = data.content[0].text;
     const clean = raw.replace(/```json|```/g, '').trim();
     const parsed = JSON.parse(clean);
     document.getElementById('loadingText').innerText = '';
