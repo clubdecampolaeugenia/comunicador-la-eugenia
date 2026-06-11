@@ -25,7 +25,7 @@
     .mic-btn.grabando { background: #c0392b; animation: pulse 1s infinite; }
     @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
     .categoria-badge { display: inline-block; background: #0d6663; color: #c4df57; font-size: 11px; font-weight: 900; text-transform: uppercase; border-radius: 20px; padding: 4px 12px; margin-bottom: 14px; letter-spacing: 0.5px; }
-    .resultado-box { background: #edf1dc; border-radius: 14px; padding: 14px; margin-bottom: 14px; color: #003a6b; font-size: 15px; line-height: 1.6; white-space: pre-wrap; min-height: 60px; display: none; }
+    .resultado-box { background: #edf1dc; border-radius: 14px; padding: 14px; margin-bottom: 14px; color: #003a6b; font-size: 15px; line-height: 1.6; white-space: pre-wrap; min-height: 100px; display: none; }
     .advertencia-box { background: #fff3cd; border: 2px solid #f0a500; border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; color: #7a4f00; font-size: 13px; font-weight: 700; display: none; }
     .sugerencias-box { background: #e8f4fd; border: 2px solid #2980b9; border-radius: 14px; padding: 14px; margin-bottom: 14px; display: none; }
     .sugerencias-titulo { color: #1a5276; font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 4px; }
@@ -141,7 +141,7 @@ const DIRECTORIO = [
 ];
 
 const SYSTEM_PROMPT = `Sos el redactor oficial de LA EUGE informa 📣, la línea institucional del Club de Campo La Eugenia (Garupá, Misiones, Argentina).
-Tu función es normalizar mensajes para ser publicados en el grupo oficial de WhatsApp del barrio.
+Tu función es normalizar mensajes para ser publicados en el grupo oficial de WhatsApp del barrio. Si el texto de entrada es muy breve o incompleto, igual generá un comunicado básico usando el contexto disponible — nunca dejes el campo "mensaje" vacío.
 
 REGLA FUNDAMENTAL: NO agregues links, teléfonos ni datos de contacto por tu cuenta. Tu única función es normalizar el texto. Los datos se sugieren por separado y el usuario decide si los incorpora.
 
@@ -323,6 +323,8 @@ function cerrarAjuste() {
 }
 
 async function aplicarAjuste() {
+  const mensajeActualCheck = document.getElementById("resultadoBox").innerText.trim();
+  if (!mensajeActualCheck) { alert("No hay comunicado generado para ajustar. Generá uno primero."); return; }
   const ajuste = document.getElementById('textoAjuste').value.trim();
   if (!ajuste) return;
   const mensajeActual = document.getElementById('resultadoBox').innerText;
