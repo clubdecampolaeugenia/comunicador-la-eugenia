@@ -211,7 +211,6 @@
   <h1>Comunicador</h1>
   <div class="subtitle"><strong>LA EUGE informa 📣</strong></div>
 
-  <!-- PIN -->
   <div id="pinScreen">
     <div class="pin-label">Ingresá el PIN</div>
     <input class="pin-input" type="password" inputmode="numeric" maxlength="4" id="pinInput" placeholder="····">
@@ -219,7 +218,6 @@
     <button class="btn-solid" onclick="verificarPin()">Ingresar</button>
   </div>
 
-  <!-- MAIN -->
   <div id="mainScreen">
     <div id="pasoEntrada">
       <span class="field-label">¿Qué querés comunicar?</span>
@@ -247,20 +245,20 @@
 <script>
 const PIN_CORRECTO = '1112';
 const WA_NUMERO = '5493764113300';
-const GEMINI_KEY = 'AIzaSyAQ.Ab8RN6LMRcUf-DOh_dlNh50b4tf3oSdjYy9TiKZCN7L0OYbGKg';
-const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_KEY;
+const OR_KEY = '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';
+const OR_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
-const PROMPT = `Sos el redactor oficial de LA EUGE informa 📣, la línea institucional del Club de Campo La Eugenia (Garupá, Misiones, Argentina).
+const SYSTEM_PROMPT = `Sos el redactor oficial de LA EUGE informa 📣, la línea institucional del Club de Campo La Eugenia (Garupá, Misiones, Argentina).
 Tu función es normalizar mensajes para ser publicados en el grupo oficial de WhatsApp del barrio.
 
-ESTILO Y TONO — basado en comunicados reales del club:
+ESTILO Y TONO:
 - Comenzar siempre con un emoji relevante al tema + "Estimados vecinos,"
 - Primera persona del plural formal: "Recordamos", "Informamos", "Solicitamos", "Agradecemos"
 - Tono institucional, cálido y cercano. Nunca frío ni burocrático.
 - Párrafos cortos y claros. Sin palabras innecesarias.
 - Usar bullet points (•) cuando haya listas o enumeraciones
 - Cerrar siempre con "LA EUGE informa 📣"
-- Usar emojis con criterio: uno al inicio según la categoría, y alguno puntual si suma claridad
+- Usar emojis con criterio: uno al inicio según la categoría, alguno puntual si suma claridad
 
 EMOJIS POR CATEGORÍA:
 - Intendencia: 🌿
@@ -270,40 +268,41 @@ EMOJIS POR CATEGORÍA:
 - Urgente: 🚨
 - Evento: 🎉
 
-EJEMPLOS DE COMUNICADOS REALES:
+EJEMPLOS REALES:
 
-Ejemplo 1 (Convivencia):
 🐾 Estimados vecinos,
-Recordamos a toda la comunidad la importancia de mantener a los perros dentro de los límites de cada lote, evitando que circulen libremente por los espacios comunes sin supervisión de sus responsables.
-Asimismo, solicitamos que, al momento de pasearlos, lo hagan preferentemente con correa o bajo una estricta supervisión y control permanente.
-En las últimas semanas hemos recibido diversos reportes de niños que han sufrido situaciones de acoso, persecución o episodios de agresividad por parte de perros que se encontraban sueltos. Más allá de que no se hayan producido lesiones, estas experiencias suelen resultar muy traumáticas para los menores.
-Por ello, reiteramos encarecidamente el pedido a todos los propietarios y responsables de perros para que colaboren manteniéndolos dentro de sus lotes y asegurando un adecuado control cuando se encuentren fuera de ellos.
-La convivencia y el bienestar de toda la comunidad dependen del compromiso de cada uno de nosotros.
+Recordamos a toda la comunidad la importancia de mantener a los perros dentro de los límites de cada lote.
+Asimismo, solicitamos que al momento de pasearlos lo hagan con correa o bajo estricta supervisión.
+En las últimas semanas hemos recibido reportes de niños que sufrieron situaciones de acoso por parte de perros sueltos.
+Por ello, reiteramos el pedido a todos los responsables de perros para que colaboren manteniéndolos dentro de sus lotes.
+La convivencia y el bienestar de toda la comunidad dependen del compromiso de cada uno.
 Muchas gracias.
 LA EUGE informa 📣
 
-Ejemplo 2 (Intendencia):
 🌿 Estimados vecinos,
-En el día de la fecha finalizaron las tareas de retiro de podas pequeñas y residuos emponchados correspondientes a la Zona 2.
-Quedaron pendientes únicamente dos podas de gran porte ubicadas en K1 y K4, cuya quema resulta inviable por razones de seguridad. Por tal motivo, deberán ser retiradas de manera particular por los respectivos propietarios.
+En el día de la fecha finalizaron las tareas de retiro de podas pequeñas correspondientes a la Zona 2.
+Quedaron pendientes dos podas de gran porte en K1 y K4 que deberán ser retiradas de manera particular por los propietarios.
 El martes 26 continuarán las tareas en la Zona 3, comprendiendo las Manzanas S, T, U, V y W.
-Solicitamos la colaboración de todos colocando los residuos de poda en ponchadas, a fin de agilizar el trabajo.
+Solicitamos la colaboración de todos colocando los residuos en ponchadas para agilizar el trabajo.
 LA EUGE informa 📣
 
-DETECCIÓN DE PROBLEMAS — si el texto de entrada contiene alguno de estos problemas, incluilo en el campo "advertencia":
+⚠️ Estimados vecinos,
+Se están realizando tareas de mantenimiento sobre el pavimento de la vía de acceso, motivo por el cual dicha mano permanecerá momentáneamente inhabilitada.
+En consecuencia, quedará habilitada únicamente la vía de egreso, utilizada de manera provisoria tanto para el ingreso como para la salida.
+Solicitamos circular con extrema precaución, respetando la velocidad mínima y prestando atención a los vehículos en sentido contrario.
+Agradecemos la comprensión y colaboración de todos.
+LA EUGE informa 📣
+
+DETECCIÓN DE PROBLEMAS:
+Si el texto contiene alguno de estos problemas, incluilo en "advertencia":
 - Número de teléfono con menos de 10 dígitos
-- Email que parece incompleto (sin @ o sin dominio)
+- Email incompleto (sin @ o sin dominio)
 - Información contradictoria o que no tiene sentido
 - Algo que no pudiste interpretar claramente
-
-Si no hay advertencias, devolvé advertencia como cadena vacía "".
+Si no hay advertencias, devolvé advertencia como "".
 
 IMPORTANTE: Respondé SOLO con JSON válido, sin texto adicional, sin backticks:
-{
-  "categoria": "...",
-  "advertencia": "...",
-  "mensaje": "..."
-}`;
+{"categoria": "...", "advertencia": "...", "mensaje": "..."}`;
 
 function verificarPin() {
   const pin = document.getElementById('pinInput').value;
@@ -329,17 +328,32 @@ async function generarMensaje() {
   document.getElementById('loadingText').innerText = 'Generando comunicado...';
 
   try {
-    const response = await fetch(GEMINI_URL, {
+    const response = await fetch(OR_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + OR_KEY,
+        'HTTP-Referer': 'https://clubdecampolaeugenia.github.io',
+        'X-Title': 'LA EUGE informa'
+      },
       body: JSON.stringify({
-        contents: [{ parts: [{ text: PROMPT + '\n\nTexto a normalizar:\n' + texto }] }]
+        model: 'mistralai/mistral-7b-instruct:free',
+        messages: [
+          { role: 'system', content: SYSTEM_PROMPT },
+          { role: 'user', content: texto }
+        ]
       })
     });
 
     const data = await response.json();
-    const raw = data.candidates[0].content.parts[0].text;
-    const parsed = JSON.parse(raw.replace(/```json|```/g, '').trim());
+
+    if (!data.choices || !data.choices[0]) {
+      throw new Error('Sin respuesta');
+    }
+
+    const raw = data.choices[0].message.content;
+    const clean = raw.replace(/```json|```/g, '').trim();
+    const parsed = JSON.parse(clean);
 
     document.getElementById('loadingText').innerText = '';
     document.getElementById('categoriaBadge').innerText = parsed.categoria;
@@ -354,10 +368,10 @@ async function generarMensaje() {
     }
 
     const msgEncoded = encodeURIComponent(parsed.mensaje);
-    document.getElementById('btnWhatsApp').href = `https://wa.me/${WA_NUMERO}?text=${msgEncoded}`;
+    document.getElementById('btnWhatsApp').href = 'https://wa.me/' + WA_NUMERO + '?text=' + msgEncoded;
     document.getElementById('pasoResultado').style.display = 'block';
 
-  } catch (e) {
+  } catch(e) {
     document.getElementById('loadingText').innerText = 'Error al generar. Intentá de nuevo.';
     document.getElementById('pasoEntrada').style.display = 'block';
   }
