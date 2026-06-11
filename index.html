@@ -36,20 +36,23 @@
     .longitud-box { background: #fdebd0; border: 2px solid #e59866; border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; display: none; }
     .longitud-titulo { color: #a04000; font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 6px; }
     .longitud-texto { color: #a04000; font-size: 13px; margin-bottom: 10px; }
-    .longitud-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .longitud-btns { display: flex; gap: 8px; }
     .btn-resumir { flex: 1; padding: 10px; border-radius: 24px; border: none; background: #a04000; color: white; font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
     .btn-dividir { flex: 1; padding: 10px; border-radius: 24px; border: 2px solid #a04000; background: transparent; color: #a04000; font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
     .advertencia-box { background: #fff3cd; border: 2px solid #f0a500; border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; color: #7a4f00; font-size: 13px; font-weight: 700; display: none; }
-    .sugerencias-box { background: #e8f4fd; border: 2px solid #2980b9; border-radius: 14px; padding: 14px; margin-bottom: 14px; display: none; }
-    .sugerencias-titulo { color: #1a5276; font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 4px; }
-    .sugerencias-subtitulo { color: #1a5276; font-size: 12px; margin-bottom: 12px; }
-    .sugerencia-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #aed6f1; }
-    .sugerencia-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-    .sugerencia-item input[type=checkbox] { margin-top: 3px; flex-shrink: 0; width: 18px; height: 18px; cursor: pointer; accent-color: #0d6663; }
-    .sugerencia-label { color: #1a5276; font-size: 13px; line-height: 1.5; cursor: pointer; flex: 1; }
-    .sugerencia-label strong { display: block; font-size: 12px; text-transform: uppercase; margin-bottom: 2px; }
-    .sugerencia-label span { font-size: 12px; color: #2980b9; word-break: break-all; }
-    .btn-sugerencia { display: block; width: 100%; padding: 12px; border-radius: 24px; border: none; background: #2980b9; color: white; font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 12px; }
+    .datos-btn-wrap { margin-bottom: 14px; }
+    .btn-datos { display: block; width: 100%; padding: 12px; border-radius: 24px; border: 2px dashed #2980b9; background: transparent; color: #2980b9; font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; cursor: pointer; text-align: center; }
+    .datos-panel { background: #e8f4fd; border: 2px solid #2980b9; border-radius: 14px; padding: 14px; margin-bottom: 14px; display: none; }
+    .datos-titulo { color: #1a5276; font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 4px; }
+    .datos-subtitulo { color: #1a5276; font-size: 12px; margin-bottom: 12px; }
+    .datos-categoria { color: #1a5276; font-size: 11px; font-weight: 900; text-transform: uppercase; margin: 10px 0 6px; border-top: 1px solid #aed6f1; padding-top: 10px; }
+    .datos-categoria:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+    .dato-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+    .dato-item input[type=checkbox] { margin-top: 3px; flex-shrink: 0; width: 18px; height: 18px; cursor: pointer; accent-color: #0d6663; }
+    .dato-label { color: #1a5276; font-size: 13px; line-height: 1.4; cursor: pointer; flex: 1; }
+    .dato-label strong { display: block; font-size: 12px; margin-bottom: 1px; }
+    .dato-label span { font-size: 11px; color: #2980b9; word-break: break-all; }
+    .btn-incorporar { display: block; width: 100%; padding: 12px; border-radius: 24px; border: none; background: #2980b9; color: white; font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 12px; }
     .ajuste-box { background: #edf1dc; border-radius: 14px; padding: 14px; margin-bottom: 14px; display: none; }
     .ajuste-box textarea { min-height: 60px; margin-bottom: 10px; padding-right: 12px; }
     .loading-text { text-align: center; color: #0d6663; font-size: 13px; font-weight: 700; min-height: 20px; margin-bottom: 8px; }
@@ -91,17 +94,15 @@
     <div id="pasoResultado" style="display:none;">
       <div class="advertencia-box" id="advertenciaBox"></div>
 
-      <!-- META: categoría + intervención + caracteres -->
       <div class="meta-row">
         <span class="categoria-badge" id="categoriaBadge"></span>
         <span class="intervencion-badge" id="intervencionBadge"></span>
         <span class="chars-badge" id="charsBadge"></span>
       </div>
 
-      <!-- LONGITUD (solo si > 1400 chars) -->
       <div class="longitud-box" id="longitudBox">
         <div class="longitud-titulo">🔴 Mensaje extenso</div>
-        <div class="longitud-texto">El comunicado es largo. Podés resumirlo, dividirlo en dos partes, o dejarlo así si considerás que el contenido lo justifica.</div>
+        <div class="longitud-texto">El comunicado es largo. Podés resumirlo o dividirlo en dos partes antes de agregar datos. O dejarlo así si el contenido lo justifica.</div>
         <div class="longitud-btns">
           <button class="btn-resumir" onclick="resumirMensaje()">Resumir</button>
           <button class="btn-dividir" onclick="dividirMensaje()">Dividir en 2</button>
@@ -111,7 +112,6 @@
       <span class="field-label">Comunicado generado</span>
       <div class="resultado-box" id="resultadoBox"></div>
 
-      <!-- MENSAJES DIVIDIDOS -->
       <div id="mensajesDivididos" style="display:none;">
         <span class="msg-label">Parte 1</span>
         <div class="msg-separado" id="msg1"></div>
@@ -121,13 +121,36 @@
         <button class="btn-outline" style="margin-bottom:14px;" onclick="copiarMsgSeparado(2)">Copiar parte 2</button>
       </div>
 
-      <!-- SUGERENCIAS — solo una vez -->
-      <div class="sugerencias-box" id="sugerenciasBox">
-        <div class="sugerencias-titulo">💡 ¿Querés agregar algún dato?</div>
-        <div class="sugerencias-subtitulo">Tildá los que correspondan. Esta opción aparece una sola vez.</div>
-        <div id="sugerenciasLista"></div>
-        <button class="btn-sugerencia" onclick="aplicarSugerencias()">Incorporar al comunicado</button>
-        <button class="btn-ghost" style="color:#1a5276;margin-top:6px;" onclick="descartarSugerencias()">No agregar datos</button>
+      <div class="datos-btn-wrap" id="datosBtnWrap">
+        <button class="btn-datos" onclick="toggleDatos()">➕ Agregar datos al comunicado</button>
+      </div>
+
+      <div class="datos-panel" id="datosPanel">
+        <div class="datos-titulo">Seleccioná los datos a incorporar</div>
+        <div class="datos-subtitulo">Se agregarán al comunicado con el texto introductorio correcto.</div>
+
+        <div class="datos-categoria">Plataformas digitales</div>
+        <div class="dato-item"><input type="checkbox" id="d0" data-nombre="CGV / Centro de Gestión Vecinal" data-valor="https://clubdecampolaeugenia.taplink.site/" data-texto="Podés acceder al Centro de Gestión Vecinal desde el siguiente enlace" data-emoji="🔗"><label class="dato-label" for="d0"><strong>🔗 CGV / Centro de Gestión Vecinal</strong><span>taplink.site</span></label></div>
+        <div class="dato-item"><input type="checkbox" id="d1" data-nombre="Cuota social vigente" data-valor="https://clubdecampolaeugenia.github.io/cuota-la-eugenia/" data-texto="Podés consultar la cuota social vigente desde el siguiente enlace" data-emoji="💰"><label class="dato-label" for="d1"><strong>💰 Cuota social vigente</strong><span>github.io/cuota-la-eugenia</span></label></div>
+        <div class="dato-item"><input type="checkbox" id="d2" data-nombre="Movimiento de Tesorería" data-valor="https://clubdecampolaeugenia.github.io/tesoreria-la-eugenia/" data-texto="Podés consultar el movimiento de tesorería desde el siguiente enlace" data-emoji="🔗"><label class="dato-label" for="d2"><strong>🔗 Movimiento de Tesorería</strong><span>github.io/tesoreria-la-eugenia</span></label></div>
+        <div class="dato-item"><input type="checkbox" id="d3" data-nombre="Plano de mantenimiento" data-valor="https://drive.google.com/file/d/1ltXyKm3TlPNQVrOIHNxZjM7j9nZe8QGU/view" data-texto="Podés consultar el plano sectorizado de mantenimiento desde el siguiente enlace" data-emoji="🗺️"><label class="dato-label" for="d3"><strong>🗺️ Plano de mantenimiento</strong><span>drive.google.com</span></label></div>
+
+        <div class="datos-categoria">Contactos del club</div>
+        <div class="dato-item"><input type="checkbox" id="d4" data-nombre="Email institucional" data-valor="clubdecampolaeugenia@gmail.com" data-texto="Para consultas podés escribirnos al correo institucional" data-emoji="📧"><label class="dato-label" for="d4"><strong>📧 Email institucional</strong><span>clubdecampolaeugenia@gmail.com</span></label></div>
+        <div class="dato-item"><input type="checkbox" id="d5" data-nombre="EugenIA" data-valor="+54 9 3764 11-3300" data-texto="También podés consultar a EugenIA 🙋🏻‍♀️, nuestra asistente virtual, escribiendo al" data-emoji="🙋🏻‍♀️"><label class="dato-label" for="d5"><strong>🙋🏻‍♀️ EugenIA (asistente virtual)</strong><span>+54 9 3764 11-3300</span></label></div>
+        <div class="dato-item"><input type="checkbox" id="d6" data-nombre="Garita de seguridad" data-valor="+54 9 11 6188-8188" data-texto="Para comunicarte con la garita de seguridad" data-emoji="📞"><label class="dato-label" for="d6"><strong>📞 Garita de seguridad</strong><span>+54 9 11 6188-8188</span></label></div>
+        <div class="dato-item"><input type="checkbox" id="d7" data-nombre="Administración (Raúl Toloza)" data-valor="+54 9 3764 60-3432" data-texto="Para consultas administrativas contactar a Raúl Toloza" data-emoji="📞"><label class="dato-label" for="d7"><strong>📞 Administración — Raúl Toloza</strong><span>+54 9 3764 60-3432</span></label></div>
+        <div class="dato-item"><input type="checkbox" id="d8" data-nombre="Intendencia (Fernanda Magni)" data-valor="+54 9 11 5760-3711" data-texto="Para consultas de intendencia contactar a Fernanda Magni" data-emoji="📞"><label class="dato-label" for="d8"><strong>📞 Intendencia — Fernanda Magni</strong><span>+54 9 11 5760-3711</span></label></div>
+        <div class="dato-item"><input type="checkbox" id="d9" data-nombre="Salón de eventos (Silvia Najle)" data-valor="+54 9 3764 71-5400" data-texto="Para reservas del salón de eventos contactar a Silvia Najle" data-emoji="📞"><label class="dato-label" for="d9"><strong>📞 Salón de eventos — Silvia Najle</strong><span>+54 9 3764 71-5400</span></label></div>
+        <div class="dato-item"><input type="checkbox" id="d10" data-nombre="Gimnasio (Pablo Fackelmann)" data-valor="+54 9 2267 63-6147" data-texto="Para consultas sobre el gimnasio contactar a Pablo Fackelmann" data-emoji="📞"><label class="dato-label" for="d10"><strong>📞 Gimnasio — Pablo Fackelmann</strong><span>+54 9 2267 63-6147</span></label></div>
+        <div class="dato-item"><input type="checkbox" id="d11" data-nombre="Cantina" data-valor="+54 9 3764 68-3859" data-texto="Para pedidos a la cantina" data-emoji="📞"><label class="dato-label" for="d11"><strong>📞 Cantina</strong><span>+54 9 3764 68-3859</span></label></div>
+
+        <div class="datos-categoria">Servicios externos</div>
+        <div class="dato-item"><input type="checkbox" id="d12" data-nombre="Energía de Misiones" data-valor="+54 9 3764 88-8295 / 0800-888-3672" data-texto="Para reclamos ante Energía de Misiones" data-emoji="⚡"><label class="dato-label" for="d12"><strong>⚡ Energía de Misiones</strong><span>+54 9 3764 88-8295 / 0800-888-3672</span></label></div>
+        <div class="dato-item"><input type="checkbox" id="d13" data-nombre="Emergencias" data-valor="Policía: 911 / Bomberos: 100 / Emergencias médicas: 107" data-texto="En caso de emergencia" data-emoji="🆘"><label class="dato-label" for="d13"><strong>🆘 Emergencias</strong><span>911 / 100 / 107</span></label></div>
+
+        <button class="btn-incorporar" onclick="incorporarDatos()">Incorporar al comunicado</button>
+        <button class="btn-ghost" style="color:#1a5276;margin-top:6px;" onclick="cerrarDatos()">Cancelar</button>
       </div>
 
       <button class="btn-solid" id="btnCopiar" onclick="copiarMensaje()">Copiar mensaje</button>
@@ -137,7 +160,7 @@
       <div class="ajuste-box" id="ajusteBox">
         <span class="field-label">¿Qué querés ajustar?</span>
         <div class="textarea-wrap">
-          <textarea class="sin-mic" id="textoAjuste" placeholder='Ej: "hacelo más breve", "agregá un saludo más cálido"'></textarea>
+          <textarea class="sin-mic" id="textoAjuste" placeholder='Ej: "hacelo más breve", "cambiá el tono del segundo párrafo"'></textarea>
         </div>
         <button class="btn-solid" onclick="aplicarAjuste()">Aplicar ajuste</button>
         <button class="btn-ghost" onclick="cerrarAjuste()">Cancelar</button>
@@ -162,64 +185,97 @@ const _p6 = '2EUvT4Bv1Dbx7boj';
 const _p7 = 'PZdEpw-_dqcKgAA';
 const AK = _p1+_p2+_p3+_p4+_p5+_p6+_p7;
 
-const DIRECTORIO = [
-  { nombre: 'CGV / Centro de Gestión Vecinal', valor: 'https://clubdecampolaeugenia.taplink.site/', texto: 'Podés acceder al Centro de Gestión Vecinal desde el siguiente enlace', emoji: '🔗' },
-  { nombre: 'Email institucional', valor: 'clubdecampolaeugenia@gmail.com', texto: 'Para consultas podés escribirnos a nuestro correo institucional', emoji: '📧' },
-  { nombre: 'Cuota social vigente', valor: 'https://clubdecampolaeugenia.github.io/cuota-la-eugenia/', texto: 'Podés consultar la cuota social vigente desde el siguiente enlace', emoji: '💰' },
-  { nombre: 'Movimiento de Tesorería', valor: 'https://clubdecampolaeugenia.github.io/tesoreria-la-eugenia/', texto: 'Podés consultar el movimiento de tesorería desde el siguiente enlace', emoji: '🔗' },
-  { nombre: 'Garita de seguridad', valor: '+54 9 11 6188-8188', texto: 'Para comunicarte con la garita de seguridad', emoji: '📞' },
-  { nombre: 'Administración (Raúl Toloza)', valor: '+54 9 3764 60-3432', texto: 'Para consultas administrativas podés contactar a Raúl Toloza', emoji: '📞' },
-  { nombre: 'Intendencia (Fernanda Magni)', valor: '+54 9 11 5760-3711', texto: 'Para consultas de intendencia podés contactar a Fernanda Magni', emoji: '📞' },
-  { nombre: 'Salón de eventos (Silvia Najle)', valor: '+54 9 3764 71-5400', texto: 'Para reservas del salón de eventos podés contactar a Silvia Najle', emoji: '📞' },
-  { nombre: 'Gimnasio (Pablo)', valor: '+54 9 2267 63-6147', texto: 'Para consultas sobre el gimnasio podés contactar a Pablo', emoji: '📞' },
-  { nombre: 'Cantina', valor: '+54 9 3764 68-3859', texto: 'Para pedidos a la cantina', emoji: '📞' },
-  { nombre: 'Plano general del barrio', valor: 'https://drive.google.com/file/d/1__0kK_TDAm7gPCnB6iUXJlGXU585MTbj/view', texto: 'Podés consultar el plano general del barrio desde el siguiente enlace', emoji: '🗺️' },
-  { nombre: 'Plano sectorizado de mantenimiento', valor: 'https://drive.google.com/file/d/1ltXyKm3TlPNQVrOIHNxZjM7j9nZe8QGU/view', texto: 'Podés consultar el plano sectorizado de mantenimiento desde el siguiente enlace', emoji: '🗺️' },
-  { nombre: 'Datos bancarios (transferencias)', valor: 'Alias: DELFIN.COCINA.MANTO / CBU: 1910229855022900048696', texto: 'Para realizar transferencias', emoji: '🏦' },
-  { nombre: 'Grupo oficial del barrio', valor: 'https://chat.whatsapp.com/GLC2YV7JXICDHdcIQTHN8X', texto: 'Podés unirte al grupo oficial del barrio desde el siguiente enlace', emoji: '💬' },
-  { nombre: 'Grupo de alertas', valor: 'https://chat.whatsapp.com/ClynMgFVZy9FgLe6kS1NA1', texto: 'Podés unirte al grupo de alertas desde el siguiente enlace', emoji: '🚨' },
-  { nombre: 'Energía de Misiones', valor: '+54 9 3764 88-8295 / 0800-888-3672', texto: 'Para reclamos ante Energía de Misiones', emoji: '⚡' },
-  { nombre: 'Emergencias (Policía / Bomberos / Médica)', valor: '911 / 100 / 107', texto: 'En caso de emergencia', emoji: '🆘' }
-];
-
 const SYSTEM_PROMPT = `Sos el redactor oficial de LA EUGE informa 📣, la línea institucional del Club de Campo La Eugenia (Garupá, Misiones, Argentina).
 Tu función es normalizar mensajes para ser publicados en el grupo oficial de WhatsApp del barrio.
 
-REGLA FUNDAMENTAL: NO agregues links, teléfonos ni datos de contacto por tu cuenta. Tu única función es normalizar el texto.
+CONTEXTO DE LA LÍNEA:
+- LA EUGE informa 📣: voz institucional del club. Publica en el grupo vecinal y habla directamente con cada vecino.
+- EugenIA 🙋🏻‍♀️: asistente virtual con IA que responde preguntas de los vecinos en la misma línea (+54 9 3764 11-3300).
 
-NIVEL DE INTERVENCIÓN — evaluá el mensaje original y clasificá tu intervención:
-- "minima": el mensaje estaba bien escrito, solo ajustaste formato, encabezado y cierre
-- "menor": corregiste ortografía, reorganizaste levemente o mejoraste algunas frases
-- "reescritura": el texto requirió reformulación profunda
+REGLA FUNDAMENTAL: NO agregues links, teléfonos ni datos de contacto por tu cuenta. Solo normalizá el texto. Los datos los agrega el usuario manualmente.
+
+NIVEL DE INTERVENCIÓN:
+- "minima": el mensaje estaba bien escrito, solo ajustaste formato y cierre
+- "menor": corregiste ortografía, reorganizaste levemente
+- "reescritura": reformulación profunda necesaria
+
+APERTURA — elegí según el tipo de mensaje:
+- "Estimados vecinos," — comunicados formales, convivencia, avisos importantes
+- "Vecinos:" — avisos directos y concisos
+- Título directo — informes específicos (ej: "*Movimiento de Tesorería — Junio 2026*")
+No uses siempre la misma apertura. Adaptala al contenido.
+
+CIERRE — siempre fijo:
+LA EUGE informa 📣
+
+TIEMPO VERBAL Y TONO:
+- SIEMPRE primera persona del plural: "informamos", "recordamos", "solicitamos", "comunicamos"
+- NUNCA primera persona del singular: jamás "agradezco", "les informo", "quiero comunicar"
+- NUNCA mezclar singular y plural en el mismo mensaje
+- Tono de pizarra institucional: directo, claro, sin condescendencia
+- NUNCA "agradezco tu atención", "espero que esto les sea útil", ni frases condescendientes
+- El cierre es solo "LA EUGE informa 📣" — sin frases adicionales de cortesía innecesarias
 
 FORMATO OBLIGATORIO:
-- Cada oración o idea en su propio párrafo, separado por línea en blanco
-- Nunca juntes dos ideas sin separación
-- Bullets (•) van uno por línea con línea en blanco antes y después del bloque
+- Cada idea en su propio párrafo, separado por línea en blanco
+- Nunca juntes dos ideas en el mismo párrafo
+- Bullets (•) van uno por línea, con línea en blanco antes y después del bloque
 - "LA EUGE informa 📣" siempre separado por línea en blanco del párrafo anterior
+- Si el texto ya está bien escrito, intervención mínima — no reescribas lo que funciona
 
-ESTILO Y TONO:
-- Comenzar siempre con emoji relevante + "Estimados vecinos,"
-- Primera persona del plural formal: "Recordamos", "Informamos", "Solicitamos", "Agradecemos"
-- Tono institucional, cálido y cercano
-- Párrafos cortos y claros
-- Corregir errores ortográficos en silencio
-- Tildes obligatorias: "pádel", "fútbol", "básquet", "vóley", tildes diacríticas, mayúsculas con tilde
-- Si el mensaje está bien escrito, intervención mínima — no reescribas lo que ya funciona
+ORTOGRAFÍA OBLIGATORIA:
+- "pádel" (nunca padle ni paddle), "fútbol", "básquet", "vóley"
+- Tildes diacríticas: "sólo" (adverbio), "él", "tú", "sí", "más", "aún"
+- Nunca omitir tildes en mayúsculas
+- Correcciones en silencio, sin mencionarlas
 
-EMOJIS: Intendencia: 🌿 / Importante: ⚠️ / Info general: ℹ️ / Convivencia: 🤝 / Urgente: 🚨 / Evento: 🎉
+EMOJIS:
+Intendencia: 🌿 / Importante: ⚠️ / Info general: ℹ️ / Convivencia: 🤝 / Urgente: 🚨 / Evento: 🎉
 
-SUGERENCIAS — listá nombres exactos de datos relevantes:
-"CGV / Centro de Gestión Vecinal", "Email institucional", "Cuota social vigente", "Movimiento de Tesorería", "Garita de seguridad", "Administración (Raúl Toloza)", "Intendencia (Fernanda Magni)", "Salón de eventos (Silvia Najle)", "Gimnasio (Pablo)", "Cantina", "Plano general del barrio", "Plano sectorizado de mantenimiento", "Datos bancarios (transferencias)", "Grupo oficial del barrio", "Grupo de alertas", "Energía de Misiones", "Emergencias (Policía / Bomberos / Médica)"
+EJEMPLOS REALES:
 
-Reglas: "información/consultas/trámites/CGV"→CGV / "cuota"→Cuota / "tesorería"→Tesorería / "seguridad/guardia/garita"→Garita / "mantenimiento/podas"→Intendencia / "administración/deuda"→Administración / "salón/SUM"→Salón / "cantina"→Cantina / "luz/energía"→Energía / "emergencia"→Emergencias / "transferencia/alias/CBU"→Datos bancarios / "plano/manzana/lote"→Plano general
+🐾 Estimados vecinos,
 
-ADVERTENCIA: info incompleta o contradictoria → explicar brevemente. Si no hay problemas → "".
+Recordamos la importancia de mantener a los perros dentro de los límites de cada lote.
+
+Al pasearlos, solicitamos hacerlo con correa o bajo supervisión permanente.
+
+Hemos recibido reportes de situaciones de acoso a niños por perros sueltos. Estas experiencias resultan traumáticas para los menores y afectan la convivencia del barrio.
+
+Reiteramos el pedido a todos los responsables de perros.
+
+LA EUGE informa 📣
+
+---
+
+🌿 Vecinos:
+
+Finalizaron las tareas de retiro de podas en la Zona 2.
+
+Quedaron pendientes dos podas de gran porte en K1 y K4 que deberán retirarse de manera particular por los propietarios.
+
+El martes 26 continuamos en la Zona 3: Manzanas S, T, U, V y W.
+
+Solicitamos colocar los residuos en ponchadas para agilizar el trabajo.
+
+LA EUGE informa 📣
+
+---
+
+*Movimiento de Tesorería — Mayo 2026*
+
+Compartimos el movimiento de tesorería correspondiente al mes de mayo.
+
+• Ingresos: $ 20.820.250,00
+• Egresos: $ 20.419.099,51
+• Resultado: $ 401.150,49
+
+LA EUGE informa 📣
+
+ADVERTENCIA: si hay info incompleta o contradictoria, explicalo brevemente. Si no hay problemas, devolvé "".
 
 Respondé SOLO con JSON válido sin backticks:
-{"categoria":"...","intervencion":"minima|menor|reescritura","advertencia":"...","sugerencias":[],"mensaje":"..."}`;
-
-let sugerenciasMostradas = false;
+{"categoria":"...","intervencion":"minima|menor|reescritura","advertencia":"...","mensaje":"..."}`;
 
 function verificarPin() {
   const pin = document.getElementById('pinInput').value;
@@ -265,49 +321,36 @@ async function generarMensaje() {
   if (grabando && recognition) recognition.stop();
   document.getElementById('pasoEntrada').style.display = 'none';
   document.getElementById('loadingText').innerText = 'Generando comunicado...';
-  sugerenciasMostradas = false;
   try {
     const raw = await llamarAPI([{ role: 'user', content: texto }]);
-    mostrarResultado(raw, true);
+    mostrarResultado(raw);
   } catch(e) {
     document.getElementById('loadingText').innerText = 'Error al generar. Intentá de nuevo.';
     document.getElementById('pasoEntrada').style.display = 'block';
   }
 }
 
-function mostrarResultado(raw, esPrimera) {
+function mostrarResultado(raw) {
   const clean = raw.replace(/```json|```/g, '').trim();
   const parsed = JSON.parse(clean);
   document.getElementById('loadingText').innerText = '';
 
-  // Categoría
   document.getElementById('categoriaBadge').innerText = parsed.categoria;
 
-  // Intervención
   const ib = document.getElementById('intervencionBadge');
   const niveles = { minima: ['✅ Ajuste mínimo', 'intervencion-minima'], menor: ['🔧 Ajustes menores', 'intervencion-menor'], reescritura: ['✏️ Reescritura', 'intervencion-reescritura'] };
   const nivel = niveles[parsed.intervencion] || niveles['menor'];
-  ib.innerText = nivel[0];
-  ib.className = 'intervencion-badge ' + nivel[1];
+  ib.innerText = nivel[0]; ib.className = 'intervencion-badge ' + nivel[1];
 
-  // Mensaje
   document.getElementById('resultadoBox').innerText = parsed.mensaje;
   document.getElementById('resultadoBox').style.display = 'block';
 
-  // Caracteres
   const chars = parsed.mensaje.length;
   const cb = document.getElementById('charsBadge');
   cb.innerText = chars + ' caracteres';
   cb.className = chars > 1400 ? 'chars-badge largo' : 'chars-badge';
+  document.getElementById('longitudBox').style.display = chars > 1400 ? 'block' : 'none';
 
-  // Longitud
-  if (chars > 1400) {
-    document.getElementById('longitudBox').style.display = 'block';
-  } else {
-    document.getElementById('longitudBox').style.display = 'none';
-  }
-
-  // Advertencia
   if (parsed.advertencia && parsed.advertencia.trim() !== '') {
     document.getElementById('advertenciaBox').innerText = '⚠️ ' + parsed.advertencia;
     document.getElementById('advertenciaBox').style.display = 'block';
@@ -315,46 +358,44 @@ function mostrarResultado(raw, esPrimera) {
     document.getElementById('advertenciaBox').style.display = 'none';
   }
 
-  // Sugerencias solo en primera generación
-  if (esPrimera && !sugerenciasMostradas) {
-    const sugs = (parsed.sugerencias || []).filter(s => DIRECTORIO.find(d => d.nombre === s));
-    if (sugs.length > 0) {
-      const lista = document.getElementById('sugerenciasLista');
-      lista.innerHTML = '';
-      sugs.forEach((s, i) => {
-        const d = DIRECTORIO.find(x => x.nombre === s);
-        const item = document.createElement('div');
-        item.className = 'sugerencia-item';
-        item.innerHTML = `<input type="checkbox" id="sug${i}" data-nombre="${d.nombre}" data-valor="${d.valor}" data-texto="${d.texto}" data-emoji="${d.emoji}">
-          <label class="sugerencia-label" for="sug${i}">
-            <strong>${d.emoji} ${d.nombre}</strong>
-            <span>${d.valor}</span>
-          </label>`;
-        lista.appendChild(item);
-      });
-      document.getElementById('sugerenciasBox').style.display = 'block';
-    } else {
-      document.getElementById('sugerenciasBox').style.display = 'none';
-    }
-  } else {
-    document.getElementById('sugerenciasBox').style.display = 'none';
-  }
-
-  // Mensajes divididos — ocultar
   document.getElementById('mensajesDivididos').style.display = 'none';
   document.getElementById('msg1').style.display = 'none';
   document.getElementById('msg2').style.display = 'none';
+  document.getElementById('btnCopiar').style.display = 'block';
+  document.getElementById('btnWhatsApp').style.display = 'block';
+  document.getElementById('datosPanel').style.display = 'none';
+  document.getElementById('ajusteBox').style.display = 'none';
+  document.getElementById('btnAjustar').style.display = 'block';
 
   const msgEncoded = encodeURIComponent(parsed.mensaje);
   document.getElementById('btnWhatsApp').href = 'https://wa.me/' + WA_NUMERO + '?text=' + msgEncoded;
-  document.getElementById('ajusteBox').style.display = 'none';
-  document.getElementById('btnAjustar').style.display = 'block';
   document.getElementById('pasoResultado').style.display = 'block';
+}
+
+function toggleDatos() {
+  const panel = document.getElementById('datosPanel');
+  panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+}
+function cerrarDatos() {
+  document.getElementById('datosPanel').style.display = 'none';
+  document.querySelectorAll('.dato-item input[type=checkbox]').forEach(c => c.checked = false);
+}
+
+async function incorporarDatos() {
+  const checks = document.querySelectorAll('.dato-item input[type=checkbox]:checked');
+  if (checks.length === 0) { alert('Tildá al menos un dato para agregar.'); return; }
+  cerrarDatos();
+  const partes = Array.from(checks).map(c => `${c.dataset.emoji} ${c.dataset.texto}: ${c.dataset.valor}`);
+  const instruccion = `Agregá al final del comunicado, antes del cierre "LA EUGE informa 📣", los siguientes datos.
+Para cada dato usá el texto introductorio indicado, en un párrafo separado, en primera persona del plural y en el mismo tono del comunicado.
+Si alguno de estos datos ya está mencionado en el comunicado, fusionalo en lugar de duplicarlo.
+Datos a agregar:\n` + partes.join('\n');
+  await aplicarAjusteDirecto(instruccion);
 }
 
 async function resumirMensaje() {
   document.getElementById('longitudBox').style.display = 'none';
-  await aplicarAjusteDirecto('Resumí el comunicado manteniendo todas las ideas principales pero con menos palabras. Prioriza el contenido sobre la longitud, no elimines información importante.');
+  await aplicarAjusteDirecto('Resumí el comunicado manteniendo todas las ideas principales pero con menos palabras. Priorizá el contenido sobre la brevedad — no elimines información importante. Mantené el tono y el formato.');
 }
 
 async function dividirMensaje() {
@@ -368,13 +409,11 @@ async function dividirMensaje() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'x-api-key': AK, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
       body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001',
-        max_tokens: 2048,
-        system: SYSTEM_PROMPT,
+        model: 'claude-haiku-4-5-20251001', max_tokens: 2048, system: SYSTEM_PROMPT,
         messages: [
           { role: 'user', content: textoOriginal },
-          { role: 'assistant', content: '{"categoria":"...","intervencion":"menor","advertencia":"","sugerencias":[],"mensaje":"' + mensajeActual.replace(/"/g,'\\"').replace(/\n/g,'\\n') + '"}' },
-          { role: 'user', content: 'Dividí el comunicado anterior en exactamente dos mensajes separados. Cada uno debe tener su propio encabezado "Estimados vecinos," con emoji y su propio cierre "LA EUGE informa 📣". Respondé con JSON: {"mensaje1": "...", "mensaje2": "..."}' }
+          { role: 'assistant', content: '{"categoria":"...","intervencion":"menor","advertencia":"","mensaje":"' + mensajeActual.replace(/"/g,'\\"').replace(/\n/g,'\\n') + '"}' },
+          { role: 'user', content: 'Dividí el comunicado anterior en exactamente dos mensajes separados. Cada uno debe tener su propia apertura apropiada y su propio cierre "LA EUGE informa 📣". Respondé con JSON: {"mensaje1": "...", "mensaje2": "..."}' }
         ]
       })
     });
@@ -383,10 +422,8 @@ async function dividirMensaje() {
     const parsed = JSON.parse(raw);
     document.getElementById('loadingText').innerText = '';
     document.getElementById('resultadoBox').style.display = 'none';
-    document.getElementById('msg1').innerText = parsed.mensaje1;
-    document.getElementById('msg1').style.display = 'block';
-    document.getElementById('msg2').innerText = parsed.mensaje2;
-    document.getElementById('msg2').style.display = 'block';
+    document.getElementById('msg1').innerText = parsed.mensaje1; document.getElementById('msg1').style.display = 'block';
+    document.getElementById('msg2').innerText = parsed.mensaje2; document.getElementById('msg2').style.display = 'block';
     document.getElementById('mensajesDivididos').style.display = 'block';
     document.getElementById('btnCopiar').style.display = 'none';
     document.getElementById('btnWhatsApp').style.display = 'none';
@@ -403,21 +440,6 @@ function copiarMsgSeparado(num) {
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(texto).then(() => { btn.innerText = '¡Copiado!'; setTimeout(() => { btn.innerText = 'Copiar parte ' + num; }, 2000); }).catch(() => copiarFallback(texto, btn));
   } else { copiarFallback(texto, btn); }
-}
-
-function aplicarSugerencias() {
-  const checks = document.querySelectorAll('#sugerenciasLista input[type=checkbox]:checked');
-  if (checks.length === 0) { alert('Tildá al menos un dato para agregar.'); return; }
-  sugerenciasMostradas = true;
-  document.getElementById('sugerenciasBox').style.display = 'none';
-  const partes = Array.from(checks).map(c => `${c.dataset.emoji} ${c.dataset.texto}: ${c.dataset.valor}`);
-  const instruccion = 'Agregá al final del comunicado, antes del cierre "LA EUGE informa 📣", los siguientes datos con su texto introductorio natural y en el mismo tono, respetando párrafos separados:\n' + partes.join('\n');
-  aplicarAjusteDirecto(instruccion);
-}
-
-function descartarSugerencias() {
-  sugerenciasMostradas = true;
-  document.getElementById('sugerenciasBox').style.display = 'none';
 }
 
 function abrirAjuste() {
@@ -441,17 +463,17 @@ async function aplicarAjuste() {
 
 async function aplicarAjusteDirecto(instruccion) {
   const mensajeActual = document.getElementById('resultadoBox').innerText.trim();
-  if (!mensajeActual) { alert('No hay comunicado generado para ajustar.'); return; }
+  if (!mensajeActual) { alert('No hay comunicado para ajustar.'); return; }
   const textoOriginal = document.getElementById('textoEntrada').value.trim();
   document.getElementById('pasoResultado').style.display = 'none';
   document.getElementById('loadingText').innerText = 'Aplicando ajuste...';
   try {
     const raw = await llamarAPI([
       { role: 'user', content: textoOriginal },
-      { role: 'assistant', content: '{"categoria":"...","intervencion":"menor","advertencia":"","sugerencias":[],"mensaje":"' + mensajeActual.replace(/"/g,'\\"').replace(/\n/g,'\\n') + '"}' },
+      { role: 'assistant', content: '{"categoria":"...","intervencion":"menor","advertencia":"","mensaje":"' + mensajeActual.replace(/"/g,'\\"').replace(/\n/g,'\\n') + '"}' },
       { role: 'user', content: instruccion }
     ]);
-    mostrarResultado(raw, false);
+    mostrarResultado(raw);
   } catch(e) {
     document.getElementById('loadingText').innerText = 'Error al ajustar. Intentá de nuevo.';
     document.getElementById('pasoResultado').style.display = 'block';
@@ -474,13 +496,12 @@ function copiarFallback(texto, btn) {
 }
 
 function nuevoMensaje() {
-  sugerenciasMostradas = false;
   document.getElementById('textoEntrada').value = '';
   document.getElementById('resultadoBox').innerText = '';
-  document.getElementById('resultadoBox').style.display = 'block';
+  document.getElementById('resultadoBox').style.display = 'none';
   document.getElementById('advertenciaBox').style.display = 'none';
   document.getElementById('longitudBox').style.display = 'none';
-  document.getElementById('sugerenciasBox').style.display = 'none';
+  document.getElementById('datosPanel').style.display = 'none';
   document.getElementById('ajusteBox').style.display = 'none';
   document.getElementById('mensajesDivididos').style.display = 'none';
   document.getElementById('msg1').style.display = 'none';
@@ -491,6 +512,7 @@ function nuevoMensaje() {
   document.getElementById('pasoResultado').style.display = 'none';
   document.getElementById('loadingText').innerText = '';
   document.getElementById('pasoEntrada').style.display = 'block';
+  document.querySelectorAll('.dato-item input[type=checkbox]').forEach(c => c.checked = false);
 }
 function cerrarSesion() {
   nuevoMensaje();
