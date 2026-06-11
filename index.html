@@ -20,13 +20,19 @@
     .field-label { color: #003a6b; font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 6px; display: block; }
     .textarea-wrap { position: relative; margin-bottom: 14px; }
     textarea { width: 100%; border: 2px solid #0d6663; border-radius: 14px; padding: 12px 48px 12px 12px; background: #edf1dc; color: #003a6b; font-family: 'Roboto', sans-serif; font-size: 15px; resize: vertical; min-height: 110px; outline: none; }
-    textarea.sin-mic { padding-right: 12px; }
+    textarea.sin-mic { padding-right: 12px; min-height: 70px; }
     .mic-btn { position: absolute; bottom: 10px; right: 10px; background: #0d6663; border: none; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; }
     .mic-btn.grabando { background: #c0392b; animation: pulse 1s infinite; }
     @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
     .categoria-badge { display: inline-block; background: #0d6663; color: #c4df57; font-size: 11px; font-weight: 900; text-transform: uppercase; border-radius: 20px; padding: 4px 12px; margin-bottom: 14px; letter-spacing: 0.5px; }
     .resultado-box { background: #edf1dc; border-radius: 14px; padding: 14px; margin-bottom: 14px; color: #003a6b; font-size: 15px; line-height: 1.6; white-space: pre-wrap; min-height: 60px; display: none; }
     .advertencia-box { background: #fff3cd; border: 2px solid #f0a500; border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; color: #7a4f00; font-size: 13px; font-weight: 700; display: none; }
+    .sugerencias-box { background: #e8f4fd; border: 2px solid #2980b9; border-radius: 14px; padding: 14px; margin-bottom: 14px; display: none; }
+    .sugerencias-titulo { color: #1a5276; font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 10px; }
+    .sugerencia-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
+    .sugerencia-item label { color: #1a5276; font-size: 13px; line-height: 1.4; cursor: pointer; flex: 1; }
+    .sugerencia-item input[type=checkbox] { margin-top: 2px; flex-shrink: 0; width: 16px; height: 16px; cursor: pointer; }
+    .btn-sugerencia { display: block; width: 100%; padding: 10px; border-radius: 24px; border: none; background: #2980b9; color: white; font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 10px; }
     .ajuste-box { background: #edf1dc; border-radius: 14px; padding: 14px; margin-bottom: 14px; display: none; }
     .ajuste-box textarea { min-height: 60px; margin-bottom: 10px; padding-right: 12px; }
     .loading-text { text-align: center; color: #0d6663; font-size: 13px; font-weight: 700; min-height: 20px; margin-bottom: 8px; }
@@ -66,19 +72,25 @@
     <div id="pasoResultado" style="display:none;">
       <div class="categoria-badge" id="categoriaBadge"></div>
       <div class="advertencia-box" id="advertenciaBox"></div>
+
+      <!-- SUGERENCIAS DE DATOS -->
+      <div class="sugerencias-box" id="sugerenciasBox">
+        <div class="sugerencias-titulo">💡 Datos que podrías agregar</div>
+        <div id="sugerenciasLista"></div>
+        <button class="btn-sugerencia" onclick="aplicarSugerencias()">Agregar al comunicado</button>
+      </div>
+
       <span class="field-label">Comunicado generado</span>
       <div class="resultado-box" id="resultadoBox"></div>
 
       <button class="btn-solid" id="btnCopiar" onclick="copiarMensaje()">Copiar mensaje</button>
       <a class="btn-solid" id="btnWhatsApp" href="#" target="_blank">Enviar por WhatsApp</a>
-
       <hr class="divider">
 
-      <!-- AJUSTE -->
       <div class="ajuste-box" id="ajusteBox">
         <span class="field-label">¿Qué querés ajustar?</span>
         <div class="textarea-wrap">
-          <textarea class="sin-mic" id="textoAjuste" placeholder='Ej: "hacelo más breve", "sacá la parte del candado", "agregá el teléfono de la guardia"'></textarea>
+          <textarea class="sin-mic" id="textoAjuste" placeholder='Ej: "hacelo más breve", "agregá el teléfono de la guardia"'></textarea>
         </div>
         <button class="btn-solid" onclick="aplicarAjuste()">Aplicar ajuste</button>
         <button class="btn-ghost" onclick="cerrarAjuste()">Cancelar</button>
@@ -103,6 +115,26 @@ const _p6 = '2EUvT4Bv1Dbx7boj';
 const _p7 = 'PZdEpw-_dqcKgAA';
 const AK = _p1+_p2+_p3+_p4+_p5+_p6+_p7;
 
+const DIRECTORIO = {
+  'CGV / Centro de Gestión Vecinal': 'https://clubdecampolaeugenia.taplink.site/',
+  'Email institucional': 'clubdecampolaeugenia@gmail.com',
+  'Cuota social vigente': 'https://clubdecampolaeugenia.github.io/cuota-la-eugenia/',
+  'Movimiento de Tesorería': 'https://clubdecampolaeugenia.github.io/tesoreria-la-eugenia/',
+  'Garita de seguridad': '+54 9 11 6188-8188',
+  'Administración (Raúl Toloza)': '+54 9 3764 60-3432',
+  'Intendencia (Fernanda Magni)': '+54 9 11 5760-3711',
+  'Salón de eventos (Silvia Najle)': '+54 9 3764 71-5400',
+  'Gimnasio (Pablo)': '+54 9 2267 63-6147',
+  'Cantina': '+54 9 3764 68-3859',
+  'Plano general del barrio': 'https://drive.google.com/file/d/1__0kK_TDAm7gPCnB6iUXJlGXU585MTbj/view',
+  'Plano sectorizado de mantenimiento': 'https://drive.google.com/file/d/1ltXyKm3TlPNQVrOIHNxZjM7j9nZe8QGU/view',
+  'Grupo oficial del barrio': 'https://chat.whatsapp.com/GLC2YV7JXICDHdcIQTHN8X',
+  'Grupo de alertas': 'https://chat.whatsapp.com/ClynMgFVZy9FgLe6kS1NA1',
+  'Energía de Misiones': '+54 9 3764 88-8295 / 0800-888-3672',
+  'Emergencias (policía/bomberos/médica)': '911 / 100 / 107',
+  'Datos bancarios (transferencias)': 'Alias: DELFIN.COCINA.MANTO / CBU: 1910229855022900048696'
+};
+
 const SYSTEM_PROMPT = `Sos el redactor oficial de LA EUGE informa 📣, la línea institucional del Club de Campo La Eugenia (Garupá, Misiones, Argentina).
 Tu función es normalizar mensajes para ser publicados en el grupo oficial de WhatsApp del barrio.
 
@@ -115,11 +147,11 @@ ESTILO Y TONO:
 - Cerrar siempre con "LA EUGE informa 📣"
 - Usar emojis con criterio
 - Corregir errores ortográficos y gramaticales automáticamente
-- Aplicar rigurosamente todas las reglas de acentuación del español: palabras agudas, graves, esdrújulas y sobreesdrújulas llevan tilde según corresponda
-- Casos obligatorios: "pádel" (nunca padle ni paddle), "fútbol", "básquet", "béisbol", "críquet", "tenis" (sin tilde), "vóley"
-- Tildes diacríticas obligatorias: "sólo" (adverbio), "él" (pronombre), "tú" (pronombre), "sí" (afirmación o pronombre), "más" (cantidad), "aún" (todavía)
-- Nunca omitir tildes en mayúsculas: "PÁDEL", "FÚTBOL", etc.
-- Si el texto original tiene errores ortográficos, corregirlos silenciosamente sin mencionarlo
+- Aplicar rigurosamente todas las reglas de acentuación del español
+- Casos obligatorios: "pádel" (nunca padle ni paddle), "fútbol", "básquet", "vóley"
+- Tildes diacríticas: "sólo" (adverbio), "él", "tú", "sí", "más", "aún"
+- Nunca omitir tildes en mayúsculas
+- Correcciones silenciosas sin mencionarlas
 
 EMOJIS POR CATEGORÍA:
 Intendencia: 🌿 / Importante: ⚠️ / Información general: ℹ️ / Convivencia: 🤝 / Urgente: 🚨 / Evento: 🎉
@@ -143,29 +175,31 @@ Se están realizando tareas de mantenimiento sobre el pavimento de la vía de ac
 Solicitamos circular con extrema precaución y prestar atención a los vehículos en sentido contrario.
 LA EUGE informa 📣
 
-DIRECTORIO INSTITUCIONAL — usar cuando el mensaje lo requiera:
-• Email: clubdecampolaeugenia@gmail.com
-• WhatsApp institucional: +54 9 3764 11-3300
-• CGV: https://clubdecampolaeugenia.taplink.site/
-• Cuota vigente: https://clubdecampolaeugenia.github.io/cuota-la-eugenia/
-• Tesorería: https://clubdecampolaeugenia.github.io/tesoreria-la-eugenia/
+DIRECTORIO — INCLUIR OBLIGATORIAMENTE cuando el mensaje lo requiera:
+• Email institucional: clubdecampolaeugenia@gmail.com → incluir SIEMPRE que el mensaje mencione "mail", "correo", "email" o contacto por escrito
+• CGV / Centro de Gestión Vecinal: https://clubdecampolaeugenia.taplink.site/ → incluir SIEMPRE que se mencione "CGV", "Centro de Gestión Vecinal", "información del barrio", "trámites", "consultas", "acceder a información", "plataforma"
+• Cuota vigente: https://clubdecampolaeugenia.github.io/cuota-la-eugenia/ → incluir SIEMPRE que se mencione "cuota", "pago mensual"
+• Tesorería: https://clubdecampolaeugenia.github.io/tesoreria-la-eugenia/ → incluir SIEMPRE que se mencione "tesorería", "movimiento", "ingresos", "egresos"
+• Garita: +54 9 11 6188-8188 → incluir SIEMPRE que se mencione "garita", "seguridad", "acceso", "guardia"
+• Administración (Raúl Toloza): +54 9 3764 60-3432 → incluir SIEMPRE que se mencione "administración", "cuotas", "deudas", "pagos", "facturación"
+• Intendencia (Fernanda Magni): +54 9 11 5760-3711 → incluir SIEMPRE que se mencione "intendencia", "mantenimiento", "podas", "residuos", "infraestructura"
+• Salón de eventos (Silvia Najle): +54 9 3764 71-5400 → incluir SIEMPRE que se mencione "salón", "eventos", "SUM", "reserva"
+• Gimnasio (Pablo): +54 9 2267 63-6147 → incluir SIEMPRE que se mencione "gimnasio"
+• Cantina: +54 9 3764 68-3859 → incluir SIEMPRE que se mencione "cantina", "delivery", "menú"
+• Plano general del barrio (manzanas, lotes, calles, ubicación, visitas): https://drive.google.com/file/d/1__0kK_TDAm7gPCnB6iUXJlGXU585MTbj/view
+• Plano sectorizado de mantenimiento (zonas operativas de intendencia, sectores de trabajo, podas por zona): https://drive.google.com/file/d/1ltXyKm3TlPNQVrOIHNxZjM7j9nZe8QGU/view
+• Energía de Misiones: +54 9 3764 88-8295 / 0800-888-3672 → incluir SIEMPRE que se mencione "luz", "energía", "corte", "EMSA"
+• Emergencias: 911 / 100 / 107 → incluir SIEMPRE que se mencione "emergencia", "accidente", "incendio"
+• Transferencias: Alias DELFIN.COCINA.MANTO / CBU 1910229855022900048696 → incluir SIEMPRE que se mencione "transferencia", "pago", "alias", "CBU"
 • Grupo oficial: https://chat.whatsapp.com/GLC2YV7JXICDHdcIQTHN8X
 • Grupo alertas: https://chat.whatsapp.com/ClynMgFVZy9FgLe6kS1NA1
-• Administración (Raúl Toloza): +54 9 3764 60-3432 / https://wa.me/5493764603432
-• Intendencia (Fernanda Magni): +54 9 11 5760-3711 / https://wa.me/5491157603711
-• Garita seguridad: +54 9 11 6188-8188 / https://wa.me/5491161888188
-• Salón eventos (Silvia Najle): +54 9 3764 71-5400 / https://wa.me/5493764715400
-• Gimnasio (Pablo): +54 9 2267 63-6147
-• Cantina: +54 9 3764 68-3859
-• Policía: 911 / Bomberos: 100 / Emergencias médicas: 107
-• Energía de Misiones: +54 9 3764 88-8295 / 0800-888-3672
-• Plano general: https://drive.google.com/file/d/1__0kK_TDAm7gPCnB6iUXJlGXU585MTbj/view
-• Transferencias — Alias: DELFIN.COCINA.MANTO / CBU: 1910229855022900048696
 
-DETECCIÓN DE PROBLEMAS: Si hay teléfono incompleto, email mal formado o algo que no se entiende, incluilo en "advertencia". Si no hay problemas, devolvé "".
+SUGERENCIAS — cuando no estés seguro de qué dato incluir o el mensaje podría beneficiarse de datos adicionales, listarlos en el campo "sugerencias" como array de strings con los nombres exactos del directorio. Ejemplo: ["CGV / Centro de Gestión Vecinal", "Email institucional"]. Si no hay sugerencias, devolvé array vacío [].
+
+ADVERTENCIA — si hay información incompleta, contradictoria o que no se entiende, explicarlo brevemente. Si no hay problemas, devolvé "".
 
 Respondé SOLO con JSON válido sin backticks:
-{"categoria": "...", "advertencia": "...", "mensaje": "..."}`;
+{"categoria": "...", "advertencia": "...", "sugerencias": [], "mensaje": "..."}`;
 
 function verificarPin() {
   const pin = document.getElementById('pinInput').value;
@@ -180,7 +214,6 @@ function verificarPin() {
 }
 document.getElementById('pinInput').addEventListener('keydown', e => { if (e.key === 'Enter') verificarPin(); });
 
-// MICRÓFONO
 let recognition = null;
 let grabando = false;
 function toggleMic() {
@@ -202,7 +235,6 @@ function toggleMic() {
   recognition.start();
 }
 
-// LLAMADA A API
 async function llamarAPI(mensajes) {
   const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -224,7 +256,6 @@ async function llamarAPI(mensajes) {
   return data.content[0].text;
 }
 
-// GENERAR
 async function generarMensaje() {
   const texto = document.getElementById('textoEntrada').value.trim();
   if (!texto) return;
@@ -240,17 +271,67 @@ async function generarMensaje() {
   }
 }
 
-// AJUSTE
-function abrirAjuste() {
+function mostrarResultado(raw) {
+  const clean = raw.replace(/```json|```/g, '').trim();
+  const parsed = JSON.parse(clean);
+  document.getElementById('loadingText').innerText = '';
+  document.getElementById('categoriaBadge').innerText = parsed.categoria;
+  document.getElementById('resultadoBox').innerText = parsed.mensaje;
+  document.getElementById('resultadoBox').style.display = 'block';
+
+  // ADVERTENCIA
+  if (parsed.advertencia && parsed.advertencia.trim() !== '') {
+    document.getElementById('advertenciaBox').innerText = '⚠️ ' + parsed.advertencia;
+    document.getElementById('advertenciaBox').style.display = 'block';
+  } else {
+    document.getElementById('advertenciaBox').style.display = 'none';
+  }
+
+  // SUGERENCIAS
+  const sugs = parsed.sugerencias || [];
+  if (sugs.length > 0) {
+    const lista = document.getElementById('sugerenciasLista');
+    lista.innerHTML = '';
+    sugs.forEach((s, i) => {
+      const valor = DIRECTORIO[s] || s;
+      const item = document.createElement('div');
+      item.className = 'sugerencia-item';
+      item.innerHTML = `<input type="checkbox" id="sug${i}" value="${s}: ${valor}"><label for="sug${i}"><strong>${s}:</strong> ${valor}</label>`;
+      lista.appendChild(item);
+    });
+    document.getElementById('sugerenciasBox').style.display = 'block';
+  } else {
+    document.getElementById('sugerenciasBox').style.display = 'none';
+  }
+
+  const msgEncoded = encodeURIComponent(parsed.mensaje);
+  document.getElementById('btnWhatsApp').href = 'https://wa.me/' + WA_NUMERO + '?text=' + msgEncoded;
+  document.getElementById('ajusteBox').style.display = 'none';
+  document.getElementById('btnAjustar').style.display = 'block';
+  document.getElementById('pasoResultado').style.display = 'block';
+}
+
+function aplicarSugerencias() {
+  const checks = document.querySelectorAll('#sugerenciasLista input[type=checkbox]:checked');
+  if (checks.length === 0) return;
+  const datos = Array.from(checks).map(c => c.value).join(', ');
+  abrirAjuste('Agregá los siguientes datos al comunicado: ' + datos);
+  document.getElementById('sugerenciasBox').style.display = 'none';
+}
+
+function abrirAjuste(textoInicial) {
   document.getElementById('ajusteBox').style.display = 'block';
   document.getElementById('btnAjustar').style.display = 'none';
-  document.getElementById('textoAjuste').focus();
+  const ta = document.getElementById('textoAjuste');
+  if (textoInicial) ta.value = textoInicial;
+  ta.focus();
 }
 function cerrarAjuste() {
   document.getElementById('ajusteBox').style.display = 'none';
   document.getElementById('btnAjustar').style.display = 'block';
   document.getElementById('textoAjuste').value = '';
 }
+
 async function aplicarAjuste() {
   const ajuste = document.getElementById('textoAjuste').value.trim();
   if (!ajuste) return;
@@ -262,7 +343,7 @@ async function aplicarAjuste() {
   try {
     const raw = await llamarAPI([
       { role: 'user', content: textoOriginal },
-      { role: 'assistant', content: '{"categoria":"...","advertencia":"","mensaje":"' + mensajeActual.replace(/"/g,'\\"').replace(/\n/g,'\\n') + '"}' },
+      { role: 'assistant', content: '{"categoria":"...","advertencia":"","sugerencias":[],"mensaje":"' + mensajeActual.replace(/"/g,'\\"').replace(/\n/g,'\\n') + '"}' },
       { role: 'user', content: 'Ajustá el comunicado anterior con esta indicación: ' + ajuste }
     ]);
     mostrarResultado(raw);
@@ -272,44 +353,19 @@ async function aplicarAjuste() {
   }
 }
 
-function mostrarResultado(raw) {
-  const clean = raw.replace(/```json|```/g, '').trim();
-  const parsed = JSON.parse(clean);
-  document.getElementById('loadingText').innerText = '';
-  document.getElementById('categoriaBadge').innerText = parsed.categoria;
-  document.getElementById('resultadoBox').innerText = parsed.mensaje;
-  document.getElementById('resultadoBox').style.display = 'block';
-  if (parsed.advertencia && parsed.advertencia.trim() !== '') {
-    document.getElementById('advertenciaBox').innerText = '⚠️ ' + parsed.advertencia;
-    document.getElementById('advertenciaBox').style.display = 'block';
-  } else {
-    document.getElementById('advertenciaBox').style.display = 'none';
-  }
-  const msgEncoded = encodeURIComponent(parsed.mensaje);
-  document.getElementById('btnWhatsApp').href = 'https://wa.me/' + WA_NUMERO + '?text=' + msgEncoded;
-  document.getElementById('ajusteBox').style.display = 'none';
-  document.getElementById('btnAjustar').style.display = 'block';
-  document.getElementById('pasoResultado').style.display = 'block';
-}
-
-// COPIAR
 function copiarMensaje() {
   const texto = document.getElementById('resultadoBox').innerText;
   const btn = document.getElementById('btnCopiar');
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(texto).then(() => {
-      btn.innerText = '¡Copiado!';
-      setTimeout(() => { btn.innerText = 'Copiar mensaje'; }, 2000);
+      btn.innerText = '¡Copiado!'; setTimeout(() => { btn.innerText = 'Copiar mensaje'; }, 2000);
     }).catch(() => copiarFallback(texto, btn));
   } else { copiarFallback(texto, btn); }
 }
 function copiarFallback(texto, btn) {
   const ta = document.createElement('textarea');
-  ta.value = texto;
-  ta.style.position = 'fixed';
-  ta.style.opacity = '0';
-  document.body.appendChild(ta);
-  ta.focus(); ta.select();
+  ta.value = texto; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
   try { document.execCommand('copy'); btn.innerText = '¡Copiado!'; setTimeout(() => { btn.innerText = 'Copiar mensaje'; }, 2000); }
   catch(e) { btn.innerText = 'Error al copiar'; setTimeout(() => { btn.innerText = 'Copiar mensaje'; }, 2000); }
   document.body.removeChild(ta);
@@ -320,6 +376,7 @@ function nuevoMensaje() {
   document.getElementById('resultadoBox').innerText = '';
   document.getElementById('resultadoBox').style.display = 'none';
   document.getElementById('advertenciaBox').style.display = 'none';
+  document.getElementById('sugerenciasBox').style.display = 'none';
   document.getElementById('ajusteBox').style.display = 'none';
   document.getElementById('btnAjustar').style.display = 'block';
   document.getElementById('pasoResultado').style.display = 'none';
