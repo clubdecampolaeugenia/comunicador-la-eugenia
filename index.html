@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d6663">
+  <title>Comunicador – La Eugenia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #0d6663;
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 24px 16px;
+    }
+    .card {
+      background: #c4df57;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 480px;
+      padding: 28px 24px;
+      box-sizing: border-box;
+    }
+    .logo-wrap img {
+      width: 120px;
+      height: auto;
+      display: block;
+      margin: 0 auto 4px;
+    }
+    h1 {
+      margin: 0 0 4px;
+      color: #000;
+      font-family: Impact, sans-serif;
+      font-size: 28px;
+      line-height: 1;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    .subtitle {
+      text-align: center;
+      color: #0d6663;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    #pinScreen { display: block; }
+    #mainScreen { display: none; }
+    .pin-label {
+      text-align: center;
+      color: #003a6b;
+      font-size: 14px;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .pin-input {
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 12px;
+      border: 2px solid #0d6663;
+      border-radius: 16px;
+      padding: 12px;
+      background: #edf1dc;
+      color: #003a6b;
+      outline: none;
+      margin-bottom: 12px;
+    }
+    .pin-error {
+      text-align: center;
+      color: #c0392b;
+      font-size: 13px;
+      font-weight: 700;
+      min-height: 18px;
+      margin-bottom: 8px;
+    }
+    .field-label {
+      color: #003a6b;
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: block;
+    }
+    textarea {
+      width: 100%;
+      border: 2px solid #0d6663;
+      border-radius: 14px;
+      padding: 12px;
+      background: #edf1dc;
+      color: #003a6b;
+      font-family: 'Roboto', sans-serif;
+      font-size: 15px;
+      resize: vertical;
+      min-height: 110px;
+      outline: none;
+      margin-bottom: 14px;
+    }
+    .categoria-badge {
+      display: inline-block;
+      background: #0d6663;
+      color: #c4df57;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      border-radius: 20px;
+      padding: 4px 12px;
+      margin-bottom: 14px;
+      letter-spacing: 0.5px;
+    }
+    .resultado-box {
+      background: #edf1dc;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 14px;
+      color: #003a6b;
+      font-size: 15px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      min-height: 60px;
+      display: none;
+    }
+    .advertencia-box {
+      background: #fff3cd;
+      border: 2px solid #f0a500;
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      color: #7a4f00;
+      font-size: 13px;
+      font-weight: 700;
+      display: none;
+    }
+    .loading-text {
+      text-align: center;
+      color: #0d6663;
+      font-size: 13px;
+      font-weight: 700;
+      min-height: 20px;
+      margin-bottom: 8px;
+    }
+    .btn-solid {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      border-radius: 24px;
+      border: none;
+      background: #0d6663;
+      color: #c4df57;
+      font-family: 'Roboto', sans-serif;
+      font-size: 15px;
+      font-weight: 900;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-bottom: 10px;
+      text-align: center;
+      text-decoration: none;
+    }
+    .btn-outline {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      border-radius: 24px;
+      border: 2px solid #0d6663;
+      background: transparent;
+      color: #0d6663;
+      font-family: 'Roboto', sans-serif;
+      font-size: 15px;
+      font-weight: 900;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .btn-ghost {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border-radius: 24px;
+      border: none;
+      background: transparent;
+      color: #0d6663;
+      font-family: 'Roboto', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-align: center;
+      margin-bottom: 4px;
+    }
+    .divider {
+      border: none;
+      border-top: 1.5px solid #b5cc4a;
+      margin: 16px 0;
+    }
+    @media (max-width: 380px) { h1 { font-size: 22px; } }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="logo-wrap">
+    <img src="https://i.imgur.com/2YIjNDH.png" alt="Logo La Eugenia">
+  </div>
+  <h1>Comunicador</h1>
+  <div class="subtitle"><strong>LA EUGE informa 📣</strong></div>
+
+  <!-- PIN -->
+  <div id="pinScreen">
+    <div class="pin-label">Ingresá el PIN</div>
+    <input class="pin-input" type="password" inputmode="numeric" maxlength="4" id="pinInput" placeholder="····">
+    <div class="pin-error" id="pinError"></div>
+    <button class="btn-solid" onclick="verificarPin()">Ingresar</button>
+  </div>
+
+  <!-- MAIN -->
+  <div id="mainScreen">
+    <div id="pasoEntrada">
+      <span class="field-label">¿Qué querés comunicar?</span>
+      <textarea id="textoEntrada" placeholder="Escribí el mensaje, la idea o el borrador. La IA lo va a normalizar al tono de LA EUGE informa."></textarea>
+      <button class="btn-solid" onclick="generarMensaje()">Generar comunicado</button>
+      <button class="btn-ghost" onclick="cerrarSesion()">Cerrar sesión</button>
+    </div>
+
+    <div class="loading-text" id="loadingText"></div>
+
+    <div id="pasoResultado" style="display:none;">
+      <div class="categoria-badge" id="categoriaBadge"></div>
+      <div class="advertencia-box" id="advertenciaBox"></div>
+      <span class="field-label">Comunicado generado</span>
+      <div class="resultado-box" id="resultadoBox"></div>
+      <button class="btn-solid" onclick="copiarMensaje()">Copiar mensaje</button>
+      <a class="btn-solid" id="btnWhatsApp" href="#" target="_blank">Enviar por WhatsApp</a>
+      <hr class="divider">
+      <button class="btn-outline" onclick="nuevoMensaje()">Nuevo comunicado</button>
+      <button class="btn-ghost" onclick="cerrarSesion()">Cerrar sesión</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const PIN_CORRECTO = '1112';
+const WA_NUMERO = '5493764113300';
+const GEMINI_KEY = 'AIzaSyAQ.Ab8RN6LMRcUf-DOh_dlNh50b4tf3oSdjYy9TiKZCN7L0OYbGKg';
+const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_KEY;
+
+const PROMPT = `Sos el redactor oficial de LA EUGE informa 📣, la línea institucional del Club de Campo La Eugenia (Garupá, Misiones, Argentina).
+Tu función es normalizar mensajes para ser publicados en el grupo oficial de WhatsApp del barrio.
+
+ESTILO Y TONO — basado en comunicados reales del club:
+- Comenzar siempre con un emoji relevante al tema + "Estimados vecinos,"
+- Primera persona del plural formal: "Recordamos", "Informamos", "Solicitamos", "Agradecemos"
+- Tono institucional, cálido y cercano. Nunca frío ni burocrático.
+- Párrafos cortos y claros. Sin palabras innecesarias.
+- Usar bullet points (•) cuando haya listas o enumeraciones
+- Cerrar siempre con "LA EUGE informa 📣"
+- Usar emojis con criterio: uno al inicio según la categoría, y alguno puntual si suma claridad
+
+EMOJIS POR CATEGORÍA:
+- Intendencia: 🌿
+- Importante: ⚠️
+- Información general: ℹ️
+- Convivencia: 🤝
+- Urgente: 🚨
+- Evento: 🎉
+
+EJEMPLOS DE COMUNICADOS REALES:
+
+Ejemplo 1 (Convivencia):
+🐾 Estimados vecinos,
+Recordamos a toda la comunidad la importancia de mantener a los perros dentro de los límites de cada lote, evitando que circulen libremente por los espacios comunes sin supervisión de sus responsables.
+Asimismo, solicitamos que, al momento de pasearlos, lo hagan preferentemente con correa o bajo una estricta supervisión y control permanente.
+En las últimas semanas hemos recibido diversos reportes de niños que han sufrido situaciones de acoso, persecución o episodios de agresividad por parte de perros que se encontraban sueltos. Más allá de que no se hayan producido lesiones, estas experiencias suelen resultar muy traumáticas para los menores.
+Por ello, reiteramos encarecidamente el pedido a todos los propietarios y responsables de perros para que colaboren manteniéndolos dentro de sus lotes y asegurando un adecuado control cuando se encuentren fuera de ellos.
+La convivencia y el bienestar de toda la comunidad dependen del compromiso de cada uno de nosotros.
+Muchas gracias.
+LA EUGE informa 📣
+
+Ejemplo 2 (Intendencia):
+🌿 Estimados vecinos,
+En el día de la fecha finalizaron las tareas de retiro de podas pequeñas y residuos emponchados correspondientes a la Zona 2.
+Quedaron pendientes únicamente dos podas de gran porte ubicadas en K1 y K4, cuya quema resulta inviable por razones de seguridad. Por tal motivo, deberán ser retiradas de manera particular por los respectivos propietarios.
+El martes 26 continuarán las tareas en la Zona 3, comprendiendo las Manzanas S, T, U, V y W.
+Solicitamos la colaboración de todos colocando los residuos de poda en ponchadas, a fin de agilizar el trabajo.
+LA EUGE informa 📣
+
+DETECCIÓN DE PROBLEMAS — si el texto de entrada contiene alguno de estos problemas, incluilo en el campo "advertencia":
+- Número de teléfono con menos de 10 dígitos
+- Email que parece incompleto (sin @ o sin dominio)
+- Información contradictoria o que no tiene sentido
+- Algo que no pudiste interpretar claramente
+
+Si no hay advertencias, devolvé advertencia como cadena vacía "".
+
+IMPORTANTE: Respondé SOLO con JSON válido, sin texto adicional, sin backticks:
+{
+  "categoria": "...",
+  "advertencia": "...",
+  "mensaje": "..."
+}`;
+
+function verificarPin() {
+  const pin = document.getElementById('pinInput').value;
+  if (pin === PIN_CORRECTO) {
+    document.getElementById('pinScreen').style.display = 'none';
+    document.getElementById('mainScreen').style.display = 'block';
+    document.getElementById('pinError').innerText = '';
+  } else {
+    document.getElementById('pinError').innerText = 'PIN incorrecto. Intentá de nuevo.';
+    document.getElementById('pinInput').value = '';
+  }
+}
+
+document.getElementById('pinInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') verificarPin();
+});
+
+async function generarMensaje() {
+  const texto = document.getElementById('textoEntrada').value.trim();
+  if (!texto) return;
+
+  document.getElementById('pasoEntrada').style.display = 'none';
+  document.getElementById('loadingText').innerText = 'Generando comunicado...';
+
+  try {
+    const response = await fetch(GEMINI_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: PROMPT + '\n\nTexto a normalizar:\n' + texto }] }]
+      })
+    });
+
+    const data = await response.json();
+    const raw = data.candidates[0].content.parts[0].text;
+    const parsed = JSON.parse(raw.replace(/```json|```/g, '').trim());
+
+    document.getElementById('loadingText').innerText = '';
+    document.getElementById('categoriaBadge').innerText = parsed.categoria;
+    document.getElementById('resultadoBox').innerText = parsed.mensaje;
+    document.getElementById('resultadoBox').style.display = 'block';
+
+    if (parsed.advertencia && parsed.advertencia.trim() !== '') {
+      document.getElementById('advertenciaBox').innerText = '⚠️ ' + parsed.advertencia;
+      document.getElementById('advertenciaBox').style.display = 'block';
+    } else {
+      document.getElementById('advertenciaBox').style.display = 'none';
+    }
+
+    const msgEncoded = encodeURIComponent(parsed.mensaje);
+    document.getElementById('btnWhatsApp').href = `https://wa.me/${WA_NUMERO}?text=${msgEncoded}`;
+    document.getElementById('pasoResultado').style.display = 'block';
+
+  } catch (e) {
+    document.getElementById('loadingText').innerText = 'Error al generar. Intentá de nuevo.';
+    document.getElementById('pasoEntrada').style.display = 'block';
+  }
+}
+
+function copiarMensaje() {
+  const texto = document.getElementById('resultadoBox').innerText;
+  navigator.clipboard.writeText(texto).then(() => {
+    const btn = event.target;
+    btn.innerText = '¡Copiado!';
+    setTimeout(() => { btn.innerText = 'Copiar mensaje'; }, 2000);
+  });
+}
+
+function nuevoMensaje() {
+  document.getElementById('textoEntrada').value = '';
+  document.getElementById('resultadoBox').innerText = '';
+  document.getElementById('resultadoBox').style.display = 'none';
+  document.getElementById('advertenciaBox').style.display = 'none';
+  document.getElementById('pasoResultado').style.display = 'none';
+  document.getElementById('loadingText').innerText = '';
+  document.getElementById('pasoEntrada').style.display = 'block';
+}
+
+function cerrarSesion() {
+  nuevoMensaje();
+  document.getElementById('mainScreen').style.display = 'none';
+  document.getElementById('pinScreen').style.display = 'block';
+  document.getElementById('pinInput').value = '';
+}
+</script>
+</body>
+</html>
