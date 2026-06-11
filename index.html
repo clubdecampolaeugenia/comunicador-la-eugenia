@@ -337,7 +337,7 @@ async function generarMensaje() {
         'X-Title': 'LA EUGE informa'
       },
       body: JSON.stringify({
-        model: 'mistralai/mistral-7b-instruct:free',
+        model: 'mistralai/mistral-small-3.2-24b-instruct:free',
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
           { role: 'user', content: texto }
