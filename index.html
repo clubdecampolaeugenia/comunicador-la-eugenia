@@ -109,6 +109,7 @@
 </div>
 
 <script>
+let sugerenciasYaUsadas = [];
 const PIN_CORRECTO = '1112';
 const WA_NUMERO = '5493764113300';
 const _p1 = 'sk-ant-api03-';
@@ -273,7 +274,7 @@ function mostrarResultado(raw) {
     document.getElementById('advertenciaBox').style.display = 'none';
   }
 
-  const sugs = (parsed.sugerencias || []).filter(s => DIRECTORIO.find(d => d.nombre === s));
+  const sugs = (parsed.sugerencias || []).filter(s => DIRECTORIO.find(d => d.nombre === s) && !sugerenciasYaUsadas.includes(s));
   if (sugs.length > 0) {
     const lista = document.getElementById('sugerenciasLista');
     lista.innerHTML = '';
@@ -303,6 +304,8 @@ function mostrarResultado(raw) {
 function aplicarSugerencias() {
   const checks = document.querySelectorAll('#sugerenciasLista input[type=checkbox]:checked');
   if (checks.length === 0) { alert('Tildá al menos un dato para agregar.'); return; }
+  const nombresUsados = Array.from(checks).map(c => c.dataset.nombre);
+  sugerenciasYaUsadas = sugerenciasYaUsadas.concat(nombresUsados);
   const partes = Array.from(checks).map(c => `${c.dataset.texto}: ${c.dataset.valor}`);
   const instruccion = 'Agregá al final del comunicado, antes del cierre "LA EUGE informa 📣", los siguientes datos con su texto introductorio natural y en el mismo tono del comunicado:\n' + partes.join('\n');
   abrirAjuste(instruccion);
@@ -362,7 +365,7 @@ function copiarFallback(texto, btn) {
 }
 
 function nuevoMensaje() {
-  document.getElementById('textoEntrada').value = '';
+  document.getElementById('textoEntrada').value = ''; sugerenciasYaUsadas = [];
   document.getElementById('resultadoBox').innerText = '';
   document.getElementById('resultadoBox').style.display = 'none';
   document.getElementById('advertenciaBox').style.display = 'none';
