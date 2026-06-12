@@ -46,7 +46,7 @@
     .datos-subtitulo { color: #1a5276; font-size: 12px; margin-bottom: 12px; }
     .datos-categoria { color: #1a5276; font-size: 11px; font-weight: 900; text-transform: uppercase; margin: 10px 0 6px; border-top: 1px solid #aed6f1; padding-top: 10px; }
     .datos-categoria:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
-    .dato-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .dato-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; padding: 4px 6px; border-radius: 8px; }
     .dato-item input[type=checkbox] { flex-shrink: 0; width: 18px; height: 18px; cursor: pointer; accent-color: #0d6663; }
     .dato-label { color: #1a5276; font-size: 13px; line-height: 1.4; cursor: pointer; flex: 1; }
     .dato-label strong { display: block; font-size: 12px; margin-bottom: 1px; }
@@ -81,7 +81,7 @@
     <div id="pasoEntrada">
       <span class="field-label">¿Qué querés comunicar?</span>
       <div class="textarea-wrap">
-        <textarea id="textoEntrada" placeholder="Escribí o dictá el mensaje, la idea o el borrador."></textarea>
+        <textarea id="textoEntrada" placeholder="Escribí el contenido directamente. Ej: 'Mañana jueves cortamos el césped en Zona 2...' — sin frases como 'quiero comunicar'"></textarea>
         <button class="mic-btn" id="micBtn" onclick="toggleMic()" title="Dictar mensaje">🎤</button>
       </div>
       <button class="btn-solid" onclick="generarMensaje()">Generar comunicado</button>
@@ -118,24 +118,24 @@
       <button class="btn-datos" onclick="toggleDatos()">➕ Agregar datos al comunicado</button>
       <div class="datos-panel" id="datosPanel">
         <div class="datos-titulo">Seleccioná los datos a incorporar</div>
-        <div class="datos-subtitulo">Se agregan en formato compacto al final del comunicado.</div>
+        <div class="datos-subtitulo">Los sugeridos aparecen resaltados. Se agregan en formato compacto.</div>
         <div class="datos-categoria">Plataformas digitales</div>
-        <div class="dato-item"><input type="checkbox" id="d0" data-nombre="CGV" data-valor="https://clubdecampolaeugenia.taplink.site/" data-emoji="🔗"><label class="dato-label" for="d0"><strong>🔗 CGV / Centro de Gestión Vecinal</strong><span>taplink.site</span></label></div>
-        <div class="dato-item"><input type="checkbox" id="d1" data-nombre="Cuota social vigente" data-valor="https://clubdecampolaeugenia.github.io/cuota-la-eugenia/" data-emoji="💰"><label class="dato-label" for="d1"><strong>💰 Cuota social vigente</strong><span>github.io/cuota-la-eugenia</span></label></div>
-        <div class="dato-item"><input type="checkbox" id="d2" data-nombre="Movimiento de Tesorería" data-valor="https://clubdecampolaeugenia.github.io/tesoreria-la-eugenia/" data-emoji="🔗"><label class="dato-label" for="d2"><strong>🔗 Movimiento de Tesorería</strong><span>github.io/tesoreria-la-eugenia</span></label></div>
-        <div class="dato-item"><input type="checkbox" id="d3" data-nombre="Plano de mantenimiento" data-valor="https://drive.google.com/file/d/1ltXyKm3TlPNQVrOIHNxZjM7j9nZe8QGU/view" data-emoji="🗺️"><label class="dato-label" for="d3"><strong>🗺️ Plano de mantenimiento</strong><span>drive.google.com</span></label></div>
+        <div class="dato-item" id="di0"><input type="checkbox" id="d0" data-nombre="CGV" data-valor="https://clubdecampolaeugenia.taplink.site/" data-emoji="🔗"><label class="dato-label" for="d0"><strong>🔗 CGV / Centro de Gestión Vecinal</strong><span>taplink.site</span></label></div>
+        <div class="dato-item" id="di1"><input type="checkbox" id="d1" data-nombre="Cuota social vigente" data-valor="https://clubdecampolaeugenia.github.io/cuota-la-eugenia/" data-emoji="💰"><label class="dato-label" for="d1"><strong>💰 Cuota social vigente</strong><span>github.io/cuota-la-eugenia</span></label></div>
+        <div class="dato-item" id="di2"><input type="checkbox" id="d2" data-nombre="Movimiento de Tesorería" data-valor="https://clubdecampolaeugenia.github.io/tesoreria-la-eugenia/" data-emoji="🔗"><label class="dato-label" for="d2"><strong>🔗 Movimiento de Tesorería</strong><span>github.io/tesoreria-la-eugenia</span></label></div>
+        <div class="dato-item" id="di3"><input type="checkbox" id="d3" data-nombre="Plano de mantenimiento" data-valor="https://drive.google.com/file/d/1ltXyKm3TlPNQVrOIHNxZjM7j9nZe8QGU/view" data-emoji="🗺️"><label class="dato-label" for="d3"><strong>🗺️ Plano de mantenimiento</strong><span>drive.google.com</span></label></div>
         <div class="datos-categoria">Contactos del club</div>
-        <div class="dato-item"><input type="checkbox" id="d4" data-nombre="Email institucional" data-valor="clubdecampolaeugenia@gmail.com" data-emoji="📧"><label class="dato-label" for="d4"><strong>📧 Email institucional</strong><span>clubdecampolaeugenia@gmail.com</span></label></div>
-        <div class="dato-item"><input type="checkbox" id="d5" data-nombre="EugenIA" data-valor="+54 9 3764 11-3300" data-emoji="🙋🏻‍♀️"><label class="dato-label" for="d5"><strong>🙋🏻‍♀️ EugenIA (asistente virtual)</strong><span>+54 9 3764 11-3300</span></label></div>
-        <div class="dato-item"><input type="checkbox" id="d6" data-nombre="Garita de seguridad" data-valor="+54 9 11 6188-8188" data-emoji="📞"><label class="dato-label" for="d6"><strong>📞 Garita de seguridad</strong><span>+54 9 11 6188-8188</span></label></div>
-        <div class="dato-item"><input type="checkbox" id="d7" data-nombre="Administración — Raúl Toloza" data-valor="+54 9 3764 60-3432" data-emoji="📞"><label class="dato-label" for="d7"><strong>📞 Administración — Raúl Toloza</strong><span>+54 9 3764 60-3432</span></label></div>
-        <div class="dato-item"><input type="checkbox" id="d8" data-nombre="Intendencia — Fernanda Magni" data-valor="+54 9 11 5760-3711" data-emoji="📞"><label class="dato-label" for="d8"><strong>📞 Intendencia — Fernanda Magni</strong><span>+54 9 11 5760-3711</span></label></div>
-        <div class="dato-item"><input type="checkbox" id="d9" data-nombre="Salón de eventos — Silvia Najle" data-valor="+54 9 3764 71-5400" data-emoji="📞"><label class="dato-label" for="d9"><strong>📞 Salón de eventos — Silvia Najle</strong><span>+54 9 3764 71-5400</span></label></div>
-        <div class="dato-item"><input type="checkbox" id="d10" data-nombre="Gimnasio — Pablo Fackelmann" data-valor="+54 9 2267 63-6147" data-emoji="📞"><label class="dato-label" for="d10"><strong>📞 Gimnasio — Pablo Fackelmann</strong><span>+54 9 2267 63-6147</span></label></div>
-        <div class="dato-item"><input type="checkbox" id="d11" data-nombre="Cantina" data-valor="+54 9 3764 68-3859" data-emoji="📞"><label class="dato-label" for="d11"><strong>📞 Cantina</strong><span>+54 9 3764 68-3859</span></label></div>
+        <div class="dato-item" id="di4"><input type="checkbox" id="d4" data-nombre="Email institucional" data-valor="clubdecampolaeugenia@gmail.com" data-emoji="📧"><label class="dato-label" for="d4"><strong>📧 Email institucional</strong><span>clubdecampolaeugenia@gmail.com</span></label></div>
+        <div class="dato-item" id="di5"><input type="checkbox" id="d5" data-nombre="EugenIA" data-valor="+54 9 3764 11-3300" data-emoji="🙋🏻‍♀️"><label class="dato-label" for="d5"><strong>🙋🏻‍♀️ EugenIA (asistente virtual)</strong><span>+54 9 3764 11-3300</span></label></div>
+        <div class="dato-item" id="di6"><input type="checkbox" id="d6" data-nombre="Garita de seguridad" data-valor="+54 9 11 6188-8188" data-emoji="📞"><label class="dato-label" for="d6"><strong>📞 Garita de seguridad</strong><span>+54 9 11 6188-8188</span></label></div>
+        <div class="dato-item" id="di7"><input type="checkbox" id="d7" data-nombre="Administración — Raúl Toloza" data-valor="+54 9 3764 60-3432" data-emoji="📞"><label class="dato-label" for="d7"><strong>📞 Administración — Raúl Toloza</strong><span>+54 9 3764 60-3432</span></label></div>
+        <div class="dato-item" id="di8"><input type="checkbox" id="d8" data-nombre="Intendencia — Fernanda Magni" data-valor="+54 9 11 5760-3711" data-emoji="📞"><label class="dato-label" for="d8"><strong>📞 Intendencia — Fernanda Magni</strong><span>+54 9 11 5760-3711</span></label></div>
+        <div class="dato-item" id="di9"><input type="checkbox" id="d9" data-nombre="Salón de eventos — Silvia Najle" data-valor="+54 9 3764 71-5400" data-emoji="📞"><label class="dato-label" for="d9"><strong>📞 Salón de eventos — Silvia Najle</strong><span>+54 9 3764 71-5400</span></label></div>
+        <div class="dato-item" id="di10"><input type="checkbox" id="d10" data-nombre="Gimnasio — Pablo Fackelmann" data-valor="+54 9 2267 63-6147" data-emoji="📞"><label class="dato-label" for="d10"><strong>📞 Gimnasio — Pablo Fackelmann</strong><span>+54 9 2267 63-6147</span></label></div>
+        <div class="dato-item" id="di11"><input type="checkbox" id="d11" data-nombre="Cantina" data-valor="+54 9 3764 68-3859" data-emoji="📞"><label class="dato-label" for="d11"><strong>📞 Cantina</strong><span>+54 9 3764 68-3859</span></label></div>
         <div class="datos-categoria">Servicios externos</div>
-        <div class="dato-item"><input type="checkbox" id="d12" data-nombre="Energía de Misiones" data-valor="+54 9 3764 88-8295 / 0800-888-3672" data-emoji="⚡"><label class="dato-label" for="d12"><strong>⚡ Energía de Misiones</strong><span>+54 9 3764 88-8295 / 0800-888-3672</span></label></div>
-        <div class="dato-item"><input type="checkbox" id="d13" data-nombre="Emergencias" data-valor="Policía: 911 / Bomberos: 100 / Médica: 107" data-emoji="🆘"><label class="dato-label" for="d13"><strong>🆘 Emergencias</strong><span>911 / 100 / 107</span></label></div>
+        <div class="dato-item" id="di12"><input type="checkbox" id="d12" data-nombre="Energía de Misiones" data-valor="+54 9 3764 88-8295 / 0800-888-3672" data-emoji="⚡"><label class="dato-label" for="d12"><strong>⚡ Energía de Misiones</strong><span>+54 9 3764 88-8295 / 0800-888-3672</span></label></div>
+        <div class="dato-item" id="di13"><input type="checkbox" id="d13" data-nombre="Emergencias" data-valor="Policía: 911 / Bomberos: 100 / Médica: 107" data-emoji="🆘"><label class="dato-label" for="d13"><strong>🆘 Emergencias</strong><span>911 / 100 / 107</span></label></div>
         <button class="btn-incorporar" onclick="incorporarDatos()">Incorporar al comunicado</button>
         <button class="btn-ghost" style="color:#1a5276;margin-top:6px;" onclick="cerrarDatos()">Cancelar</button>
       </div>
@@ -169,6 +169,15 @@ const _p6 = '2EUvT4Bv1Dbx7boj';
 const _p7 = 'PZdEpw-_dqcKgAA';
 const AK = _p1+_p2+_p3+_p4+_p5+_p6+_p7;
 
+const SUGERENCIAS_MAP = {
+  'CGV': 'di0', 'Cuota social vigente': 'di1', 'Movimiento de Tesorería': 'di2',
+  'Plano de mantenimiento': 'di3', 'Email institucional': 'di4', 'EugenIA': 'di5',
+  'Garita de seguridad': 'di6', 'Administración — Raúl Toloza': 'di7',
+  'Intendencia — Fernanda Magni': 'di8', 'Salón de eventos — Silvia Najle': 'di9',
+  'Gimnasio — Pablo Fackelmann': 'di10', 'Cantina': 'di11',
+  'Energía de Misiones': 'di12', 'Emergencias': 'di13'
+};
+
 const SYSTEM_PROMPT = `Sos el redactor oficial de LA EUGE informa 📣, la línea institucional del Club de Campo La Eugenia (Garupá, Misiones, Argentina).
 Tu función es normalizar mensajes para ser publicados en el grupo oficial de WhatsApp del barrio.
 
@@ -176,16 +185,14 @@ CONTEXTO:
 - LA EUGE informa 📣: voz institucional. Publica en el grupo vecinal y habla con cada vecino.
 - EugenIA 🙋🏻‍♀️: asistente virtual IA en la misma línea (+54 9 3764 11-3300). Responde preguntas de vecinos.
 
-DEPORTES DEL CLUB: tenis, pádel, fútbol, fútbol-tenis, básquet, vóley. Todos son actividades conocidas y válidas del club. No cuestionar su mención.
+DEPORTES DEL CLUB: tenis, pádel, fútbol, fútbol-tenis, básquet, vóley. Todos válidos, no cuestionar.
 
-REGLA DE NORMALIZACIÓN: Tu función en la primera generación es SOLO normalizar el texto. No agregues links, teléfonos ni datos de contacto por iniciativa propia.
+REGLA DE NORMALIZACIÓN: En la primera generación, SOLO normalizá el texto. No agregues links, teléfonos ni datos de contacto por iniciativa propia.
 
-REGLA DE INCORPORACIÓN DE DATOS: Cuando recibas una instrucción explícita para agregar datos (como parte de un ajuste o instrucción del sistema), DEBÉS incorporarlos obligatoriamente en formato compacto:
+REGLA DE INCORPORACIÓN: Cuando recibas una INSTRUCCIÓN DEL SISTEMA para agregar datos, DEBÉS incorporarlos obligatoriamente en formato compacto:
 emoji + nombre: valor
-Ejemplo:
-🔗 CGV: https://clubdecampolaeugenia.taplink.site/
-📞 Intendencia — Fernanda Magni: +54 9 11 5760-3711
-No agregues texto introductorio extenso si el comunicado ya explica el contexto. Solo la línea compacta.
+Ejemplo: 🔗 CGV: https://clubdecampolaeugenia.taplink.site/
+No agregues texto introductorio extenso si el comunicado ya explica el contexto.
 
 NIVEL DE INTERVENCIÓN:
 - "minima": mensaje bien escrito, solo ajustaste formato y cierre
@@ -197,50 +204,40 @@ APERTURA — elegí según el tipo:
 - "Vecinos:" — avisos directos y concisos
 - Título directo — informes específicos (ej: "*Movimiento de Tesorería — Junio 2026*")
 
-CIERRE — siempre:
-LA EUGE informa 📣
+CIERRE — siempre: LA EUGE informa 📣
 
 TIEMPO VERBAL Y TONO:
 - SIEMPRE primera persona del plural: "informamos", "recordamos", "solicitamos"
-- NUNCA primera persona del singular: jamás "agradezco", "les informo", "quiero"
+- NUNCA primera persona del singular
 - Tono de pizarra institucional: directo, claro, sin condescendencia
-- Agradecimientos PERMITIDOS cuando el contexto lo justifica: malas noticias, trastornos en servicios, interrupciones temporales, pedidos de paciencia. Ej: "Agradecemos la comprensión."
-- PROHIBIDO: "agradezco tu atención", "espero que esto les sea útil", frases condescendientes innecesarias
+- Agradecimientos PERMITIDOS cuando el contexto lo justifica: malas noticias, trastornos, interrupciones
+- PROHIBIDO: "agradezco tu atención", frases condescendientes innecesarias
 
 FORMATO:
 - Cada idea en su propio párrafo, separado por línea en blanco
-- Bullets (•) con línea en blanco antes y después del bloque
+- Bullets (•) con línea en blanco antes y después
 - "LA EUGE informa 📣" siempre separado por línea en blanco
 
-ORTOGRAFÍA:
-- "pádel", "fútbol", "fútbol-tenis", "básquet", "vóley"
-- Tildes diacríticas obligatorias
-- Nunca omitir tildes en mayúsculas
-- Correcciones en silencio
+ORTOGRAFÍA: "pádel", "fútbol", "fútbol-tenis", "básquet", "vóley". Tildes obligatorias. Correcciones en silencio.
 
-ADVERTENCIAS — SOLO para problemas técnicos reales:
-- Número de teléfono con menos de 10 dígitos
-- Email sin @ o sin dominio
-- Fecha o dato claramente contradictorio o imposible
-NO generar advertencias sobre: decisiones institucionales, medidas disciplinarias, viabilidad de acciones, contenido del mensaje, estilo de comunicación.
+ADVERTENCIAS — SOLO para problemas técnicos: teléfono con menos de 10 dígitos, email sin @ o sin dominio, dato claramente imposible. NUNCA sobre decisiones institucionales o contenido del mensaje.
 
 EMOJIS: Intendencia: 🌿 / Importante: ⚠️ / Info general: ℹ️ / Convivencia: 🤝 / Urgente: 🚨 / Evento: 🎉
 
-SUGERENCIAS DE DATOS — analizá el mensaje y listá de forma CONSISTENTE los datos relevantes.
-Reglas deterministas (si el mensaje menciona el concepto → siempre sugerir):
-- "CGV", "Centro de Gestión Vecinal", "aplicación", "gestión vecinal", "plataforma" → "CGV"
+SUGERENCIAS — reglas deterministas:
+- "CGV", "gestión vecinal", "aplicación", "plataforma" → "CGV"
 - "cuota", "pago mensual" → "Cuota social vigente"
 - "tesorería", "movimiento" → "Movimiento de Tesorería"
-- "mantenimiento", "podas", "zonas", "sectores", "zona 1/2/3" → "Plano de mantenimiento"
-- "seguridad", "guardia", "garita", "acceso" → "Garita de seguridad"
+- "mantenimiento", "podas", "zonas", "zona 1", "zona 2", "zona 3", "sectores" → "Plano de mantenimiento"
+- "seguridad", "guardia", "garita" → "Garita de seguridad"
 - "administración", "deuda", "facturación", "Raúl" → "Administración — Raúl Toloza"
-- "intendencia", "mantenimiento", "podas", "Fernanda" → "Intendencia — Fernanda Magni"
+- "intendencia", "Fernanda" → "Intendencia — Fernanda Magni"
 - "salón", "eventos", "SUM", "Silvia" → "Salón de eventos — Silvia Najle"
 - "cantina", "comida", "delivery" → "Cantina"
-- "luz", "energía", "corte eléctrico", "EMSA" → "Energía de Misiones"
+- "luz", "energía", "corte eléctrico" → "Energía de Misiones"
 - "emergencia", "accidente", "urgencia" → "Emergencias"
-Nombres exactos a usar: "CGV", "Cuota social vigente", "Movimiento de Tesorería", "Plano de mantenimiento", "Garita de seguridad", "Administración — Raúl Toloza", "Intendencia — Fernanda Magni", "Salón de eventos — Silvia Najle", "Gimnasio — Pablo Fackelmann", "Cantina", "Energía de Misiones", "Emergencias"
-Si no hay datos relevantes, devolvé [].
+Nombres exactos: "CGV", "Cuota social vigente", "Movimiento de Tesorería", "Plano de mantenimiento", "Garita de seguridad", "Administración — Raúl Toloza", "Intendencia — Fernanda Magni", "Salón de eventos — Silvia Najle", "Gimnasio — Pablo Fackelmann", "Cantina", "Energía de Misiones", "Emergencias"
+Si no hay relevantes, devolvé [].
 
 Respondé SOLO con JSON válido sin backticks:
 {"categoria":"...","intervencion":"minima|menor|reescritura","advertencia":"...","sugerencias":[],"mensaje":"..."}`;
@@ -283,6 +280,13 @@ async function llamarAPI(mensajes) {
   return data.content[0].text;
 }
 
+function parsearRespuesta(raw) {
+  let clean = raw.replace(/```json|```/g, '').trim();
+  const match = clean.match(/\{[\s\S]*\}/);
+  if (match) clean = match[0];
+  return JSON.parse(clean);
+}
+
 async function generarMensaje() {
   const texto = document.getElementById('textoEntrada').value.trim();
   if (!texto) return;
@@ -293,17 +297,16 @@ async function generarMensaje() {
     const raw = await llamarAPI([{ role: 'user', content: texto }]);
     mostrarResultado(raw);
   } catch(e) {
-    document.getElementById('loadingText').innerText = 'Error al generar. Intentá de nuevo.';
+    const esCorto = texto.length < 30;
+    document.getElementById('loadingText').innerText = esCorto
+      ? 'El mensaje es muy breve. Escribí el contenido directamente, sin decir "quiero comunicar".'
+      : 'Error al generar. Intentá de nuevo.';
     document.getElementById('pasoEntrada').style.display = 'block';
   }
 }
 
-// Sugerencias del sistema — se muestran debajo del panel de datos
-let sugerenciasDelSistema = [];
-
 function mostrarResultado(raw) {
-  const clean = raw.replace(/```json|```/g, '').trim();
-  const parsed = JSON.parse(clean);
+  const parsed = parsearRespuesta(raw);
   document.getElementById('loadingText').innerText = '';
   document.getElementById('categoriaBadge').innerText = parsed.categoria;
 
@@ -328,9 +331,12 @@ function mostrarResultado(raw) {
     document.getElementById('advertenciaBox').style.display = 'none';
   }
 
-  // Guardar sugerencias para marcar en el panel
-  sugerenciasDelSistema = parsed.sugerencias || [];
-  marcarSugerenciasEnPanel();
+  // Resaltar sugerencias en el panel
+  document.querySelectorAll('.dato-item').forEach(i => { i.style.background = ''; });
+  (parsed.sugerencias || []).forEach(s => {
+    const id = SUGERENCIAS_MAP[s];
+    if (id) document.getElementById(id).style.background = '#d6eaf8';
+  });
 
   document.getElementById('mensajesDivididos').style.display = 'none';
   document.getElementById('msg1').style.display = 'none';
@@ -346,27 +352,9 @@ function mostrarResultado(raw) {
   document.getElementById('pasoResultado').style.display = 'block';
 }
 
-function marcarSugerenciasEnPanel() {
-  // Resaltar visualmente los datos sugeridos en el panel
-  document.querySelectorAll('.dato-item').forEach(item => {
-    const input = item.querySelector('input');
-    const label = item.querySelector('.dato-label strong');
-    if (sugerenciasDelSistema.includes(input.dataset.nombre)) {
-      item.style.background = '#d6eaf8';
-      item.style.borderRadius = '8px';
-      item.style.padding = '4px 6px';
-      if (label) label.style.color = '#1a5276';
-    } else {
-      item.style.background = '';
-      item.style.padding = '';
-    }
-  });
-}
-
 function toggleDatos() {
   const panel = document.getElementById('datosPanel');
   panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-  if (panel.style.display === 'block') marcarSugerenciasEnPanel();
 }
 function cerrarDatos() {
   document.getElementById('datosPanel').style.display = 'none';
@@ -378,7 +366,7 @@ async function incorporarDatos() {
   if (checks.length === 0) { alert('Tildá al menos un dato para agregar.'); return; }
   cerrarDatos();
   const lineas = Array.from(checks).map(c => `${c.dataset.emoji} ${c.dataset.nombre}: ${c.dataset.valor}`);
-  const instruccion = `INSTRUCCIÓN DEL SISTEMA: Agregá los siguientes datos al final del comunicado, antes del cierre "LA EUGE informa 📣". Formato obligatorio: una línea por dato, compacta, sin texto introductorio extenso. Solo: emoji + nombre + valor. Si algún dato ya está mencionado en el texto, no lo dupliques.\n\nDatos a agregar:\n${lineas.join('\n')}`;
+  const instruccion = `INSTRUCCIÓN DEL SISTEMA: Agregá los siguientes datos al final del comunicado, antes del cierre "LA EUGE informa 📣". Formato obligatorio: una línea compacta por dato (emoji + nombre + valor). Si alguno ya está en el texto, no lo dupliques.\n\nDatos:\n${lineas.join('\n')}`;
   await aplicarAjusteDirecto(instruccion);
 }
 
@@ -485,7 +473,6 @@ function copiarFallback(texto, btn) {
 }
 
 function nuevoMensaje() {
-  sugerenciasDelSistema = [];
   document.getElementById('textoEntrada').value = '';
   document.getElementById('resultadoBox').innerText = '';
   document.getElementById('resultadoBox').style.display = 'none';
@@ -503,7 +490,7 @@ function nuevoMensaje() {
   document.getElementById('loadingText').innerText = '';
   document.getElementById('pasoEntrada').style.display = 'block';
   document.querySelectorAll('.dato-item input[type=checkbox]').forEach(c => c.checked = false);
-  document.querySelectorAll('.dato-item').forEach(i => { i.style.background = ''; i.style.padding = ''; });
+  document.querySelectorAll('.dato-item').forEach(i => { i.style.background = ''; });
 }
 function cerrarSesion() {
   nuevoMensaje();
