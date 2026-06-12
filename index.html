@@ -133,9 +133,10 @@
         <div class="dato-item" id="di9"><input type="checkbox" id="d9" data-nombre="Salón de eventos — Silvia Najle" data-valor="+54 9 3764 71-5400" data-emoji="📞"><label class="dato-label" for="d9"><strong>📞 Salón de eventos — Silvia Najle</strong><span>+54 9 3764 71-5400</span></label></div>
         <div class="dato-item" id="di10"><input type="checkbox" id="d10" data-nombre="Gimnasio — Pablo Fackelmann" data-valor="+54 9 2267 63-6147" data-emoji="📞"><label class="dato-label" for="d10"><strong>📞 Gimnasio — Pablo Fackelmann</strong><span>+54 9 2267 63-6147</span></label></div>
         <div class="dato-item" id="di11"><input type="checkbox" id="d11" data-nombre="Cantina" data-valor="+54 9 3764 68-3859" data-emoji="📞"><label class="dato-label" for="d11"><strong>📞 Cantina</strong><span>+54 9 3764 68-3859</span></label></div>
+        <div class="dato-item" id="di12"><input type="checkbox" id="d12" data-nombre="Podas grandes" data-valor="Sr. Félix: +54 9 3765 12-1797 / Sr. Patiño: +54 9 3764 72-6485 / Sr. Aquino: +54 9 376 488-9851" data-emoji="🪓"><label class="dato-label" for="d12"><strong>🪓 Podas grandes (retiro particular)</strong><span>Félix / Patiño / Aquino</span></label></div>
         <div class="datos-categoria">Servicios externos</div>
-        <div class="dato-item" id="di12"><input type="checkbox" id="d12" data-nombre="Energía de Misiones" data-valor="+54 9 3764 88-8295 / 0800-888-3672" data-emoji="⚡"><label class="dato-label" for="d12"><strong>⚡ Energía de Misiones</strong><span>+54 9 3764 88-8295 / 0800-888-3672</span></label></div>
-        <div class="dato-item" id="di13"><input type="checkbox" id="d13" data-nombre="Emergencias" data-valor="Policía: 911 / Bomberos: 100 / Médica: 107" data-emoji="🆘"><label class="dato-label" for="d13"><strong>🆘 Emergencias</strong><span>911 / 100 / 107</span></label></div>
+        <div class="dato-item" id="di13"><input type="checkbox" id="d13" data-nombre="Energía de Misiones" data-valor="+54 9 3764 88-8295 / 0800-888-3672" data-emoji="⚡"><label class="dato-label" for="d13"><strong>⚡ Energía de Misiones</strong><span>+54 9 3764 88-8295 / 0800-888-3672</span></label></div>
+        <div class="dato-item" id="di14"><input type="checkbox" id="d14" data-nombre="Emergencias" data-valor="Policía: 911 / Bomberos: 100 / Médica: 107" data-emoji="🆘"><label class="dato-label" for="d14"><strong>🆘 Emergencias</strong><span>911 / 100 / 107</span></label></div>
         <button class="btn-incorporar" onclick="incorporarDatos()">Incorporar al comunicado</button>
         <button class="btn-ghost" style="color:#1a5276;margin-top:6px;" onclick="cerrarDatos()">Cancelar</button>
       </div>
@@ -175,7 +176,7 @@ const SUGERENCIAS_MAP = {
   'Garita de seguridad': 'di6', 'Administración — Raúl Toloza': 'di7',
   'Intendencia — Fernanda Magni': 'di8', 'Salón de eventos — Silvia Najle': 'di9',
   'Gimnasio — Pablo Fackelmann': 'di10', 'Cantina': 'di11',
-  'Energía de Misiones': 'di12', 'Emergencias': 'di13'
+  'Podas grandes': 'di12', 'Energía de Misiones': 'di13', 'Emergencias': 'di14'
 };
 
 const SYSTEM_PROMPT = `Sos el redactor oficial de LA EUGE informa 📣, la línea institucional del Club de Campo La Eugenia (Garupá, Misiones, Argentina).
@@ -187,12 +188,18 @@ CONTEXTO:
 
 DEPORTES DEL CLUB: tenis, pádel, fútbol, fútbol-tenis, básquet, vóley. Todos válidos, no cuestionar.
 
+ZONAS DEL PLANO — REGLA IMPORTANTE:
+Cuando el texto mencione "Zona 1", "Zona 2", "Zona 3" o similar, CONSERVAR exactamente esa expresión. No reemplazar por "plano de mantenimiento" ni por ninguna otra expresión. La referencia a la zona es información operativa clave que no debe modificarse.
+
 REGLA DE NORMALIZACIÓN: En la primera generación, SOLO normalizá el texto. No agregues links, teléfonos ni datos de contacto por iniciativa propia.
 
-REGLA DE INCORPORACIÓN: Cuando recibas una INSTRUCCIÓN DEL SISTEMA para agregar datos, DEBÉS incorporarlos obligatoriamente en formato compacto:
+REGLA DE INCORPORACIÓN: Cuando recibas una INSTRUCCIÓN DEL SISTEMA para agregar datos, DEBÉS incorporarlos obligatoriamente. Formato compacto por dato:
 emoji + nombre: valor
-Ejemplo: 🔗 CGV: https://clubdecampolaeugenia.taplink.site/
-No agregues texto introductorio extenso si el comunicado ya explica el contexto.
+Excepción para podas grandes — formato multilínea:
+🪓 Podas grandes (retiro particular):
+Sr. Félix: +54 9 3765 12-1797
+Sr. Patiño: +54 9 3764 72-6485
+Sr. Aquino: +54 9 376 488-9851
 
 NIVEL DE INTERVENCIÓN:
 - "minima": mensaje bien escrito, solo ajustaste formato y cierre
@@ -204,7 +211,7 @@ APERTURA — elegí según el tipo:
 - "Vecinos:" — avisos directos y concisos
 - Título directo — informes específicos (ej: "*Movimiento de Tesorería — Junio 2026*")
 
-CIERRE — siempre: LA EUGE informa 📣
+CIERRE — siempre fijo: LA EUGE informa 📣
 
 TIEMPO VERBAL Y TONO:
 - SIEMPRE primera persona del plural: "informamos", "recordamos", "solicitamos"
@@ -213,22 +220,32 @@ TIEMPO VERBAL Y TONO:
 - Agradecimientos PERMITIDOS cuando el contexto lo justifica: malas noticias, trastornos, interrupciones
 - PROHIBIDO: "agradezco tu atención", frases condescendientes innecesarias
 
+EMOJIS POR CATEGORÍA — elegir el emoji del inicio según el tema principal:
+- 🚜 Mantenimiento general / corte de césped / trabajos en el predio
+- 🌿 Poda / recolección de residuos verdes / ponchadas
+- 🚧 Obra / construcción / vía inhabilitada / acceso cortado
+- 🚨 Urgente
+- ⚠️ Atención / importante / advertencia
+- ℹ️ Información general / novedades / comunicados varios
+- 🤝 Convivencia / normas de uso / comportamiento
+- 🚫 Prohibición / restricción
+- 💦 Pileta / temporada de verano / natación
+- 🎉 Fiesta / evento social / celebración
+
 FORMATO:
 - Cada idea en su propio párrafo, separado por línea en blanco
-- Bullets (•) con línea en blanco antes y después
+- Bullets (•) con línea en blanco antes y después del bloque
 - "LA EUGE informa 📣" siempre separado por línea en blanco
 
 ORTOGRAFÍA: "pádel", "fútbol", "fútbol-tenis", "básquet", "vóley". Tildes obligatorias. Correcciones en silencio.
 
-ADVERTENCIAS — SOLO para problemas técnicos: teléfono con menos de 10 dígitos, email sin @ o sin dominio, dato claramente imposible. NUNCA sobre decisiones institucionales o contenido del mensaje.
-
-EMOJIS: Intendencia: 🌿 / Importante: ⚠️ / Info general: ℹ️ / Convivencia: 🤝 / Urgente: 🚨 / Evento: 🎉
+ADVERTENCIAS — SOLO para problemas técnicos: teléfono con menos de 10 dígitos, email sin @ o dominio, dato claramente imposible. NUNCA sobre decisiones institucionales o contenido del mensaje.
 
 SUGERENCIAS — reglas deterministas:
 - "CGV", "gestión vecinal", "aplicación", "plataforma" → "CGV"
 - "cuota", "pago mensual" → "Cuota social vigente"
 - "tesorería", "movimiento" → "Movimiento de Tesorería"
-- "mantenimiento", "podas", "zonas", "zona 1", "zona 2", "zona 3", "sectores" → "Plano de mantenimiento"
+- "zona 1", "zona 2", "zona 3", "zonas", "sectores de mantenimiento" → "Plano de mantenimiento"
 - "seguridad", "guardia", "garita" → "Garita de seguridad"
 - "administración", "deuda", "facturación", "Raúl" → "Administración — Raúl Toloza"
 - "intendencia", "Fernanda" → "Intendencia — Fernanda Magni"
@@ -236,7 +253,8 @@ SUGERENCIAS — reglas deterministas:
 - "cantina", "comida", "delivery" → "Cantina"
 - "luz", "energía", "corte eléctrico" → "Energía de Misiones"
 - "emergencia", "accidente", "urgencia" → "Emergencias"
-Nombres exactos: "CGV", "Cuota social vigente", "Movimiento de Tesorería", "Plano de mantenimiento", "Garita de seguridad", "Administración — Raúl Toloza", "Intendencia — Fernanda Magni", "Salón de eventos — Silvia Najle", "Gimnasio — Pablo Fackelmann", "Cantina", "Energía de Misiones", "Emergencias"
+- "poda grande", "retiro particular", "retiro de troncos" → "Podas grandes"
+Nombres exactos: "CGV", "Cuota social vigente", "Movimiento de Tesorería", "Plano de mantenimiento", "Garita de seguridad", "Administración — Raúl Toloza", "Intendencia — Fernanda Magni", "Salón de eventos — Silvia Najle", "Gimnasio — Pablo Fackelmann", "Cantina", "Podas grandes", "Energía de Misiones", "Emergencias"
 Si no hay relevantes, devolvé [].
 
 Respondé SOLO con JSON válido sin backticks:
@@ -331,7 +349,6 @@ function mostrarResultado(raw) {
     document.getElementById('advertenciaBox').style.display = 'none';
   }
 
-  // Resaltar sugerencias en el panel
   document.querySelectorAll('.dato-item').forEach(i => { i.style.background = ''; });
   (parsed.sugerencias || []).forEach(s => {
     const id = SUGERENCIAS_MAP[s];
@@ -365,8 +382,13 @@ async function incorporarDatos() {
   const checks = document.querySelectorAll('.dato-item input[type=checkbox]:checked');
   if (checks.length === 0) { alert('Tildá al menos un dato para agregar.'); return; }
   cerrarDatos();
-  const lineas = Array.from(checks).map(c => `${c.dataset.emoji} ${c.dataset.nombre}: ${c.dataset.valor}`);
-  const instruccion = `INSTRUCCIÓN DEL SISTEMA: Agregá los siguientes datos al final del comunicado, antes del cierre "LA EUGE informa 📣". Formato obligatorio: una línea compacta por dato (emoji + nombre + valor). Si alguno ya está en el texto, no lo dupliques.\n\nDatos:\n${lineas.join('\n')}`;
+  const lineas = Array.from(checks).map(c => {
+    if (c.dataset.nombre === 'Podas grandes') {
+      return `🪓 Podas grandes (retiro particular):\nSr. Félix: +54 9 3765 12-1797\nSr. Patiño: +54 9 3764 72-6485\nSr. Aquino: +54 9 376 488-9851`;
+    }
+    return `${c.dataset.emoji} ${c.dataset.nombre}: ${c.dataset.valor}`;
+  });
+  const instruccion = `INSTRUCCIÓN DEL SISTEMA: Agregá los siguientes datos al final del comunicado, antes del cierre "LA EUGE informa 📣". Formato compacto — una línea por dato salvo podas grandes que van en multilínea. Si alguno ya está en el texto, no lo dupliques.\n\nDatos:\n${lineas.join('\n')}`;
   await aplicarAjusteDirecto(instruccion);
 }
 
