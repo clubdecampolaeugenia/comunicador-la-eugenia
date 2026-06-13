@@ -4,16 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0d6663">
-  <link rel="apple-touch-icon" href="https://i.imgur.com/1fKyE7P.png">
-  <link rel="icon" type="image/png" href="https://i.imgur.com/1fKyE7P.png">
+  <link rel="apple-touch-icon" href="https://i.imgur.com/gua2Pm4.png">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/gua2Pm4.png">
   <title>Comunicador – La Eugenia</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body { margin: 0; min-height: 100vh; background: #0d6663; font-family: 'Roboto', sans-serif; display: flex; justify-content: center; align-items: flex-start; padding: 24px 16px; }
     .card { background: #c4df57; border-radius: 24px; width: 100%; max-width: 480px; padding: 28px 24px; box-sizing: border-box; }
-    .logo-wrap img { width: 120px; height: auto; display: block; margin: 0 auto 4px; }
-    h1 { margin: 0 0 4px; color: #000; font-family: Impact, sans-serif; font-size: 28px; line-height: 1; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
+    .logo-wrap img { width: 180px; height: auto; display: block; margin: 0 auto 0px; }
+    h1 { margin: 2px 0 4px; color: #000; font-family: Impact, sans-serif; font-size: 28px; line-height: 1; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
     .subtitle { text-align: center; color: #0d6663; font-size: 14px; margin-bottom: 20px; }
     #pinScreen { display: block; } #mainScreen { display: none; }
     .pin-label { text-align: center; color: #003a6b; font-size: 14px; font-weight: 900; text-transform: uppercase; margin-bottom: 10px; }
@@ -23,7 +23,7 @@
     .textarea-wrap { position: relative; margin-bottom: 14px; }
     textarea { width: 100%; border: 2px solid #0d6663; border-radius: 14px; padding: 12px 48px 12px 12px; background: #edf1dc; color: #003a6b; font-family: 'Roboto', sans-serif; font-size: 15px; resize: vertical; min-height: 110px; outline: none; }
     textarea.sin-mic { padding-right: 12px; min-height: 70px; }
-    .mic-btn { position: absolute; bottom: 10px; right: 10px; background: #0d6663; border: none; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .mic-btn { position: absolute; bottom: 10px; right: 10px; background: #c4df57; border: 2px solid #0d6663; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; }
     .mic-btn.grabando { background: #c0392b; animation: pulse 1s infinite; }
     @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
     .meta-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
@@ -68,7 +68,7 @@
 </head>
 <body>
 <div class="card">
-  <div class="logo-wrap"><img src="https://i.imgur.com/2YIjNDH.png" alt="Logo La Eugenia"></div>
+  <div class="logo-wrap"><img src="https://i.imgur.com/gua2Pm4.png" alt="Logo La Eugenia"></div>
   <h1>Comunicador</h1>
   <div class="subtitle"><strong>LA EUGE informa 📣</strong></div>
 
@@ -148,7 +148,7 @@
       <div class="ajuste-box" id="ajusteBox">
         <span class="field-label">¿Qué querés ajustar?</span>
         <div class="textarea-wrap">
-          <textarea class="sin-mic" id="textoAjuste" placeholder='Ej: "hacelo más breve", "cambiá el segundo párrafo"'></textarea>
+          <textarea class="sin-mic" id="textoAjuste" placeholder='Cambio puntual. Ej: "cambiá el horario por las 18hs", "sacá el tercer párrafo", "reemplazá el saludo por Buenas tardes". Si hay mucho para cambiar, mejor empezar de nuevo.'></textarea>
         </div>
         <button class="btn-solid" onclick="aplicarAjuste()">Aplicar ajuste</button>
         <button class="btn-ghost" onclick="cerrarAjuste()">Cancelar</button>
@@ -483,7 +483,8 @@ async function aplicarAjuste() {
   const ajuste = document.getElementById('textoAjuste').value.trim();
   if (!ajuste) return;
   cerrarAjuste();
-  await aplicarAjusteDirecto(ajuste);
+  const instruccionEstricta = `AJUSTE PUNTUAL: Aplicá ÚNICAMENTE el siguiente cambio: "${ajuste}". Todo lo demás del comunicado debe quedar exactamente igual — mismo texto, mismo orden, mismos párrafos, mismos datos. No reorganices, no reescribas, no mejores nada que no se haya pedido cambiar explícitamente.`;
+  await aplicarAjusteDirecto(instruccionEstricta);
 }
 
 async function aplicarAjusteDirecto(instruccion) {
