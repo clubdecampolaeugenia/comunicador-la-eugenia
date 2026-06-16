@@ -4,26 +4,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0d6663">
-  <link rel="apple-touch-icon" href="https://i.imgur.com/59qJegd.png">
-  <link rel="icon" type="image/png" href="https://i.imgur.com/59qJegd.png">
+  <link rel="apple-touch-icon" href="https://i.imgur.com/UgiYLGk.png">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/UgiYLGk.png">
   <title>Comunicador – La Eugenia</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body { margin: 0; min-height: 100vh; background: #0d6663; font-family: 'Roboto', sans-serif; display: flex; justify-content: center; align-items: flex-start; padding: 24px 16px; }
-    .card { background: #c4df57; border-radius: 24px; width: 100%; max-width: 480px; padding: 28px 24px; box-sizing: border-box; }
-    .logo-wrap img { width: 150px; height: auto; display: block; margin: 0 auto 0px; }
+
+    @keyframes fadeInScreen {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes shakeError {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+    }
+
+    .card { background: #c4df57; border-radius: 24px; width: 100%; max-width: 480px; padding: 28px 24px; box-sizing: border-box; box-shadow: 0 10px 28px rgba(0,0,0,0.4); }
+    .logo-wrap img { width: 165px; height: auto; display: block; margin: 0 auto 0px; filter: drop-shadow(0 4px 7px rgba(0,0,0,0.2)); }
     h1 { margin: 2px 0 4px; color: #000; font-family: Impact, sans-serif; font-size: 28px; line-height: 1; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
     .subtitle { text-align: center; color: #0d6663; font-size: 14px; margin-bottom: 20px; }
-    #pinScreen { display: block; } #mainScreen { display: none; }
+    #pinScreen { display: block; animation: fadeInScreen 0.3s ease-out; } #mainScreen { display: none; }
+    #mainScreen.active { animation: fadeInScreen 0.3s ease-out; }
     .pin-label { text-align: center; color: #003a6b; font-size: 14px; font-weight: 900; text-transform: uppercase; margin-bottom: 10px; }
     .pin-input { display: block; width: 100%; text-align: center; font-size: 28px; font-weight: 900; letter-spacing: 12px; border: 2px solid #0d6663; border-radius: 16px; padding: 12px; background: #edf1dc; color: #003a6b; outline: none; margin-bottom: 12px; }
+    .pin-input.error { animation: shakeError 0.35s ease-in-out; border-color: #c0392b; }
     .pin-error { text-align: center; color: #c0392b; font-size: 13px; font-weight: 700; min-height: 18px; margin-bottom: 8px; }
     .field-label { color: #003a6b; font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 6px; display: block; }
     .textarea-wrap { position: relative; margin-bottom: 14px; }
     textarea { width: 100%; border: 2px solid #0d6663; border-radius: 14px; padding: 12px 48px 12px 12px; background: #edf1dc; color: #003a6b; font-family: 'Roboto', sans-serif; font-size: 15px; resize: vertical; min-height: 110px; outline: none; }
     textarea.sin-mic { padding-right: 12px; min-height: 70px; }
-    .mic-btn { position: absolute; bottom: 10px; right: 10px; background: #c4df57; border: 2px solid #0d6663; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .mic-btn { position: absolute; bottom: 10px; right: 10px; background: #c4df57; border: 2px solid #0d6663; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; transition: transform 0.08s; }
+    .mic-btn:active { transform: scale(0.9); }
     .mic-btn.grabando { background: #c0392b; animation: pulse 1s infinite; }
     @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
     .meta-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
@@ -34,15 +50,18 @@
     .intervencion-reescritura { background: #fdebd0; color: #a04000; }
     .chars-badge { display: inline-block; font-size: 11px; font-weight: 700; border-radius: 20px; padding: 4px 10px; background: #edf1dc; color: #003a6b; }
     .chars-badge.largo { background: #fdebd0; color: #a04000; }
-    .resultado-box { background: #edf1dc; border-radius: 14px; padding: 16px; margin-bottom: 10px; color: #003a6b; font-size: 15px; line-height: 1.7; white-space: pre-wrap; min-height: 100px; display: none; }
+    .resultado-box { background: #edf1dc; border-radius: 14px; padding: 16px; margin-bottom: 10px; color: #003a6b; font-size: 15px; line-height: 1.7; white-space: pre-wrap; min-height: 100px; display: none; animation: fadeInScreen 0.3s ease-out; }
     .longitud-box { background: #fdebd0; border: 2px solid #e59866; border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; display: none; }
     .longitud-titulo { color: #a04000; font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 6px; }
     .longitud-texto { color: #a04000; font-size: 13px; margin-bottom: 10px; }
     .longitud-btns { display: flex; gap: 8px; }
-    .btn-resumir { flex: 1; padding: 10px; border-radius: 24px; border: none; background: #a04000; color: white; font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
-    .btn-dividir { flex: 1; padding: 10px; border-radius: 24px; border: 2px solid #a04000; background: transparent; color: #a04000; font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; cursor: pointer; }
+    .btn-resumir { flex: 1; padding: 10px; border-radius: 24px; border: none; background: #a04000; color: white; font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.08s, box-shadow 0.08s; }
+    .btn-resumir:active { transform: scale(0.96); box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+    .btn-dividir { flex: 1; padding: 10px; border-radius: 24px; border: 2px solid #a04000; background: transparent; color: #a04000; font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.08s, box-shadow 0.08s; }
+    .btn-dividir:active { transform: scale(0.96); box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
     .advertencia-box { background: #fff3cd; border: 2px solid #f0a500; border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; color: #7a4f00; font-size: 13px; font-weight: 700; display: none; }
-    .btn-datos { display: block; width: 100%; padding: 12px; border-radius: 24px; border: 2px dashed #2980b9; background: transparent; color: #2980b9; font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; cursor: pointer; text-align: center; margin-bottom: 14px; }
+    .btn-datos { display: block; width: 100%; padding: 12px; border-radius: 24px; border: 2px dashed #2980b9; background: transparent; color: #2980b9; font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; cursor: pointer; text-align: center; margin-bottom: 14px; transition: transform 0.08s, box-shadow 0.08s; }
+    .btn-datos:active { transform: scale(0.97); box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
     .datos-panel { background: #e8f4fd; border: 2px solid #2980b9; border-radius: 14px; padding: 14px; margin-bottom: 14px; display: none; }
     .datos-titulo { color: #1a5276; font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 4px; }
     .datos-subtitulo { color: #1a5276; font-size: 12px; margin-bottom: 12px; }
@@ -53,12 +72,24 @@
     .dato-label { color: #1a5276; font-size: 13px; line-height: 1.4; cursor: pointer; flex: 1; }
     .dato-label strong { display: block; font-size: 12px; margin-bottom: 1px; }
     .dato-label span { font-size: 11px; color: #2980b9; word-break: break-all; }
-    .btn-incorporar { display: block; width: 100%; padding: 12px; border-radius: 24px; border: none; background: #2980b9; color: white; font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 12px; }
+    .btn-incorporar { display: block; width: 100%; padding: 12px; border-radius: 24px; border: none; background: #2980b9; color: white; font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 12px; transition: transform 0.08s, box-shadow 0.08s; }
+    .btn-incorporar:active { transform: scale(0.97); box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
     .ajuste-box { background: #edf1dc; border-radius: 14px; padding: 14px; margin-bottom: 14px; display: none; }
     .ajuste-box textarea { min-height: 60px; margin-bottom: 10px; padding-right: 12px; }
     .loading-text { text-align: center; color: #0d6663; font-size: 13px; font-weight: 700; min-height: 20px; margin-bottom: 8px; }
+
+    .btn-solid, .btn-outline, .btn-ghost {
+      transition: transform 0.08s, box-shadow 0.08s, background 0.15s, color 0.15s;
+    }
+    .btn-solid:active, .btn-outline:active {
+      transform: scale(0.96);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+
     .btn-solid { display: block; width: 100%; padding: 14px; border-radius: 24px; border: none; background: #0d6663; color: #c4df57; font-family: 'Roboto', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-bottom: 10px; text-align: center; text-decoration: none; }
+    .btn-solid:hover { background: #0a3d3b; }
     .btn-outline { display: block; width: 100%; padding: 14px; border-radius: 24px; border: 2px solid #0d6663; background: transparent; color: #0d6663; font-family: 'Roboto', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-bottom: 10px; text-align: center; }
+    .btn-outline:hover { background: #0d6663; color: #c4df57; }
     .btn-ghost { display: block; width: 100%; padding: 10px; border-radius: 24px; border: none; background: transparent; color: #0d6663; font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; cursor: pointer; text-align: center; margin-bottom: 4px; }
     .divider { border: none; border-top: 1.5px solid #b5cc4a; margin: 16px 0; }
     .msg-separado { background: #edf1dc; border-radius: 14px; padding: 16px; margin-bottom: 10px; color: #003a6b; font-size: 15px; line-height: 1.7; white-space: pre-wrap; display: none; }
@@ -68,7 +99,7 @@
 </head>
 <body>
 <div class="card">
-  <div class="logo-wrap"><img src="https://i.imgur.com/59qJegd.png" alt="Logo La Eugenia"></div>
+  <div class="logo-wrap"><img src="https://i.imgur.com/UgiYLGk.png" alt="Logo La Eugenia"></div>
   <h1>Comunicador</h1>
   <div class="subtitle"><strong>LA EUGE informa 📣</strong></div>
 
@@ -291,10 +322,14 @@ function verificarPin() {
   if (pin === PIN_CORRECTO) {
     document.getElementById('pinScreen').style.display = 'none';
     document.getElementById('mainScreen').style.display = 'block';
+    document.getElementById('mainScreen').classList.add('active');
     document.getElementById('pinError').innerText = '';
   } else {
     document.getElementById('pinError').innerText = 'PIN incorrecto. Intentá de nuevo.';
     document.getElementById('pinInput').value = '';
+    const pinEl = document.getElementById('pinInput');
+    pinEl.classList.add('error');
+    setTimeout(() => pinEl.classList.remove('error'), 400);
   }
 }
 document.getElementById('pinInput').addEventListener('keydown', e => { if (e.key === 'Enter') verificarPin(); });
@@ -544,6 +579,7 @@ function nuevoMensaje() {
 function cerrarSesion() {
   nuevoMensaje();
   document.getElementById('mainScreen').style.display = 'none';
+  document.getElementById('mainScreen').classList.remove('active');
   document.getElementById('pinScreen').style.display = 'block';
   document.getElementById('pinInput').value = '';
 }
