@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0d6663">
-  <link rel="apple-touch-icon" href="https://i.imgur.com/kha9AVy.png">
-  <link rel="icon" type="image/png" href="https://i.imgur.com/kha9AVy.png">
+  <link rel="apple-touch-icon" href="https://i.imgur.com/59qJegd.png">
+  <link rel="icon" type="image/png" href="https://i.imgur.com/59qJegd.png">
   <title>Comunicador – La Eugenia</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
@@ -68,7 +68,7 @@
 </head>
 <body>
 <div class="card">
-  <div class="logo-wrap"><img src="https://i.imgur.com/kha9AVy.png" alt="Logo La Eugenia"></div>
+  <div class="logo-wrap"><img src="https://i.imgur.com/59qJegd.png" alt="Logo La Eugenia"></div>
   <h1>Comunicador</h1>
   <div class="subtitle"><strong>LA EUGE informa 📣</strong></div>
 
@@ -410,11 +410,11 @@ async function incorporarDatos() {
   cerrarDatos();
   const lineas = Array.from(checks).map(c => {
     if (c.dataset.nombre === 'Podas grandes') {
-      return `🪓 Podas grandes (retiro particular):\nSr. Félix: +54 9 3765 12-1797\nSr. Patiño: +54 9 3764 72-6485\nSr. Aquino: +54 9 376 488-9851`;
+      return '🪓 Podas grandes (retiro particular):\nSr. Félix: +54 9 3765 12-1797\nSr. Patiño: +54 9 3764 72-6485\nSr. Aquino: +54 9 376 488-9851';
     }
-    return `${c.dataset.emoji} ${c.dataset.nombre}: ${c.dataset.valor}`;
+    return c.dataset.emoji + ' ' + c.dataset.nombre + ': ' + c.dataset.valor;
   });
-  const instruccion = `INSTRUCCIÓN DEL SISTEMA: Agregá los siguientes datos al final del comunicado, antes del cierre "LA EUGE informa 📣". Formato compacto — una línea por dato salvo podas grandes que van en multilínea. Si alguno ya está en el texto, no lo dupliques.\n\nDatos:\n${lineas.join('\n')}`;
+  const instruccion = 'INSTRUCCIÓN DEL SISTEMA: Agregá los siguientes datos al final del comunicado, antes del cierre "LA EUGE informa 📣". Formato compacto — una línea por dato salvo podas grandes que van en multilínea. Si alguno ya está en el texto, no lo dupliques.\n\nDatos:\n' + lineas.join('\n');
   await aplicarAjusteDirecto(instruccion);
 }
 
@@ -483,7 +483,7 @@ async function aplicarAjuste() {
   const ajuste = document.getElementById('textoAjuste').value.trim();
   if (!ajuste) return;
   cerrarAjuste();
-  const instruccionEstricta = `AJUSTE PUNTUAL: Aplicá ÚNICAMENTE el siguiente cambio: "${ajuste}". Todo lo demás del comunicado debe quedar exactamente igual — mismo texto, mismo orden, mismos párrafos, mismos datos. No reorganices, no reescribas, no mejores nada que no se haya pedido cambiar explícitamente.`;
+  const instruccionEstricta = 'AJUSTE PUNTUAL: Aplicá ÚNICAMENTE el siguiente cambio: "' + ajuste + '". Todo lo demás del comunicado debe quedar exactamente igual — mismo texto, mismo orden, mismos párrafos, mismos datos. No reorganices, no reescribas, no mejores nada que no se haya pedido cambiar explícitamente.';
   await aplicarAjusteDirecto(instruccionEstricta);
 }
 
