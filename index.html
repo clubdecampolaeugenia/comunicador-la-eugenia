@@ -54,19 +54,24 @@
     .mic-btn.grabando { background: var(--error); animation: pulse 1s infinite; }
     @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
     .meta-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
-    .categoria-badge { display: inline-block; background: var(--petroleo); color: var(--lima); font-size: 11px; font-weight: 900; border-radius: 20px; padding: 4px 12px; letter-spacing: 0.5px; }
+    .categoria-badge { display: inline-block; background: var(--petroleo); color: var(--lima); font-size: 12px; font-weight: 900; border-radius: 20px; padding: 5px 12px; letter-spacing: 0.3px; }
     .categoria-select { border: 2px solid var(--petroleo); cursor: pointer; outline: none; -webkit-appearance: none; -moz-appearance: none; appearance: none; padding-right: 26px; background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c4df57' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; background-size: 12px; }
-    .intervencion-badge { display: inline-block; font-size: 11px; font-weight: 900; border-radius: 20px; padding: 4px 10px; background: var(--petroleo); color: var(--naranja); }
-    .chars-badge { display: inline-block; font-size: 11px; font-weight: 700; border-radius: 20px; padding: 4px 10px; background: var(--blanco); color: var(--petroleo); }
-    .chars-badge.largo { background: var(--petroleo); color: var(--naranja); }
+    .intervencion-badge { display: inline-block; font-size: 12px; font-weight: 900; border-radius: 20px; padding: 5px 12px; background: var(--petroleo); color: var(--naranja); }
+    .chars-badge { display: inline-block; font-size: 12px; font-weight: 700; border-radius: 20px; padding: 5px 12px; background: var(--blanco); color: var(--petroleo); }
+    .chars-badge.largo { background: var(--petroleo); color: var(--naranja); font-size: 12px; padding: 5px 12px; }
     .resultado-wrap { display: none; margin-bottom: 10px; }
     .resultado-cabecera { background: var(--blanco); border-radius: 14px 14px 0 0; border: 2px solid var(--verdecl); border-bottom: none; padding: 12px 19px 12px; color: var(--petroleo); font-size: 15px; font-style: italic; line-height: 1.5; white-space: pre-wrap; }
-    .resultado-box { background: var(--blanco); border-radius: 0; border: 2px solid var(--verdecl); border-top: 1px solid #d4e8d2; border-bottom: 1px solid #d4e8d2; padding: 10px 19px; color: var(--petroleo); font-size: 15px; font-family: 'Roboto', sans-serif; line-height: 1.7; white-space: pre-wrap; min-height: 120px; width: 100%; box-sizing: border-box; resize: vertical; outline: none; }
+    .resultado-box { background: var(--blanco); border-radius: 0; border: 2px solid var(--verdecl); border-top: 1px solid #d4e8d2; border-bottom: 1px solid #d4e8d2; padding: 10px 19px; color: var(--petroleo); font-size: 15px; font-family: 'Roboto', sans-serif; line-height: 1.7; white-space: pre-wrap; min-height: 120px; width: 100%; box-sizing: border-box; display: block; resize: vertical; outline: none; }
     .resultado-box:focus { border-color: var(--naranja); border-top-color: var(--naranja); border-bottom-color: var(--naranja); }
     .resultado-pie { background: var(--blanco); border-radius: 0 0 14px 14px; border: 2px solid var(--verdecl); border-top: none; padding: 12px 19px 12px; color: var(--petroleo); font-size: 15px; line-height: 1.5; }
     .editable-hint { position: absolute; bottom: 10px; right: 12px; font-size: 11px; color: var(--petroleo); opacity: 0.4; pointer-events: none; }
     .correccion-wrap { margin-bottom: 10px; }
     .correccion-hint { color: var(--petroleo); font-size: 12px; font-style: italic; opacity: 0.7; margin: 0 0 6px; }
+    .btn-correccion-off { display: block; width: 100%; padding: 13px; border-radius: 24px; border: 2px solid #bbb; background: transparent; color: #bbb; font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; cursor: not-allowed; text-align: center; margin-bottom: 10px; }
+    .btn-correccion-on { display: block; width: 100%; padding: 13px; border-radius: 24px; border: 2px solid var(--naranja); background: var(--petroleo); color: var(--naranja); font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; cursor: pointer; text-align: center; margin-bottom: 10px; transition: opacity 0.15s; }
+    .btn-correccion-on:hover { opacity: 0.88; }
+    .btn-correccion-on:active { transform: scale(0.96); }
+    .resultado-box.editado { border-color: var(--naranja); border-top-color: var(--naranja); border-bottom-color: var(--naranja); }
     .resultado-box:focus { border-color: var(--naranja); }
     .btn-copiar-secundario { display: inline-block; background: transparent; border: none; color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 700; text-transform: none; cursor: pointer; padding: 4px 0; margin-bottom: 14px; text-decoration: underline; text-align: left; transition: opacity 0.15s; }
     .btn-copiar-secundario:hover { opacity: 0.7; }
@@ -78,7 +83,7 @@
     .btn-resumir:active { transform: scale(0.96); box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
     .btn-dividir { flex: 1; padding: 10px; border-radius: 24px; border: 2px solid var(--lima); background: transparent; color: var(--lima); font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.08s, box-shadow 0.08s; }
     .btn-dividir:active { transform: scale(0.96); box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
-    .advertencia-box { background: var(--petroleo); border: 2px solid var(--naranja); border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; color: var(--naranja); font-size: 13px; font-weight: 700; display: none; }
+    .advertencia-box { background: var(--lima); border: 2px solid var(--petroleo); border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; color: var(--petroleo); font-size: 13px; font-weight: 700; display: none; }
     .btn-datos { display: block; width: 100%; padding: 12px; border-radius: 24px; border: 2px dashed var(--petroleo); background: transparent; color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; cursor: pointer; text-align: center; margin-bottom: 14px; transition: transform 0.08s, box-shadow 0.08s; }
     .btn-datos:active { transform: scale(0.97); box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
     .datos-panel { background: var(--petroleo); border: 2px solid var(--lima); border-radius: 14px; padding: 14px; margin-bottom: 14px; display: none; }
@@ -127,6 +132,14 @@
   </style>
 </head>
 <body>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var pr = document.getElementById('pasoResultado');
+  if (pr) pr.style.display = 'none';
+  var rw = document.querySelector('.resultado-wrap');
+  if (rw) rw.style.display = 'none';
+});
+</script>
 <div class="card">
   <div class="logo-wrap"><img src="https://i.imgur.com/UgiYLGk.png" alt="Logo La Eugenia"></div>
   <h1>Comunicador</h1>
@@ -159,16 +172,15 @@
           <option value="Intendencia" data-emoji="🚜">#Intendencia 🚜</option>
           <option value="ResiduosVerdes" data-emoji="🌿">#ResiduosVerdes 🌿</option>
           <option value="Obra" data-emoji="🚧">#Obra 🚧</option>
-          <option value="Urgente" data-emoji="🚨">#Urgente 🚨</option>
           <option value="Atencion" data-emoji="⚠️">#Atencion ⚠️</option>
           <option value="InformacionGeneral" data-emoji="ℹ️">#InformacionGeneral ℹ️</option>
           <option value="Convivencia" data-emoji="🤝">#Convivencia 🤝</option>
-          <option value="TemporadaDeVerano" data-emoji="☀️">#TemporadaDeVerano ☀️</option>
-          <option value="Pileta" data-emoji="💦">#Pileta 💦</option>
-          <option value="EventoSocial" data-emoji="🎉">#EventoSocial 🎉</option>
+          <option value="TemporadaDeVerano" data-emoji="🏖️">#TemporadaDeVerano 🏖️</option>
+          <option value="Evento" data-emoji="📅">#Evento 📅</option>
           <option value="ReunionInstitucional" data-emoji="🏛️">#ReunionInstitucional 🏛️</option>
           <option value="MuyImportante" data-emoji="❗">#MuyImportante ❗</option>
           <option value="Seguridad" data-emoji="🛡️">#Seguridad 🛡️</option>
+          <option value="Transito" data-emoji="🚦">#Transito 🚦</option>
           <option value="Administracion" data-emoji="📁">#Administracion 📁</option>
           <option value="Recordatorio" data-emoji="🔔">#Recordatorio 🔔</option>
           <option value="MedioAmbiente" data-emoji="♻️">#MedioAmbiente ♻️</option>
@@ -193,11 +205,9 @@
         </div>
         <div class="resultado-pie" id="pie-fijo">LA EUGE informa 📣</div>
       </div>
-      <div class="correccion-wrap" id="correccionWrap" style="display:none;">
-        <p class="correccion-hint">¿Editaste manualmente?</p>
-        <button type="button" class="btn-outline" id="btnAjustar" onclick="correccionFinal()">Corrección Final IA</button>
-      </div>
-      <button type="button" class="btn-copiar-secundario" id="btnCopiar" onclick="copiarMensaje()">📋 Copiar mensaje</button>
+      <button type="button" class="btn-copiar-secundario" id="btnCopiar" onclick="copiarMensaje()" style="display:none;">📋 Copiar mensaje</button>
+      <p class="correccion-hint" id="correccionHint" style="display:none;">¿Editaste manualmente?</p>
+      <button type="button" class="btn-correccion-off" id="btnAjustar" onclick="correccionFinal()" disabled style="display:none;">Corrección Final con IA</button>
       <div id="mensajesDivididos" style="display:none;">
         <span class="msg-label">Parte 1</span>
         <div class="msg-separado" id="msg1"></div>
@@ -257,10 +267,7 @@
         <button type="button" class="btn-incorporar" onclick="incorporarDatos()">Incorporar al comunicado</button>
         <button type="button" class="btn-ghost" style="color:var(--lima);margin-top:6px;" onclick="cerrarDatos()">Cancelar</button>
       </div>
-<button type="button" class="btn-solid" onclick="aplicarAjuste()">Aplicar ajuste</button>
-        <button type="button" class="btn-ghost" onclick="cerrarAjuste()">Cancelar</button>
-      </div>
-      <a class="btn-solid" id="btnWhatsApp" href="#" target="_blank">Enviar por WhatsApp</a>
+      <a class="btn-solid" id="btnWhatsApp" href="#" target="_blank" style="display:none;">Enviar por WhatsApp</a>
       <hr class="divider">
       <button type="button" class="btn-ghost" onclick="cerrarSesion()">Cerrar sesión</button>
     </div>
@@ -324,7 +331,7 @@ HASHTAG TEMÁTICO — NUEVO, OBLIGATORIO:
 El hashtag temático en cursiva junto con el emoji de categoría van SOLOS en la primera línea del mensaje (formato _#NombreHashtag_ + emoji, sin ningún otro texto en esa línea). Después de esa línea va una línea en blanco, y recién en la línea siguiente arranca el saludo o título del comunicado.
 
 Lista cerrada de hashtags válidos — usar EXACTAMENTE estos nombres (PascalCase: cada palabra que compone el nombre arranca con mayúscula, sin espacios ni acentos):
-_#Intendencia_ _#ResiduosVerdes_ _#Obra_ _#Urgente_ _#Atencion_ _#InformacionGeneral_ _#Convivencia_ _#Pileta_ _#TemporadaDeVerano_ _#EventoSocial_ _#ReunionInstitucional_ _#MuyImportante_ _#Seguridad_ _#Administracion_ _#Recordatorio_ _#MedioAmbiente_
+_#Intendencia_ _#ResiduosVerdes_ _#Obra_ _#Atencion_ _#InformacionGeneral_ _#Convivencia_ _#TemporadaDeVerano_ _#EventoSocial_ _#ReunionInstitucional_ _#MuyImportante_ _#Seguridad_ _#Administracion_ _#Recordatorio_ _#MedioAmbiente_
 
 El hashtag y el emoji deben corresponder a la MISMA categoría temática. Formato exacto de las primeras líneas del mensaje (hashtag+emoji en su propio renglón, línea en blanco, después el saludo):
 _#Intendencia_ 🚜
@@ -354,16 +361,15 @@ EMOJIS POR CATEGORÍA — elegir el emoji y el hashtag correspondiente según el
 - _#Intendencia_ 🚜 Mantenimiento general / corte de césped / trabajos en el predio
 - _#ResiduosVerdes_ 🌿 Poda / recolección de residuos verdes / ponchadas / horquillado / cachapé
 - _#Obra_ 🚧 Obra / construcción / vía inhabilitada / acceso cortado
-- _#Urgente_ 🚨 Urgente
 - _#Atencion_ ⚠️ Atención / importante / advertencia
 - _#InformacionGeneral_ ℹ️ Información general / novedades / comunicados varios
 - _#Convivencia_ 🤝 Convivencia / normas de uso / comportamiento
-- _#Pileta_ 💦 Pileta / natación
-- _#TemporadaDeVerano_ ☀️ Avisos estacionales de verano (horarios extendidos, actividades de verano)
-- _#EventoSocial_ 🎉 Fiesta / celebración / evento social del club
+- _#TemporadaDeVerano_ 🏖️ Avisos estacionales de verano (horarios extendidos, actividades de verano)
+- _#Evento_ 📅 Eventos del club: sociales, deportivos, culturales, celebraciones
 - _#ReunionInstitucional_ 🏛️ Asamblea de socios / reunión de Comisión Directiva / foros abiertos
 - _#MuyImportante_ ❗ Decisión institucional relevante que no es urgente pero requiere atención
 - _#Seguridad_ 🛡️ Garita, accesos, cámaras, incidentes de seguridad, y recomendaciones preventivas (robos, incendios, cuidados generales)
+- _#Transito_ 🚦 Tránsito, circulación, velocidad, accesos vehiculares, estacionamiento
 - _#Administracion_ 📁 Cuota social, tesorería, pagos, facturación, estado de cuenta
 - _#Recordatorio_ 🔔 Recordatorios y alertas puntuales no urgentes (vencimientos, fechas próximas)
 - _#MedioAmbiente_ ♻️ Reciclaje, cuidado ambiental, sustentabilidad, separación de residuos, concientización ecológica
@@ -451,11 +457,12 @@ function toggleMic() {
   recognition.start();
 }
 
-async function llamarAPI(mensajes) {
+async function llamarAPI(mensajes, systemPrompt) {
+  const sp = systemPrompt || SYSTEM_PROMPT;
   const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-api-key': AK, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-    body: JSON.stringify({ model: 'claude-haiku-4-5-20251001', max_tokens: 2048, system: SYSTEM_PROMPT, messages: mensajes })
+    body: JSON.stringify({ model: 'claude-haiku-4-5-20251001', max_tokens: 2048, system: sp, messages: mensajes })
   });
   const data = await response.json();
   if (!data.content || !data.content[0]) throw new Error('Sin respuesta');
@@ -518,10 +525,10 @@ function mostrarResultado(raw) {
 
   document.getElementById('cabecera-fija').innerText = cabecera;
   document.getElementById('resultadoBox').value = cuerpo;
-  document.getElementById('resultado-wrap') || (document.querySelector('.resultado-wrap').style.display = 'block');
+  document.getElementById('resultadoBox').style.display = 'block';
   document.querySelector('.resultado-wrap').style.display = 'block';
   textoEditado = false;
-  document.getElementById('correccionWrap').style.display = 'none';
+  
 
   const chars = parsed.mensaje.length;
   const cb = document.getElementById('charsBadge');
@@ -547,6 +554,7 @@ function mostrarResultado(raw) {
   document.getElementById('msg2').style.display = 'none';
   document.getElementById('btnCopiar').style.display = 'block';
   document.getElementById('btnWhatsApp').style.display = 'block';
+  document.getElementById('btnAjustar').style.display = 'block';
   document.getElementById('datosPanel').style.display = 'none';
   document.getElementById('btnNuevoExterno').style.display = 'block';
   document.querySelector('.btn-cgv-externo').style.marginTop = '10px';
@@ -574,7 +582,11 @@ function onEditarTexto() {
   actualizarEnlaceWA();
   if (!textoEditado) {
     textoEditado = true;
-    document.getElementById('correccionWrap').style.display = 'block';
+    document.getElementById('btnAjustar').className = 'btn-correccion-on';
+    document.getElementById('btnAjustar').disabled = false;
+    document.getElementById('btnAjustar').innerHTML = '✦ Corrección Final con IA';
+    document.getElementById('correccionHint').style.display = 'block';
+    document.getElementById('resultadoBox').classList.add('editado');
   }
 }
 
@@ -695,17 +707,11 @@ async function correccionFinal() {
   const textoOriginal = document.getElementById('textoEntrada').value.trim();
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': AK, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-      body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001', max_tokens: 2048,
-        system: 'Sos un corrector de textos institucionales en español rioplatense. Corregís ortografía, tildes y suavizás levemente frases cortantes, sin cambiar el contenido, el orden ni la estructura del texto. Devolvés SOLO el texto corregido, sin comentarios, sin explicaciones, sin formato JSON.',
-        messages: [{ role: 'user', content: 'Revisá y corregí este comunicado:\n\n' + mensajeCompleto }]
-      })
-    });
-    const data = await response.json();
-    const textoCorregido = data.content && data.content[0] ? data.content[0].text.trim() : null;
+    const SYSTEM_CORRECTOR = 'Sos un corrector de textos institucionales en español rioplatense. Corregís ortografía, tildes y suavizás levemente frases cortantes, sin cambiar el contenido, el orden ni la estructura del texto. Devolvés SOLO el texto corregido, sin comentarios, sin explicaciones, sin formato JSON. REGLA CRÍTICA: Las líneas que contienen URLs (https://), números de teléfono, CBU, alias bancarios o datos de contacto deben copiarse exactamente igual, sin modificar ni un carácter.';
+    const raw = await llamarAPI([
+      { role: 'user', content: 'Revisá y corregí este comunicado. Devolvé SOLO el texto corregido, sin comentarios ni explicaciones:\n\n' + mensajeCompleto }
+    ], SYSTEM_CORRECTOR);
+    const textoCorregido = raw.trim();
     if (!textoCorregido) throw new Error('Sin respuesta');
 
     const CIERRE = 'LA EUGE informa 📣';
@@ -720,7 +726,14 @@ async function correccionFinal() {
 
     icon.style.display = 'block';
     icon.style.animation = 'popIn 0.5s cubic-bezier(0.34,1.56,0.64,1)';
-    titulo.innerText = 'Revisión Final IA completa';
+    titulo.innerText = 'Revisión Final con IA completa';
+    reproducirSonidoMagico();
+    textoEditado = false;
+    document.getElementById('btnAjustar').className = 'btn-correccion-off';
+    document.getElementById('btnAjustar').disabled = true;
+    document.getElementById('btnAjustar').innerHTML = 'Corrección Final con IA';
+    document.getElementById('correccionHint').style.display = 'none';
+    document.getElementById('resultadoBox').classList.remove('editado');
     setTimeout(() => {
       popup.style.display = 'none';
       icon.style.display = 'none';
@@ -778,8 +791,13 @@ function nuevoMensaje() {
   document.getElementById('msg2').style.display = 'none';
   document.getElementById('btnCopiar').style.display = 'block';
   document.getElementById('btnWhatsApp').style.display = 'block';
-  document.getElementById('correccionWrap').style.display = 'none';
+  
   document.getElementById('btnNuevoExterno').style.display = 'none';
+  document.getElementById('btnAjustar').className = 'btn-correccion-off';
+  document.getElementById('btnAjustar').disabled = true;
+  document.getElementById('btnAjustar').innerHTML = 'Corrección Final con IA';
+  document.getElementById('btnAjustar').style.display = 'none';
+  document.getElementById('resultadoBox').classList.remove('editado');
   document.querySelector('.btn-cgv-externo').style.marginTop = '36px';
   document.querySelector('.resultado-wrap').style.display = 'none';
   document.getElementById('cabecera-fija').innerText = '';
@@ -793,6 +811,31 @@ function nuevoMensaje() {
   document.getElementById('hashtagSelect').value = 'InformacionGeneral';
   cerrarTodosAcordeones();
 }
+function reproducirSonidoMagico() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    function tono(freq, inicio, duracion, volumen) {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime + inicio);
+      gain.gain.setValueAtTime(0, ctx.currentTime + inicio);
+      gain.gain.linearRampToValueAtTime(volumen, ctx.currentTime + inicio + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + inicio + duracion);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(ctx.currentTime + inicio);
+      osc.stop(ctx.currentTime + inicio + duracion);
+    }
+    tono(523,  0.00, 0.45, 0.12);
+    tono(659,  0.18, 0.45, 0.12);
+    tono(784,  0.36, 0.65, 0.10);
+    tono(1047, 0.52, 0.50, 0.05);
+    tono(1319, 0.58, 0.45, 0.04);
+    tono(1568, 0.64, 0.40, 0.03);
+  } catch(e) {}
+}
+
 function cerrarSesion() {
   nuevoMensaje();
   document.getElementById('mainScreen').style.display = 'none';
