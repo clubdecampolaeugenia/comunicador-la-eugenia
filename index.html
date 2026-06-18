@@ -34,7 +34,7 @@
       80% { transform: translateX(4px); }
     }
 
-    .card { background: var(--verdecl); border-radius: 24px; width: 100%; max-width: 480px; padding: 28px 24px; box-sizing: border-box; box-shadow: 0 10px 28px rgba(0,0,0,0.4); }
+    .card { background: var(--verdecl); border-radius: 24px; width: 100%; max-width: 480px; padding: 28px 24px 18px; box-sizing: border-box; box-shadow: 0 10px 28px rgba(0,0,0,0.4); }
     .logo-wrap img { width: 165px; height: auto; display: block; margin: 0 auto 0px; filter: drop-shadow(0 4px 7px rgba(0,0,0,0.2)); }
     h1 { margin: 2px 0 4px; color: var(--negro); font-family: Impact, sans-serif; font-size: 28px; line-height: 1; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
     .subtitle { text-align: center; color: var(--petroleo); font-size: 14px; margin-bottom: 20px; }
@@ -46,7 +46,7 @@
     .pin-error { text-align: center; color: var(--error); font-size: 13px; font-weight: 700; min-height: 18px; margin-bottom: 8px; }
     .field-label { color: var(--petroleo); font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 6px; display: block; }
     .textarea-wrap { position: relative; margin-bottom: 14px; }
-    textarea { width: 100%; border: 2px solid var(--petroleo); border-radius: 14px; padding: 14px 48px 14px 14px; background: var(--blanco); color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 16px; line-height: 1.5; resize: vertical; min-height: 170px; outline: none; }
+    textarea { width: 100%; border: 2px solid var(--petroleo); border-radius: 14px; padding: 14px 48px 14px 14px; background: var(--blanco); color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 16px; line-height: 1.5; resize: vertical; min-height: 204px; outline: none; }
     textarea:focus { border-color: var(--naranja); }
     textarea.sin-mic { padding-right: 12px; min-height: 70px; }
     .mic-btn { position: absolute; bottom: 10px; right: 10px; background: var(--naranja); border: 2px solid var(--petroleo); border-radius: 50%; width: 36px; height: 36px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; transition: transform 0.08s; }
@@ -54,12 +54,20 @@
     .mic-btn.grabando { background: var(--error); animation: pulse 1s infinite; }
     @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
     .meta-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
-    .categoria-badge { display: inline-block; background: var(--petroleo); color: var(--lima); font-size: 11px; font-weight: 900; text-transform: uppercase; border-radius: 20px; padding: 4px 12px; letter-spacing: 0.5px; }
+    .categoria-badge { display: inline-block; background: var(--petroleo); color: var(--lima); font-size: 11px; font-weight: 900; border-radius: 20px; padding: 4px 12px; letter-spacing: 0.5px; }
     .categoria-select { border: 2px solid var(--petroleo); cursor: pointer; outline: none; -webkit-appearance: none; -moz-appearance: none; appearance: none; padding-right: 26px; background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c4df57' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; background-size: 12px; }
     .intervencion-badge { display: inline-block; font-size: 11px; font-weight: 900; border-radius: 20px; padding: 4px 10px; background: var(--petroleo); color: var(--naranja); }
     .chars-badge { display: inline-block; font-size: 11px; font-weight: 700; border-radius: 20px; padding: 4px 10px; background: var(--blanco); color: var(--petroleo); }
     .chars-badge.largo { background: var(--petroleo); color: var(--naranja); }
-    .resultado-box { background: var(--blanco); border-radius: 14px; padding: 19px; margin-bottom: 10px; color: var(--petroleo); font-size: 15px; line-height: 1.7; white-space: pre-wrap; min-height: 120px; display: none; animation: fadeInScreen 0.3s ease-out; }
+    .resultado-wrap { display: none; margin-bottom: 10px; }
+    .resultado-cabecera { background: var(--blanco); border-radius: 14px 14px 0 0; border: 2px solid var(--verdecl); border-bottom: none; padding: 12px 19px 8px; color: var(--petroleo); font-size: 15px; font-style: italic; line-height: 1.5; white-space: pre-wrap; }
+    .resultado-box { background: var(--blanco); border-radius: 0; border: 2px solid var(--verdecl); border-top: 1px solid #d4e8d2; border-bottom: 1px solid #d4e8d2; padding: 10px 19px; color: var(--petroleo); font-size: 15px; font-family: 'Roboto', sans-serif; line-height: 1.7; white-space: pre-wrap; min-height: 120px; width: 100%; box-sizing: border-box; resize: vertical; outline: none; }
+    .resultado-box:focus { border-color: var(--naranja); border-top-color: var(--naranja); border-bottom-color: var(--naranja); }
+    .resultado-pie { background: var(--blanco); border-radius: 0 0 14px 14px; border: 2px solid var(--verdecl); border-top: none; padding: 8px 19px 12px; color: var(--petroleo); font-size: 15px; line-height: 1.5; }
+    .editable-hint { position: absolute; bottom: 10px; right: 12px; font-size: 11px; color: var(--petroleo); opacity: 0.4; pointer-events: none; }
+    .correccion-wrap { margin-bottom: 10px; }
+    .correccion-hint { color: var(--petroleo); font-size: 12px; font-style: italic; opacity: 0.7; margin: 0 0 6px; }
+    .resultado-box:focus { border-color: var(--naranja); }
     .btn-copiar-secundario { display: inline-block; background: transparent; border: none; color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 700; text-transform: none; cursor: pointer; padding: 4px 0; margin-bottom: 14px; text-decoration: underline; text-align: left; transition: opacity 0.15s; }
     .btn-copiar-secundario:hover { opacity: 0.7; }
     .longitud-box { background: var(--petroleo); border: 2px solid var(--naranja); border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; display: none; }
@@ -107,11 +115,11 @@
     .btn-nuevo-externo { display: block; width: 100%; max-width: 480px; margin: 36px auto 0; border-radius: 10px; padding: 14px; font-family: Impact, sans-serif; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; box-sizing: border-box; text-align: center; border: 2px solid var(--lima); background: transparent; color: var(--lima); cursor: pointer; transition: transform 0.08s, box-shadow 0.08s, opacity 0.15s; }
     .btn-nuevo-externo:hover { opacity: 0.75; }
     .btn-nuevo-externo:active { transform: scale(0.96); box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
-    .btn-cgv-externo { display: block; width: 100%; max-width: 480px; margin: 10px auto 0; border-radius: 10px; padding: 14px; font-family: Impact, sans-serif; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; box-sizing: border-box; text-align: center; text-decoration: none; border: 2px solid var(--petroleo); background: var(--lima); color: var(--petroleo); cursor: pointer; transition: transform 0.08s, box-shadow 0.08s, opacity 0.15s; }
+    .btn-cgv-externo { display: block; width: 100%; max-width: 480px; margin: 36px auto 0; border-radius: 10px; padding: 14px; font-family: Impact, sans-serif; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; box-sizing: border-box; text-align: center; text-decoration: none; border: 2px solid var(--petroleo); background: var(--lima); color: var(--petroleo); cursor: pointer; transition: transform 0.08s, box-shadow 0.08s, opacity 0.15s; }
     .btn-cgv-externo:hover { opacity: 0.88; }
     .btn-cgv-externo:active { transform: scale(0.96); box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
     .btn-outline:hover { background: var(--petroleo); color: var(--naranja); }
-    .btn-ghost { display: block; width: 100%; padding: 10px; border-radius: 24px; border: none; background: transparent; color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; cursor: pointer; text-align: center; margin-bottom: 4px; }
+    .btn-ghost { display: block; width: 100%; padding: 10px; border-radius: 24px; border: none; background: transparent; color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; cursor: pointer; text-align: center; margin-bottom: 0; }
     .divider { border: none; border-top: 1.5px solid #9bb583; margin: 16px 0; }
     .msg-separado { background: var(--blanco); border-radius: 14px; padding: 16px; margin-bottom: 10px; color: var(--petroleo); font-size: 15px; line-height: 1.7; white-space: pre-wrap; display: none; }
     .msg-label { color: var(--petroleo); font-size: 11px; font-weight: 900; text-transform: uppercase; margin-bottom: 6px; display: block; }
@@ -177,7 +185,18 @@
         </div>
       </div>
       <span class="field-label">Comunicado generado</span>
-      <div class="resultado-box" id="resultadoBox"></div>
+      <div class="resultado-wrap">
+        <div class="resultado-cabecera" id="cabecera-fija"></div>
+        <div style="position:relative;">
+          <textarea class="resultado-box" id="resultadoBox" oninput="onEditarTexto()"></textarea>
+          <span class="editable-hint">✏️ editable</span>
+        </div>
+        <div class="resultado-pie" id="pie-fijo">LA EUGE informa 📣</div>
+      </div>
+      <div class="correccion-wrap" id="correccionWrap" style="display:none;">
+        <p class="correccion-hint">¿Editaste manualmente?</p>
+        <button type="button" class="btn-outline" id="btnAjustar" onclick="abrirAjuste()">Corrección Final IA</button>
+      </div>
       <button type="button" class="btn-copiar-secundario" id="btnCopiar" onclick="copiarMensaje()">📋 Copiar mensaje</button>
       <div id="mensajesDivididos" style="display:none;">
         <span class="msg-label">Parte 1</span>
@@ -239,14 +258,13 @@
         <button type="button" class="btn-ghost" style="color:var(--lima);margin-top:6px;" onclick="cerrarDatos()">Cancelar</button>
       </div>
       <div class="ajuste-box" id="ajusteBox">
-        <span class="field-label">¿Qué querés ajustar?</span>
+        <span class="field-label">¿Qué querés que la IA revise o corrija?</span>
         <div class="textarea-wrap">
-          <textarea class="sin-mic" id="textoAjuste" placeholder='Cambio puntual. Ej: "cambiá el horario por las 18hs", "sacá el tercer párrafo", "reemplazá el saludo por Buenas tardes". Si hay mucho para cambiar, mejor empezar de nuevo.'></textarea>
+          <textarea class="sin-mic" id="textoAjuste" placeholder='Ej: "revisá si el tono es adecuado", "corregí errores ortográficos", "verificá que el formato de WhatsApp esté bien". Para cambios de fondo, editá el texto directamente.'></textarea>
         </div>
         <button type="button" class="btn-solid" onclick="aplicarAjuste()">Aplicar ajuste</button>
         <button type="button" class="btn-ghost" onclick="cerrarAjuste()">Cancelar</button>
       </div>
-      <button type="button" class="btn-outline" id="btnAjustar" onclick="abrirAjuste()">Ajustar comunicado</button>
       <a class="btn-solid" id="btnWhatsApp" href="#" target="_blank">Enviar por WhatsApp</a>
       <hr class="divider">
       <button type="button" class="btn-ghost" onclick="cerrarSesion()">Cerrar sesión</button>
@@ -254,7 +272,7 @@
   </div>
 </div>
 
-<button type="button" class="btn-nuevo-externo" onclick="nuevoMensaje()">Nuevo comunicado</button>
+<button type="button" id="btnNuevoExterno" class="btn-nuevo-externo" onclick="nuevoMensaje()" style="display:none;">Nuevo comunicado</button>
 <a class="btn-cgv-externo" href="https://clubdecampolaeugenia.taplink.site/" target="_blank">Ir al Centro de Gestión Vecinal</a>
 
 <script>
@@ -488,8 +506,19 @@ function mostrarResultado(raw) {
   const nivel = niveles[parsed.intervencion] || niveles['menor'];
   ib.innerText = nivel[0];
 
-  document.getElementById('resultadoBox').innerText = parsed.mensaje;
-  document.getElementById('resultadoBox').style.display = 'block';
+  const lineas = parsed.mensaje.split('\n');
+  const cabecera = lineas[0] || '';
+  const cierreIdx = parsed.mensaje.lastIndexOf('LA EUGE informa 📣');
+  let cuerpo = cierreIdx > -1
+    ? parsed.mensaje.substring(lineas[0].length).replace(/^[\n]+/, '').substring(0, cierreIdx - lineas[0].length).replace(/^[\n]+/, '').trimEnd()
+    : parsed.mensaje.substring(lineas[0].length).replace(/^[\n]+/, '').trimEnd();
+
+  document.getElementById('cabecera-fija').innerText = cabecera;
+  document.getElementById('resultadoBox').value = cuerpo;
+  document.getElementById('resultado-wrap') || (document.querySelector('.resultado-wrap').style.display = 'block');
+  document.querySelector('.resultado-wrap').style.display = 'block';
+  textoEditado = false;
+  document.getElementById('correccionWrap').style.display = 'none';
 
   const chars = parsed.mensaje.length;
   const cb = document.getElementById('charsBadge');
@@ -517,32 +546,44 @@ function mostrarResultado(raw) {
   document.getElementById('btnWhatsApp').style.display = 'block';
   document.getElementById('datosPanel').style.display = 'none';
   document.getElementById('ajusteBox').style.display = 'none';
-  document.getElementById('btnAjustar').style.display = 'block';
+  document.getElementById('btnNuevoExterno').style.display = 'block';
+  document.querySelector('.btn-cgv-externo').style.marginTop = '10px';
 
-  const msgEncoded = encodeURIComponent(parsed.mensaje);
+  const msgEncoded = encodeURIComponent(obtenerMensajeCompleto());
   document.getElementById('btnWhatsApp').href = 'https://wa.me/' + WA_NUMERO + '?text=' + msgEncoded;
   document.getElementById('pasoResultado').style.display = 'block';
+}
+
+let textoEditado = false;
+
+function obtenerMensajeCompleto() {
+  const cabecera = document.getElementById('cabecera-fija').innerText.trim();
+  const cuerpo = document.getElementById('resultadoBox').value.trim();
+  const pie = document.getElementById('pie-fija') ? document.getElementById('pie-fija').innerText.trim() : 'LA EUGE informa 📣';
+  return cabecera + '\n\n' + cuerpo + '\n\n' + pie;
+}
+
+function actualizarEnlaceWA() {
+  const texto = obtenerMensajeCompleto();
+  document.getElementById('btnWhatsApp').href = 'https://wa.me/' + WA_NUMERO + '?text=' + encodeURIComponent(texto);
+}
+
+function onEditarTexto() {
+  actualizarEnlaceWA();
+  if (!textoEditado) {
+    textoEditado = true;
+    document.getElementById('correccionWrap').style.display = 'block';
+  }
 }
 
 function cambiarHashtag() {
   const sel = document.getElementById('hashtagSelect');
   const nuevoNombre = sel.value;
   const nuevoEmoji = sel.options[sel.selectedIndex].dataset.emoji;
-  const box = document.getElementById('resultadoBox');
-  let texto = box.innerText;
-
-  const patron = /^_#[A-Za-zÁÉÍÓÚáéíóúñÑ]+_\s*[^\sA-Za-z0-9]+\s*/u;
-  const reemplazo = '_#' + nuevoNombre + '_ ' + nuevoEmoji + ' ';
-
-  if (patron.test(texto)) {
-    texto = texto.replace(patron, reemplazo);
-  } else {
-    texto = reemplazo + texto;
-  }
-
-  box.innerText = texto;
-  const msgEncoded = encodeURIComponent(texto);
-  document.getElementById('btnWhatsApp').href = 'https://wa.me/' + WA_NUMERO + '?text=' + msgEncoded;
+  const cabecera = document.getElementById('cabecera-fija');
+  const nuevaCabecera = '_#' + nuevoNombre + '_ ' + nuevoEmoji;
+  cabecera.innerText = nuevaCabecera;
+  actualizarEnlaceWA();
 }
 
 function toggleDatos() {
@@ -593,7 +634,7 @@ async function resumirMensaje() {
 }
 
 async function dividirMensaje() {
-  const mensajeActual = document.getElementById('resultadoBox').innerText.trim();
+  const mensajeActual = obtenerMensajeCompleto().trim();
   const textoOriginal = document.getElementById('textoEntrada').value.trim();
   document.getElementById('longitudBox').style.display = 'none';
   document.getElementById('pasoResultado').style.display = 'none';
@@ -640,12 +681,13 @@ function copiarMsgSeparado(num) {
 function abrirAjuste() {
   document.getElementById('ajusteBox').style.display = 'block';
   document.getElementById('btnAjustar').style.display = 'none';
+  document.getElementById('correccionWrap').style.display = 'none';
   document.getElementById('textoAjuste').value = '';
   document.getElementById('textoAjuste').focus();
 }
 function cerrarAjuste() {
   document.getElementById('ajusteBox').style.display = 'none';
-  document.getElementById('btnAjustar').style.display = 'block';
+  if (textoEditado) document.getElementById('correccionWrap').style.display = 'block';
   document.getElementById('textoAjuste').value = '';
 }
 
@@ -658,7 +700,7 @@ async function aplicarAjuste() {
 }
 
 async function aplicarAjusteDirecto(instruccion) {
-  const mensajeActual = document.getElementById('resultadoBox').innerText.trim();
+  const mensajeActual = obtenerMensajeCompleto().trim();
   if (!mensajeActual) { alert('No hay comunicado para ajustar.'); return; }
   const textoOriginal = document.getElementById('textoEntrada').value.trim();
   document.getElementById('pasoResultado').style.display = 'none';
@@ -677,7 +719,7 @@ async function aplicarAjusteDirecto(instruccion) {
 }
 
 function copiarMensaje() {
-  const texto = document.getElementById('resultadoBox').innerText;
+  const texto = obtenerMensajeCompleto();
   const btn = document.getElementById('btnCopiar');
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(texto).then(() => { btn.innerText = '✅ ¡Copiado!'; setTimeout(() => { btn.innerText = '📋 Copiar mensaje'; }, 2000); }).catch(() => copiarFallback(texto, btn));
@@ -693,7 +735,7 @@ function copiarFallback(texto, btn) {
 
 function nuevoMensaje() {
   document.getElementById('textoEntrada').value = '';
-  document.getElementById('resultadoBox').innerText = '';
+  document.getElementById('resultadoBox').value = '';
   document.getElementById('resultadoBox').style.display = 'none';
   document.getElementById('advertenciaBox').style.display = 'none';
   document.getElementById('longitudBox').style.display = 'none';
@@ -704,7 +746,13 @@ function nuevoMensaje() {
   document.getElementById('msg2').style.display = 'none';
   document.getElementById('btnCopiar').style.display = 'block';
   document.getElementById('btnWhatsApp').style.display = 'block';
-  document.getElementById('btnAjustar').style.display = 'block';
+  document.getElementById('correccionWrap').style.display = 'none';
+  document.getElementById('btnNuevoExterno').style.display = 'none';
+  document.querySelector('.btn-cgv-externo').style.marginTop = '36px';
+  document.querySelector('.resultado-wrap').style.display = 'none';
+  document.getElementById('cabecera-fija').innerText = '';
+  document.getElementById('resultadoBox').value = '';
+  textoEditado = false;
   document.getElementById('pasoResultado').style.display = 'none';
   document.getElementById('loadingText').innerText = '';
   document.getElementById('pasoEntrada').style.display = 'block';
