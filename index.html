@@ -3,14 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0d6663">
+  <meta name="theme-color" content="#135457">
   <link rel="apple-touch-icon" href="https://i.imgur.com/UgiYLGk.png">
   <link rel="icon" type="image/png" href="https://i.imgur.com/UgiYLGk.png">
   <title>Comunicador – La Eugenia</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    body { margin: 0; min-height: 100vh; background: #0d6663; font-family: 'Roboto', sans-serif; display: flex; justify-content: center; align-items: flex-start; padding: 24px 16px; }
+    :root {
+      --petroleo: #135457;
+      --lima:     #c4df57;
+      --naranja:  #deaf4d;
+      --verdecl:  #b7d6b5;
+      --blanco:   #ffffff;
+      --hueso:    #f5f3ec;
+      --negro:    #000000;
+      --error:    #c0392b;
+    }
+    body { margin: 0; min-height: 100vh; background: var(--petroleo); font-family: 'Roboto', sans-serif; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 24px 16px; }
 
     @keyframes fadeInScreen {
       from { opacity: 0; transform: translateY(8px); }
@@ -24,76 +34,87 @@
       80% { transform: translateX(4px); }
     }
 
-    .card { background: #c4df57; border-radius: 24px; width: 100%; max-width: 480px; padding: 28px 24px; box-sizing: border-box; box-shadow: 0 10px 28px rgba(0,0,0,0.4); }
+    .card { background: var(--verdecl); border-radius: 24px; width: 100%; max-width: 480px; padding: 28px 24px; box-sizing: border-box; box-shadow: 0 10px 28px rgba(0,0,0,0.4); }
     .logo-wrap img { width: 165px; height: auto; display: block; margin: 0 auto 0px; filter: drop-shadow(0 4px 7px rgba(0,0,0,0.2)); }
-    h1 { margin: 2px 0 4px; color: #000; font-family: Impact, sans-serif; font-size: 28px; line-height: 1; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
-    .subtitle { text-align: center; color: #0d6663; font-size: 14px; margin-bottom: 20px; }
+    h1 { margin: 2px 0 4px; color: var(--negro); font-family: Impact, sans-serif; font-size: 28px; line-height: 1; letter-spacing: 1px; text-transform: uppercase; text-align: center; }
+    .subtitle { text-align: center; color: var(--petroleo); font-size: 14px; margin-bottom: 20px; }
     #pinScreen { display: block; animation: fadeInScreen 0.3s ease-out; } #mainScreen { display: none; }
     #mainScreen.active { animation: fadeInScreen 0.3s ease-out; }
-    .pin-label { text-align: center; color: #003a6b; font-size: 14px; font-weight: 900; text-transform: uppercase; margin-bottom: 10px; }
-    .pin-input { display: block; width: 100%; text-align: center; font-size: 28px; font-weight: 900; letter-spacing: 12px; border: 2px solid #0d6663; border-radius: 16px; padding: 12px; background: #edf1dc; color: #003a6b; outline: none; margin-bottom: 12px; }
-    .pin-input.error { animation: shakeError 0.35s ease-in-out; border-color: #c0392b; }
-    .pin-error { text-align: center; color: #c0392b; font-size: 13px; font-weight: 700; min-height: 18px; margin-bottom: 8px; }
-    .field-label { color: #003a6b; font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 6px; display: block; }
+    .pin-label { text-align: center; color: var(--petroleo); font-size: 14px; font-weight: 900; text-transform: uppercase; margin-bottom: 10px; }
+    .pin-input { display: block; width: 100%; text-align: center; font-size: 28px; font-weight: 900; letter-spacing: 12px; border: 2px solid var(--petroleo); border-radius: 16px; padding: 12px; background: var(--blanco); color: var(--petroleo); outline: none; margin-bottom: 12px; }
+    .pin-input.error { animation: shakeError 0.35s ease-in-out; border-color: var(--error); }
+    .pin-error { text-align: center; color: var(--error); font-size: 13px; font-weight: 700; min-height: 18px; margin-bottom: 8px; }
+    .field-label { color: var(--petroleo); font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 6px; display: block; }
     .textarea-wrap { position: relative; margin-bottom: 14px; }
-    textarea { width: 100%; border: 2px solid #0d6663; border-radius: 14px; padding: 12px 48px 12px 12px; background: #edf1dc; color: #003a6b; font-family: 'Roboto', sans-serif; font-size: 15px; resize: vertical; min-height: 110px; outline: none; }
+    textarea { width: 100%; border: 2px solid var(--petroleo); border-radius: 14px; padding: 14px 48px 14px 14px; background: var(--blanco); color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 16px; line-height: 1.5; resize: vertical; min-height: 170px; outline: none; }
+    textarea:focus { border-color: var(--naranja); }
     textarea.sin-mic { padding-right: 12px; min-height: 70px; }
-    .mic-btn { position: absolute; bottom: 10px; right: 10px; background: #c4df57; border: 2px solid #0d6663; border-radius: 50%; width: 36px; height: 36px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; transition: transform 0.08s; }
+    .mic-btn { position: absolute; bottom: 10px; right: 10px; background: var(--naranja); border: 2px solid var(--petroleo); border-radius: 50%; width: 36px; height: 36px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; transition: transform 0.08s; }
     .mic-btn:active { transform: scale(0.9); }
-    .mic-btn.grabando { background: #c0392b; animation: pulse 1s infinite; }
+    .mic-btn.grabando { background: var(--error); animation: pulse 1s infinite; }
     @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
     .meta-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 10px; }
-    .categoria-badge { display: inline-block; background: #0d6663; color: #c4df57; font-size: 11px; font-weight: 900; text-transform: uppercase; border-radius: 20px; padding: 4px 12px; letter-spacing: 0.5px; }
-    .intervencion-badge { display: inline-block; font-size: 11px; font-weight: 900; border-radius: 20px; padding: 4px 10px; }
-    .intervencion-minima { background: #d5f5e3; color: #1e8449; }
-    .intervencion-menor { background: #fef9e7; color: #b7950b; }
-    .intervencion-reescritura { background: #fdebd0; color: #a04000; }
-    .chars-badge { display: inline-block; font-size: 11px; font-weight: 700; border-radius: 20px; padding: 4px 10px; background: #edf1dc; color: #003a6b; }
-    .chars-badge.largo { background: #fdebd0; color: #a04000; }
-    .resultado-box { background: #edf1dc; border-radius: 14px; padding: 16px; margin-bottom: 10px; color: #003a6b; font-size: 15px; line-height: 1.7; white-space: pre-wrap; min-height: 100px; display: none; animation: fadeInScreen 0.3s ease-out; }
-    .longitud-box { background: #fdebd0; border: 2px solid #e59866; border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; display: none; }
-    .longitud-titulo { color: #a04000; font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 6px; }
-    .longitud-texto { color: #a04000; font-size: 13px; margin-bottom: 10px; }
+    .categoria-badge { display: inline-block; background: var(--petroleo); color: var(--lima); font-size: 11px; font-weight: 900; text-transform: uppercase; border-radius: 20px; padding: 4px 12px; letter-spacing: 0.5px; }
+    .categoria-select { border: 2px solid var(--petroleo); cursor: pointer; outline: none; -webkit-appearance: none; -moz-appearance: none; appearance: none; padding-right: 26px; background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c4df57' stroke-width='3'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; background-size: 12px; }
+    .intervencion-badge { display: inline-block; font-size: 11px; font-weight: 900; border-radius: 20px; padding: 4px 10px; background: var(--petroleo); color: var(--naranja); }
+    .chars-badge { display: inline-block; font-size: 11px; font-weight: 700; border-radius: 20px; padding: 4px 10px; background: var(--blanco); color: var(--petroleo); }
+    .chars-badge.largo { background: var(--petroleo); color: var(--naranja); }
+    .resultado-box { background: var(--blanco); border-radius: 14px; padding: 19px; margin-bottom: 10px; color: var(--petroleo); font-size: 15px; line-height: 1.7; white-space: pre-wrap; min-height: 120px; display: none; animation: fadeInScreen 0.3s ease-out; }
+    .btn-copiar-secundario { display: inline-block; background: transparent; border: none; color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 700; text-transform: none; cursor: pointer; padding: 4px 0; margin-bottom: 14px; text-decoration: underline; text-align: left; transition: opacity 0.15s; }
+    .btn-copiar-secundario:hover { opacity: 0.7; }
+    .longitud-box { background: var(--petroleo); border: 2px solid var(--naranja); border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; display: none; }
+    .longitud-titulo { color: var(--naranja); font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 6px; }
+    .longitud-texto { color: var(--hueso); font-size: 13px; margin-bottom: 10px; }
     .longitud-btns { display: flex; gap: 8px; }
-    .btn-resumir { flex: 1; padding: 10px; border-radius: 24px; border: none; background: #a04000; color: white; font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.08s, box-shadow 0.08s; }
+    .btn-resumir { flex: 1; padding: 10px; border-radius: 24px; border: 2px solid var(--petroleo); background: var(--naranja); color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.08s, box-shadow 0.08s; }
     .btn-resumir:active { transform: scale(0.96); box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
-    .btn-dividir { flex: 1; padding: 10px; border-radius: 24px; border: 2px solid #a04000; background: transparent; color: #a04000; font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.08s, box-shadow 0.08s; }
+    .btn-dividir { flex: 1; padding: 10px; border-radius: 24px; border: 2px solid var(--lima); background: transparent; color: var(--lima); font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: transform 0.08s, box-shadow 0.08s; }
     .btn-dividir:active { transform: scale(0.96); box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
-    .advertencia-box { background: #fff3cd; border: 2px solid #f0a500; border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; color: #7a4f00; font-size: 13px; font-weight: 700; display: none; }
-    .btn-datos { display: block; width: 100%; padding: 12px; border-radius: 24px; border: 2px dashed #2980b9; background: transparent; color: #2980b9; font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; cursor: pointer; text-align: center; margin-bottom: 14px; transition: transform 0.08s, box-shadow 0.08s; }
+    .advertencia-box { background: var(--petroleo); border: 2px solid var(--naranja); border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; color: var(--naranja); font-size: 13px; font-weight: 700; display: none; }
+    .btn-datos { display: block; width: 100%; padding: 12px; border-radius: 24px; border: 2px dashed var(--petroleo); background: transparent; color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; cursor: pointer; text-align: center; margin-bottom: 14px; transition: transform 0.08s, box-shadow 0.08s; }
     .btn-datos:active { transform: scale(0.97); box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
-    .datos-panel { background: #e8f4fd; border: 2px solid #2980b9; border-radius: 14px; padding: 14px; margin-bottom: 14px; display: none; }
-    .datos-titulo { color: #1a5276; font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 4px; }
-    .datos-subtitulo { color: #1a5276; font-size: 12px; margin-bottom: 12px; }
-    .datos-categoria { color: #1a5276; font-size: 11px; font-weight: 900; text-transform: uppercase; margin: 10px 0 6px; border-top: 1px solid #aed6f1; padding-top: 10px; }
-    .datos-categoria:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+    .datos-panel { background: var(--petroleo); border: 2px solid var(--lima); border-radius: 14px; padding: 14px; margin-bottom: 14px; display: none; }
+    .datos-titulo { color: var(--lima); font-size: 12px; font-weight: 900; text-transform: uppercase; margin-bottom: 4px; }
+    .datos-subtitulo { color: var(--hueso); font-size: 12px; margin-bottom: 12px; }
+    .datos-acordeon-item { margin-bottom: 6px; }
+    .datos-acordeon-header { display: flex; justify-content: space-between; align-items: center; background: rgba(196,223,87,0.12); border-radius: 10px; padding: 10px 12px; cursor: pointer; color: var(--lima); font-size: 11px; font-weight: 900; text-transform: uppercase; transition: transform 0.08s; }
+    .datos-acordeon-header:active { transform: scale(0.98); }
+    .datos-acordeon-flecha { font-size: 10px; opacity: 0.8; transition: transform 0.2s; }
+    .datos-acordeon-panel { display: none; padding: 10px 4px 4px; }
+    .datos-acordeon-panel.open { display: block; }
     .dato-item { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; padding: 4px 6px; border-radius: 8px; }
-    .dato-item input[type=checkbox] { flex-shrink: 0; width: 18px; height: 18px; cursor: pointer; accent-color: #0d6663; }
-    .dato-label { color: #1a5276; font-size: 13px; line-height: 1.4; cursor: pointer; flex: 1; }
-    .dato-label strong { display: block; font-size: 12px; margin-bottom: 1px; }
-    .dato-label span { font-size: 11px; color: #2980b9; word-break: break-all; }
-    .btn-incorporar { display: block; width: 100%; padding: 12px; border-radius: 24px; border: none; background: #2980b9; color: white; font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 12px; transition: transform 0.08s, box-shadow 0.08s; }
+    .dato-item input[type=checkbox] { flex-shrink: 0; width: 18px; height: 18px; cursor: pointer; accent-color: var(--naranja); }
+    .dato-label { color: var(--hueso); font-size: 13px; line-height: 1.4; cursor: pointer; flex: 1; }
+    .dato-label strong { display: block; font-size: 12px; margin-bottom: 1px; color: var(--blanco); }
+    .dato-label span { font-size: 11px; color: var(--lima); word-break: break-all; }
+    .btn-incorporar { display: block; width: 100%; padding: 12px; border-radius: 24px; border: 2px solid var(--naranja); background: transparent; color: var(--naranja); font-family: 'Roboto', sans-serif; font-size: 14px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-top: 12px; transition: transform 0.08s, box-shadow 0.08s; }
     .btn-incorporar:active { transform: scale(0.97); box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
-    .ajuste-box { background: #edf1dc; border-radius: 14px; padding: 14px; margin-bottom: 14px; display: none; }
-    .ajuste-box textarea { min-height: 60px; margin-bottom: 10px; padding-right: 12px; }
-    .loading-text { text-align: center; color: #0d6663; font-size: 13px; font-weight: 700; min-height: 20px; margin-bottom: 8px; }
+    .ajuste-box { background: var(--blanco); border-radius: 14px; padding: 14px; margin-bottom: 14px; display: none; }
+    .ajuste-box textarea { min-height: 90px; margin-bottom: 10px; padding-right: 14px; }
+    .loading-text { text-align: center; color: var(--petroleo); font-size: 13px; font-weight: 700; min-height: 20px; margin-bottom: 8px; }
 
     .btn-solid, .btn-outline, .btn-ghost {
-      transition: transform 0.08s, box-shadow 0.08s, background 0.15s, color 0.15s;
+      transition: transform 0.08s, box-shadow 0.08s, opacity 0.15s;
     }
     .btn-solid:active, .btn-outline:active {
       transform: scale(0.96);
       box-shadow: 0 2px 6px rgba(0,0,0,0.25);
     }
 
-    .btn-solid { display: block; width: 100%; padding: 14px; border-radius: 24px; border: none; background: #0d6663; color: #c4df57; font-family: 'Roboto', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-bottom: 10px; text-align: center; text-decoration: none; }
-    .btn-solid:hover { background: #0a3d3b; }
-    .btn-outline { display: block; width: 100%; padding: 14px; border-radius: 24px; border: 2px solid #0d6663; background: transparent; color: #0d6663; font-family: 'Roboto', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-bottom: 10px; text-align: center; }
-    .btn-outline:hover { background: #0d6663; color: #c4df57; }
-    .btn-ghost { display: block; width: 100%; padding: 10px; border-radius: 24px; border: none; background: transparent; color: #0d6663; font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; cursor: pointer; text-align: center; margin-bottom: 4px; }
-    .divider { border: none; border-top: 1.5px solid #b5cc4a; margin: 16px 0; }
-    .msg-separado { background: #edf1dc; border-radius: 14px; padding: 16px; margin-bottom: 10px; color: #003a6b; font-size: 15px; line-height: 1.7; white-space: pre-wrap; display: none; }
-    .msg-label { color: #003a6b; font-size: 11px; font-weight: 900; text-transform: uppercase; margin-bottom: 6px; display: block; }
+    .btn-solid { display: block; width: 100%; padding: 14px; border-radius: 24px; border: 2px solid var(--petroleo); background: var(--naranja); color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-bottom: 10px; text-align: center; text-decoration: none; }
+    .btn-solid:hover { opacity: 0.88; }
+    .btn-outline { display: block; width: 100%; padding: 14px; border-radius: 24px; border: 2px solid var(--petroleo); background: transparent; color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 15px; font-weight: 900; text-transform: uppercase; cursor: pointer; margin-bottom: 10px; text-align: center; }
+    .btn-nuevo-externo { display: block; width: 100%; max-width: 480px; margin: 36px auto 0; border-radius: 10px; padding: 14px; font-family: Impact, sans-serif; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; box-sizing: border-box; text-align: center; border: 2px solid var(--lima); background: transparent; color: var(--lima); cursor: pointer; transition: transform 0.08s, box-shadow 0.08s, opacity 0.15s; }
+    .btn-nuevo-externo:hover { opacity: 0.75; }
+    .btn-nuevo-externo:active { transform: scale(0.96); box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+    .btn-cgv-externo { display: block; width: 100%; max-width: 480px; margin: 10px auto 0; border-radius: 10px; padding: 14px; font-family: Impact, sans-serif; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; box-sizing: border-box; text-align: center; text-decoration: none; border: 2px solid var(--petroleo); background: var(--lima); color: var(--petroleo); cursor: pointer; transition: transform 0.08s, box-shadow 0.08s, opacity 0.15s; }
+    .btn-cgv-externo:hover { opacity: 0.88; }
+    .btn-cgv-externo:active { transform: scale(0.96); box-shadow: 0 2px 6px rgba(0,0,0,0.25); }
+    .btn-outline:hover { background: var(--petroleo); color: var(--naranja); }
+    .btn-ghost { display: block; width: 100%; padding: 10px; border-radius: 24px; border: none; background: transparent; color: var(--petroleo); font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; cursor: pointer; text-align: center; margin-bottom: 4px; }
+    .divider { border: none; border-top: 1.5px solid #9bb583; margin: 16px 0; }
+    .msg-separado { background: var(--blanco); border-radius: 14px; padding: 16px; margin-bottom: 10px; color: var(--petroleo); font-size: 15px; line-height: 1.7; white-space: pre-wrap; display: none; }
+    .msg-label { color: var(--petroleo); font-size: 11px; font-weight: 900; text-transform: uppercase; margin-bottom: 6px; display: block; }
     @media (max-width: 380px) { h1 { font-size: 22px; } }
   </style>
 </head>
@@ -107,7 +128,7 @@
     <div class="pin-label">Ingresá el PIN</div>
     <input class="pin-input" type="password" inputmode="numeric" maxlength="4" id="pinInput" placeholder="····">
     <div class="pin-error" id="pinError"></div>
-    <button class="btn-solid" onclick="verificarPin()">Ingresar</button>
+    <button type="button" class="btn-solid" onclick="verificarPin()">Ingresar</button>
   </div>
 
   <div id="mainScreen">
@@ -115,10 +136,10 @@
       <span class="field-label">¿Qué querés comunicar?</span>
       <div class="textarea-wrap">
         <textarea id="textoEntrada" placeholder="Escribí el contenido directamente. Ej: 'Mañana jueves cortamos el césped en Zona 2...' — sin frases como 'quiero comunicar'"></textarea>
-        <button class="mic-btn" id="micBtn" onclick="toggleMic()" title="Dictar mensaje">🎤</button>
+        <button type="button" class="mic-btn" id="micBtn" onclick="toggleMic()" title="Dictar mensaje">🎤</button>
       </div>
-      <button class="btn-solid" onclick="generarMensaje()">Generar comunicado</button>
-      <button class="btn-ghost" onclick="cerrarSesion()">Cerrar sesión</button>
+      <button type="button" class="btn-solid" onclick="generarMensaje()">Generar comunicado</button>
+      <button type="button" class="btn-ghost" onclick="cerrarSesion()">Cerrar sesión</button>
     </div>
 
     <div class="loading-text" id="loadingText"></div>
@@ -126,7 +147,24 @@
     <div id="pasoResultado" style="display:none;">
       <div class="advertencia-box" id="advertenciaBox"></div>
       <div class="meta-row">
-        <span class="categoria-badge" id="categoriaBadge"></span>
+        <select class="categoria-badge categoria-select" id="hashtagSelect" onchange="cambiarHashtag()">
+          <option value="Intendencia" data-emoji="🚜">#Intendencia 🚜</option>
+          <option value="ResiduosVerdes" data-emoji="🌿">#ResiduosVerdes 🌿</option>
+          <option value="Obra" data-emoji="🚧">#Obra 🚧</option>
+          <option value="Urgente" data-emoji="🚨">#Urgente 🚨</option>
+          <option value="Atencion" data-emoji="⚠️">#Atencion ⚠️</option>
+          <option value="InformacionGeneral" data-emoji="ℹ️">#InformacionGeneral ℹ️</option>
+          <option value="Convivencia" data-emoji="🤝">#Convivencia 🤝</option>
+          <option value="TemporadaDeVerano" data-emoji="☀️">#TemporadaDeVerano ☀️</option>
+          <option value="Pileta" data-emoji="💦">#Pileta 💦</option>
+          <option value="EventoSocial" data-emoji="🎉">#EventoSocial 🎉</option>
+          <option value="ReunionInstitucional" data-emoji="🏛️">#ReunionInstitucional 🏛️</option>
+          <option value="MuyImportante" data-emoji="❗">#MuyImportante ❗</option>
+          <option value="Seguridad" data-emoji="🛡️">#Seguridad 🛡️</option>
+          <option value="Administracion" data-emoji="📁">#Administracion 📁</option>
+          <option value="Recordatorio" data-emoji="🔔">#Recordatorio 🔔</option>
+          <option value="MedioAmbiente" data-emoji="♻️">#MedioAmbiente ♻️</option>
+        </select>
         <span class="intervencion-badge" id="intervencionBadge"></span>
         <span class="chars-badge" id="charsBadge"></span>
       </div>
@@ -134,62 +172,90 @@
         <div class="longitud-titulo">🔴 Mensaje extenso</div>
         <div class="longitud-texto">El comunicado es largo. Podés resumirlo o dividirlo antes de agregar datos. O dejarlo así si el contenido lo justifica.</div>
         <div class="longitud-btns">
-          <button class="btn-resumir" onclick="resumirMensaje()">Resumir</button>
-          <button class="btn-dividir" onclick="dividirMensaje()">Dividir en 2</button>
+          <button type="button" class="btn-resumir" onclick="resumirMensaje()">Resumir</button>
+          <button type="button" class="btn-dividir" onclick="dividirMensaje()">Dividir en 2</button>
         </div>
       </div>
       <span class="field-label">Comunicado generado</span>
       <div class="resultado-box" id="resultadoBox"></div>
+      <button type="button" class="btn-copiar-secundario" id="btnCopiar" onclick="copiarMensaje()">📋 Copiar mensaje</button>
       <div id="mensajesDivididos" style="display:none;">
         <span class="msg-label">Parte 1</span>
         <div class="msg-separado" id="msg1"></div>
-        <button class="btn-outline" style="margin-bottom:14px;" onclick="copiarMsgSeparado(1)">Copiar parte 1</button>
+        <button type="button" class="btn-outline" style="margin-bottom:14px;" onclick="copiarMsgSeparado(1)">Copiar parte 1</button>
         <span class="msg-label">Parte 2</span>
         <div class="msg-separado" id="msg2"></div>
-        <button class="btn-outline" style="margin-bottom:14px;" onclick="copiarMsgSeparado(2)">Copiar parte 2</button>
+        <button type="button" class="btn-outline" style="margin-bottom:14px;" onclick="copiarMsgSeparado(2)">Copiar parte 2</button>
       </div>
-      <button class="btn-datos" onclick="toggleDatos()">➕ Agregar datos al comunicado</button>
+      <button type="button" class="btn-datos" onclick="toggleDatos()">➕ Agregar datos al comunicado</button>
       <div class="datos-panel" id="datosPanel">
         <div class="datos-titulo">Seleccioná los datos a incorporar</div>
         <div class="datos-subtitulo">Los sugeridos aparecen resaltados. Se agregan en formato compacto.</div>
-        <div class="datos-categoria">Plataformas digitales</div>
-        <div class="dato-item" id="di0"><input type="checkbox" id="d0" data-nombre="CGV" data-valor="https://clubdecampolaeugenia.taplink.site/" data-emoji="🔗"><label class="dato-label" for="d0"><strong>🔗 CGV / Centro de Gestión Vecinal</strong><span>taplink.site</span></label></div>
-        <div class="dato-item" id="di1"><input type="checkbox" id="d1" data-nombre="Cuota social vigente" data-valor="https://clubdecampolaeugenia.github.io/cuota-la-eugenia/" data-emoji="💰"><label class="dato-label" for="d1"><strong>💰 Cuota social vigente</strong><span>github.io/cuota-la-eugenia</span></label></div>
-        <div class="dato-item" id="di2"><input type="checkbox" id="d2" data-nombre="Movimiento de Tesorería" data-valor="https://clubdecampolaeugenia.github.io/tesoreria-la-eugenia/" data-emoji="🔗"><label class="dato-label" for="d2"><strong>🔗 Movimiento de Tesorería</strong><span>github.io/tesoreria-la-eugenia</span></label></div>
-        <div class="dato-item" id="di3"><input type="checkbox" id="d3" data-nombre="Plano de mantenimiento" data-valor="https://drive.google.com/file/d/1ltXyKm3TlPNQVrOIHNxZjM7j9nZe8QGU/view" data-emoji="🗺️"><label class="dato-label" for="d3"><strong>🗺️ Plano de mantenimiento</strong><span>drive.google.com</span></label></div>
-        <div class="datos-categoria">Contactos del club</div>
-        <div class="dato-item" id="di4"><input type="checkbox" id="d4" data-nombre="Email institucional" data-valor="clubdecampolaeugenia@gmail.com" data-emoji="📧"><label class="dato-label" for="d4"><strong>📧 Email institucional</strong><span>clubdecampolaeugenia@gmail.com</span></label></div>
-        <div class="dato-item" id="di5"><input type="checkbox" id="d5" data-nombre="EugenIA" data-valor="+54 9 3764 11-3300" data-emoji="🙋🏻‍♀️"><label class="dato-label" for="d5"><strong>🙋🏻‍♀️ EugenIA (asistente virtual)</strong><span>+54 9 3764 11-3300</span></label></div>
-        <div class="dato-item" id="di6"><input type="checkbox" id="d6" data-nombre="Garita de seguridad" data-valor="+54 9 11 6188-8188" data-emoji="📞"><label class="dato-label" for="d6"><strong>📞 Garita de seguridad</strong><span>+54 9 11 6188-8188</span></label></div>
-        <div class="dato-item" id="di7"><input type="checkbox" id="d7" data-nombre="Administración — Raúl Toloza" data-valor="+54 9 3764 60-3432" data-emoji="📞"><label class="dato-label" for="d7"><strong>📞 Administración — Raúl Toloza</strong><span>+54 9 3764 60-3432</span></label></div>
-        <div class="dato-item" id="di8"><input type="checkbox" id="d8" data-nombre="Intendencia — Fernanda Magni" data-valor="+54 9 11 5760-3711" data-emoji="📞"><label class="dato-label" for="d8"><strong>📞 Intendencia — Fernanda Magni</strong><span>+54 9 11 5760-3711</span></label></div>
-        <div class="dato-item" id="di9"><input type="checkbox" id="d9" data-nombre="Salón de eventos — Silvia Najle" data-valor="+54 9 3764 71-5400" data-emoji="📞"><label class="dato-label" for="d9"><strong>📞 Salón de eventos — Silvia Najle</strong><span>+54 9 3764 71-5400</span></label></div>
-        <div class="dato-item" id="di10"><input type="checkbox" id="d10" data-nombre="Gimnasio — Pablo Fackelmann" data-valor="+54 9 2267 63-6147" data-emoji="📞"><label class="dato-label" for="d10"><strong>📞 Gimnasio — Pablo Fackelmann</strong><span>+54 9 2267 63-6147</span></label></div>
-        <div class="dato-item" id="di11"><input type="checkbox" id="d11" data-nombre="Cantina" data-valor="+54 9 3764 68-3859" data-emoji="📞"><label class="dato-label" for="d11"><strong>📞 Cantina</strong><span>+54 9 3764 68-3859</span></label></div>
-        <div class="dato-item" id="di12"><input type="checkbox" id="d12" data-nombre="Podas grandes" data-valor="Sr. Félix: +54 9 3765 12-1797 / Sr. Patiño: +54 9 3764 72-6485 / Sr. Aquino: +54 9 376 488-9851" data-emoji="🪓"><label class="dato-label" for="d12"><strong>🪓 Podas grandes (retiro particular)</strong><span>Félix / Patiño / Aquino</span></label></div>
-        <div class="datos-categoria">Servicios externos</div>
-        <div class="dato-item" id="di13"><input type="checkbox" id="d13" data-nombre="Energía de Misiones" data-valor="+54 9 3764 88-8295 / 0800-888-3672" data-emoji="⚡"><label class="dato-label" for="d13"><strong>⚡ Energía de Misiones</strong><span>+54 9 3764 88-8295 / 0800-888-3672</span></label></div>
-        <div class="dato-item" id="di14"><input type="checkbox" id="d14" data-nombre="Emergencias" data-valor="Policía: 911 / Bomberos: 100 / Médica: 107" data-emoji="🆘"><label class="dato-label" for="d14"><strong>🆘 Emergencias</strong><span>911 / 100 / 107</span></label></div>
-        <button class="btn-incorporar" onclick="incorporarDatos()">Incorporar al comunicado</button>
-        <button class="btn-ghost" style="color:#1a5276;margin-top:6px;" onclick="cerrarDatos()">Cancelar</button>
+
+        <div class="datos-acordeon-item">
+          <div class="datos-acordeon-header" onclick="toggleDatosAcordeon('grupoPlataformas')">
+            <span>Plataformas digitales</span>
+            <span class="datos-acordeon-flecha" id="flechaPlataformas">▼</span>
+          </div>
+          <div class="datos-acordeon-panel" id="grupoPlataformas">
+            <div class="dato-item" id="di0"><input type="checkbox" id="d0" data-nombre="CGV" data-valor="https://clubdecampolaeugenia.taplink.site/" data-emoji="🔗"><label class="dato-label" for="d0"><strong>🔗 CGV / Centro de Gestión Vecinal</strong><span>taplink.site</span></label></div>
+            <div class="dato-item" id="di1"><input type="checkbox" id="d1" data-nombre="Cuota social vigente" data-valor="https://clubdecampolaeugenia.github.io/cuota-la-eugenia/" data-emoji="💰"><label class="dato-label" for="d1"><strong>💰 Cuota social vigente</strong><span>github.io/cuota-la-eugenia</span></label></div>
+            <div class="dato-item" id="di2"><input type="checkbox" id="d2" data-nombre="Movimiento de Tesorería" data-valor="https://clubdecampolaeugenia.github.io/tesoreria-la-eugenia/" data-emoji="🔗"><label class="dato-label" for="d2"><strong>🔗 Movimiento de Tesorería</strong><span>github.io/tesoreria-la-eugenia</span></label></div>
+            <div class="dato-item" id="di3"><input type="checkbox" id="d3" data-nombre="Plano de mantenimiento" data-valor="https://drive.google.com/file/d/1ltXyKm3TlPNQVrOIHNxZjM7j9nZe8QGU/view" data-emoji="🗺️"><label class="dato-label" for="d3"><strong>🗺️ Plano de mantenimiento</strong><span>drive.google.com</span></label></div>
+            <div class="dato-item" id="di15"><input type="checkbox" id="d15" data-nombre="Boletín Vecinal" data-valor="https://clubdecampolaeugenia.github.io/boletin-la-eugenia/" data-emoji="📰"><label class="dato-label" for="d15"><strong>📰 #BoletínVecinal</strong><span>github.io/boletin-la-eugenia</span></label></div>
+          </div>
+        </div>
+
+        <div class="datos-acordeon-item">
+          <div class="datos-acordeon-header" onclick="toggleDatosAcordeon('grupoContactos')">
+            <span>Contactos del club</span>
+            <span class="datos-acordeon-flecha" id="flechaContactos">▼</span>
+          </div>
+          <div class="datos-acordeon-panel" id="grupoContactos">
+            <div class="dato-item" id="di4"><input type="checkbox" id="d4" data-nombre="Email institucional" data-valor="clubdecampolaeugenia@gmail.com" data-emoji="📧"><label class="dato-label" for="d4"><strong>📧 Email institucional</strong><span>clubdecampolaeugenia@gmail.com</span></label></div>
+            <div class="dato-item" id="di5"><input type="checkbox" id="d5" data-nombre="EugenIA" data-valor="+54 9 3764 11-3300" data-emoji="🙋🏻‍♀️"><label class="dato-label" for="d5"><strong>🙋🏻‍♀️ EugenIA (asistente virtual)</strong><span>+54 9 3764 11-3300</span></label></div>
+            <div class="dato-item" id="di6"><input type="checkbox" id="d6" data-nombre="Garita de seguridad" data-valor="+54 9 11 6188-8188" data-emoji="📞"><label class="dato-label" for="d6"><strong>📞 Garita de seguridad</strong><span>+54 9 11 6188-8188</span></label></div>
+            <div class="dato-item" id="di7"><input type="checkbox" id="d7" data-nombre="Administración — Raúl Toloza" data-valor="+54 9 3764 60-3432" data-emoji="📞"><label class="dato-label" for="d7"><strong>📞 Administración — Raúl Toloza</strong><span>+54 9 3764 60-3432</span></label></div>
+            <div class="dato-item" id="di8"><input type="checkbox" id="d8" data-nombre="Intendencia — Fernanda Magni" data-valor="+54 9 11 5760-3711" data-emoji="📞"><label class="dato-label" for="d8"><strong>📞 Intendencia — Fernanda Magni</strong><span>+54 9 11 5760-3711</span></label></div>
+            <div class="dato-item" id="di9"><input type="checkbox" id="d9" data-nombre="Salón de eventos — Silvia Najle" data-valor="+54 9 3764 71-5400" data-emoji="📞"><label class="dato-label" for="d9"><strong>📞 Salón de eventos — Silvia Najle</strong><span>+54 9 3764 71-5400</span></label></div>
+            <div class="dato-item" id="di10"><input type="checkbox" id="d10" data-nombre="Gimnasio — Pablo Fackelmann" data-valor="+54 9 2267 63-6147" data-emoji="📞"><label class="dato-label" for="d10"><strong>📞 Gimnasio — Pablo Fackelmann</strong><span>+54 9 2267 63-6147</span></label></div>
+            <div class="dato-item" id="di11"><input type="checkbox" id="d11" data-nombre="Cantina" data-valor="+54 9 3764 68-3859" data-emoji="📞"><label class="dato-label" for="d11"><strong>📞 Cantina</strong><span>+54 9 3764 68-3859</span></label></div>
+            <div class="dato-item" id="di12"><input type="checkbox" id="d12" data-nombre="Podas grandes" data-valor="Sr. Félix: +54 9 3765 12-1797 / Sr. Patiño: +54 9 3764 72-6485 / Sr. Aquino: +54 9 376 488-9851" data-emoji="🪓"><label class="dato-label" for="d12"><strong>🪓 Podas grandes (retiro particular)</strong><span>Félix / Patiño / Aquino</span></label></div>
+          </div>
+        </div>
+
+        <div class="datos-acordeon-item">
+          <div class="datos-acordeon-header" onclick="toggleDatosAcordeon('grupoServicios')">
+            <span>Servicios externos</span>
+            <span class="datos-acordeon-flecha" id="flechaServicios">▼</span>
+          </div>
+          <div class="datos-acordeon-panel" id="grupoServicios">
+            <div class="dato-item" id="di13"><input type="checkbox" id="d13" data-nombre="Energía de Misiones" data-valor="+54 9 3764 88-8295 / 0800-888-3672" data-emoji="⚡"><label class="dato-label" for="d13"><strong>⚡ Energía de Misiones</strong><span>+54 9 3764 88-8295 / 0800-888-3672</span></label></div>
+            <div class="dato-item" id="di14"><input type="checkbox" id="d14" data-nombre="Emergencias" data-valor="Policía: 911 / Bomberos: 100 / Médica: 107" data-emoji="🆘"><label class="dato-label" for="d14"><strong>🆘 Emergencias</strong><span>911 / 100 / 107</span></label></div>
+          </div>
+        </div>
+
+        <button type="button" class="btn-incorporar" onclick="incorporarDatos()">Incorporar al comunicado</button>
+        <button type="button" class="btn-ghost" style="color:var(--lima);margin-top:6px;" onclick="cerrarDatos()">Cancelar</button>
       </div>
-      <button class="btn-solid" id="btnCopiar" onclick="copiarMensaje()">Copiar mensaje</button>
-      <a class="btn-solid" id="btnWhatsApp" href="#" target="_blank">Enviar por WhatsApp</a>
-      <hr class="divider">
       <div class="ajuste-box" id="ajusteBox">
         <span class="field-label">¿Qué querés ajustar?</span>
         <div class="textarea-wrap">
           <textarea class="sin-mic" id="textoAjuste" placeholder='Cambio puntual. Ej: "cambiá el horario por las 18hs", "sacá el tercer párrafo", "reemplazá el saludo por Buenas tardes". Si hay mucho para cambiar, mejor empezar de nuevo.'></textarea>
         </div>
-        <button class="btn-solid" onclick="aplicarAjuste()">Aplicar ajuste</button>
-        <button class="btn-ghost" onclick="cerrarAjuste()">Cancelar</button>
+        <button type="button" class="btn-solid" onclick="aplicarAjuste()">Aplicar ajuste</button>
+        <button type="button" class="btn-ghost" onclick="cerrarAjuste()">Cancelar</button>
       </div>
-      <button class="btn-outline" id="btnAjustar" onclick="abrirAjuste()">Ajustar comunicado</button>
-      <button class="btn-outline" onclick="nuevoMensaje()">Nuevo comunicado</button>
-      <button class="btn-ghost" onclick="cerrarSesion()">Cerrar sesión</button>
+      <button type="button" class="btn-outline" id="btnAjustar" onclick="abrirAjuste()">Ajustar comunicado</button>
+      <a class="btn-solid" id="btnWhatsApp" href="#" target="_blank">Enviar por WhatsApp</a>
+      <hr class="divider">
+      <button type="button" class="btn-ghost" onclick="cerrarSesion()">Cerrar sesión</button>
     </div>
   </div>
 </div>
+
+<button type="button" class="btn-nuevo-externo" onclick="nuevoMensaje()">Nuevo comunicado</button>
+<a class="btn-cgv-externo" href="https://clubdecampolaeugenia.taplink.site/" target="_blank">Ir al Centro de Gestión Vecinal</a>
 
 <script>
 const PIN_CORRECTO = '1112';
@@ -222,7 +288,9 @@ CONTEXTO:
 DEPORTES DEL CLUB: tenis, pádel, fútbol, fútbol-tenis, básquet, vóley. Todos válidos, no cuestionar.
 
 ZONAS DEL PLANO — REGLA IMPORTANTE:
-Cuando el texto mencione "Zona 1", "Zona 2", "Zona 3" o similar, CONSERVAR exactamente esa expresión. No reemplazar por "plano de mantenimiento" ni por ninguna otra expresión. La referencia a la zona es información operativa clave que no debe modificarse.
+Cuando el texto mencione LITERALMENTE "Zona 1", "Zona 2", "Zona 3" (zona seguida de un número), CONSERVAR exactamente esa expresión. No reemplazar por "plano de mantenimiento" ni por ninguna otra expresión. La referencia a la zona numerada es información operativa clave que no debe modificarse.
+
+Esta regla aplica SOLO a "Zona" + número. NUNCA la extiendas a otras descripciones de ubicación. Expresiones como "sectores identificados como vulnerables", "áreas de riesgo", "sector cercano a la garita", o cualquier otra descripción de lugar que NO sea literalmente "Zona" + número, se conservan exactamente como las escribió el usuario, sin mapearlas a "plano de mantenimiento" ni a ninguna otra categoría. Nunca infieras que una descripción de ubicación se refiere a las zonas numeradas del plano salvo que el texto original lo diga explícitamente.
 
 REGLA DE NORMALIZACIÓN: En la primera generación, SOLO normalizá el texto. No agregues links, teléfonos ni datos de contacto por iniciativa propia.
 
@@ -239,12 +307,26 @@ NIVEL DE INTERVENCIÓN:
 - "menor": corregiste ortografía o reorganizaste levemente
 - "reescritura": reformulación profunda necesaria
 
-APERTURA — elegí según el tipo y SIEMPRE comenzá con el emoji de categoría:
-- emoji + "Estimados vecinos," — comunicados formales, convivencia, avisos importantes
-- emoji + "Vecinos:" — avisos directos y concisos
-- emoji + Título directo — informes específicos (ej: "🔗 *Movimiento de Tesorería — Junio 2026*")
+HASHTAG TEMÁTICO — NUEVO, OBLIGATORIO:
+El hashtag temático en cursiva junto con el emoji de categoría van SOLOS en la primera línea del mensaje (formato _#NombreHashtag_ + emoji, sin ningún otro texto en esa línea). Después de esa línea va una línea en blanco, y recién en la línea siguiente arranca el saludo o título del comunicado.
 
-El emoji de categoría va SIEMPRE al inicio de la primera línea del mensaje, antes del saludo o título. NUNCA omitir el emoji inicial.
+Lista cerrada de hashtags válidos — usar EXACTAMENTE estos nombres (PascalCase: cada palabra que compone el nombre arranca con mayúscula, sin espacios ni acentos):
+_#Intendencia_ _#ResiduosVerdes_ _#Obra_ _#Urgente_ _#Atencion_ _#InformacionGeneral_ _#Convivencia_ _#Pileta_ _#TemporadaDeVerano_ _#EventoSocial_ _#ReunionInstitucional_ _#MuyImportante_ _#Seguridad_ _#Administracion_ _#Recordatorio_ _#MedioAmbiente_
+
+El hashtag y el emoji deben corresponder a la MISMA categoría temática. Formato exacto de las primeras líneas del mensaje (hashtag+emoji en su propio renglón, línea en blanco, después el saludo):
+_#Intendencia_ 🚜
+
+Estimados vecinos,
+
+En el campo JSON "hashtag" devolvé SOLO el nombre sin el símbolo # ni guion bajo (ej: "Intendencia", no "_#Intendencia_").
+
+APERTURA — elegí según el tipo, siempre en la línea que sigue a la línea en blanco posterior al hashtag:
+- "Estimados vecinos," — comunicados formales, convivencia, avisos importantes
+- "Vecinos:" — avisos directos y concisos
+- "Estimados Socios," — comunicados institucionales formales (asambleas, CD, cuestiones administrativas o legales)
+- Título directo — informes específicos (ej: "*Movimiento de Tesorería — Junio 2026*")
+
+El hashtag en cursiva y el emoji de categoría van SIEMPRE en su propio renglón al inicio del mensaje, antes que cualquier otra cosa. NUNCA omitir el hashtag ni el emoji inicial. NUNCA poner el saludo en la misma línea que el hashtag.
 
 CIERRE — siempre fijo: LA EUGE informa 📣
 
@@ -255,17 +337,23 @@ TIEMPO VERBAL Y TONO:
 - Agradecimientos PERMITIDOS cuando el contexto lo justifica: malas noticias, trastornos, interrupciones
 - PROHIBIDO: "agradezco tu atención", frases condescendientes innecesarias
 
-EMOJIS POR CATEGORÍA — elegir el emoji del inicio según el tema principal:
-- 🚜 Mantenimiento general / corte de césped / trabajos en el predio
-- 🌿 Poda / recolección de residuos verdes / ponchadas
-- 🚧 Obra / construcción / vía inhabilitada / acceso cortado
-- 🚨 Urgente
-- ⚠️ Atención / importante / advertencia
-- ℹ️ Información general / novedades / comunicados varios
-- 🤝 Convivencia / normas de uso / comportamiento
-- 🚫 Prohibición / restricción
-- 💦 Pileta / temporada de verano / natación
-- 🎉 Fiesta / evento social / celebración
+EMOJIS POR CATEGORÍA — elegir el emoji y el hashtag correspondiente según el tema principal:
+- _#Intendencia_ 🚜 Mantenimiento general / corte de césped / trabajos en el predio
+- _#ResiduosVerdes_ 🌿 Poda / recolección de residuos verdes / ponchadas / horquillado / cachapé
+- _#Obra_ 🚧 Obra / construcción / vía inhabilitada / acceso cortado
+- _#Urgente_ 🚨 Urgente
+- _#Atencion_ ⚠️ Atención / importante / advertencia
+- _#InformacionGeneral_ ℹ️ Información general / novedades / comunicados varios
+- _#Convivencia_ 🤝 Convivencia / normas de uso / comportamiento
+- _#Pileta_ 💦 Pileta / natación
+- _#TemporadaDeVerano_ ☀️ Avisos estacionales de verano (horarios extendidos, actividades de verano)
+- _#EventoSocial_ 🎉 Fiesta / celebración / evento social del club
+- _#ReunionInstitucional_ 🏛️ Asamblea de socios / reunión de Comisión Directiva / foros abiertos
+- _#MuyImportante_ ❗ Decisión institucional relevante que no es urgente pero requiere atención
+- _#Seguridad_ 🛡️ Garita, accesos, cámaras, incidentes de seguridad, y recomendaciones preventivas (robos, incendios, cuidados generales)
+- _#Administracion_ 📁 Cuota social, tesorería, pagos, facturación, estado de cuenta
+- _#Recordatorio_ 🔔 Recordatorios y alertas puntuales no urgentes (vencimientos, fechas próximas)
+- _#MedioAmbiente_ ♻️ Reciclaje, cuidado ambiental, sustentabilidad, separación de residuos, concientización ecológica
 
 FORMATO:
 - Cada idea o dato distinto va en su propio párrafo, separado por línea en blanco
@@ -288,6 +376,8 @@ VOCABULARIO ESPECÍFICO DEL CLUB — conservar siempre exactamente como están, 
 - plaza de juegos (sector con juegos infantiles)
 - estacionamiento del club
 - Zona 1, Zona 2, Zona 3 (sectores del plano de mantenimiento)
+- horquillado (verbo: método de levantamiento o transporte de residuos verdes al cachapé o caja de camioneta)
+- cachapé (carro de madera tradicional de dos o cuatro ruedas, tirado por un tractor)
 
 REGLA DE CONTENIDO — CRÍTICA:
 Tu función es normalizar el TONO y la FORMA, nunca el contenido.
@@ -315,7 +405,7 @@ Nombres exactos: "CGV", "Cuota social vigente", "Movimiento de Tesorería", "Pla
 Si no hay relevantes, devolvé [].
 
 Respondé SOLO con JSON válido sin backticks:
-{"categoria":"...","intervencion":"minima|menor|reescritura","advertencia":"...","sugerencias":[],"mensaje":"..."}`;
+{"categoria":"...","hashtag":"NombreHashtagSinNumeral","intervencion":"minima|menor|reescritura","advertencia":"...","sugerencias":[],"mensaje":"..."}`;
 
 function verificarPin() {
   const pin = document.getElementById('pinInput').value;
@@ -387,12 +477,16 @@ async function generarMensaje() {
 function mostrarResultado(raw) {
   const parsed = parsearRespuesta(raw);
   document.getElementById('loadingText').innerText = '';
-  document.getElementById('categoriaBadge').innerText = parsed.categoria;
+
+  const hashtagSel = document.getElementById('hashtagSelect');
+  hashtagSel.style.display = 'inline-block';
+  const hashtagValido = Array.from(hashtagSel.options).some(o => o.value === parsed.hashtag);
+  hashtagSel.value = hashtagValido ? parsed.hashtag : 'InformacionGeneral';
 
   const ib = document.getElementById('intervencionBadge');
-  const niveles = { minima: ['✅ Ajuste mínimo','intervencion-minima'], menor: ['🔧 Ajustes menores','intervencion-menor'], reescritura: ['✏️ Reescritura','intervencion-reescritura'] };
+  const niveles = { minima: ['✅ Ajuste mínimo'], menor: ['🔧 Ajustes menores'], reescritura: ['✏️ Reescritura'] };
   const nivel = niveles[parsed.intervencion] || niveles['menor'];
-  ib.innerText = nivel[0]; ib.className = 'intervencion-badge ' + nivel[1];
+  ib.innerText = nivel[0];
 
   document.getElementById('resultadoBox').innerText = parsed.mensaje;
   document.getElementById('resultadoBox').style.display = 'block';
@@ -413,7 +507,7 @@ function mostrarResultado(raw) {
   document.querySelectorAll('.dato-item').forEach(i => { i.style.background = ''; });
   (parsed.sugerencias || []).forEach(s => {
     const id = SUGERENCIAS_MAP[s];
-    if (id) document.getElementById(id).style.background = '#d6eaf8';
+    if (id) document.getElementById(id).style.background = 'rgba(196,223,87,0.18)';
   });
 
   document.getElementById('mensajesDivididos').style.display = 'none';
@@ -430,6 +524,27 @@ function mostrarResultado(raw) {
   document.getElementById('pasoResultado').style.display = 'block';
 }
 
+function cambiarHashtag() {
+  const sel = document.getElementById('hashtagSelect');
+  const nuevoNombre = sel.value;
+  const nuevoEmoji = sel.options[sel.selectedIndex].dataset.emoji;
+  const box = document.getElementById('resultadoBox');
+  let texto = box.innerText;
+
+  const patron = /^_#[A-Za-zÁÉÍÓÚáéíóúñÑ]+_\s*[^\sA-Za-z0-9]+\s*/u;
+  const reemplazo = '_#' + nuevoNombre + '_ ' + nuevoEmoji + ' ';
+
+  if (patron.test(texto)) {
+    texto = texto.replace(patron, reemplazo);
+  } else {
+    texto = reemplazo + texto;
+  }
+
+  box.innerText = texto;
+  const msgEncoded = encodeURIComponent(texto);
+  document.getElementById('btnWhatsApp').href = 'https://wa.me/' + WA_NUMERO + '?text=' + msgEncoded;
+}
+
 function toggleDatos() {
   const panel = document.getElementById('datosPanel');
   panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
@@ -437,6 +552,25 @@ function toggleDatos() {
 function cerrarDatos() {
   document.getElementById('datosPanel').style.display = 'none';
   document.querySelectorAll('.dato-item input[type=checkbox]').forEach(c => c.checked = false);
+  cerrarTodosAcordeones();
+}
+
+const GRUPOS_ACORDEON = ['grupoPlataformas', 'grupoContactos', 'grupoServicios'];
+const FLECHAS_ACORDEON = { grupoPlataformas: 'flechaPlataformas', grupoContactos: 'flechaContactos', grupoServicios: 'flechaServicios' };
+
+function toggleDatosAcordeon(grupoId) {
+  const yaAbierto = document.getElementById(grupoId).classList.contains('open');
+  cerrarTodosAcordeones();
+  if (!yaAbierto) {
+    document.getElementById(grupoId).classList.add('open');
+    document.getElementById(FLECHAS_ACORDEON[grupoId]).innerText = '▲';
+  }
+}
+function cerrarTodosAcordeones() {
+  GRUPOS_ACORDEON.forEach(g => {
+    document.getElementById(g).classList.remove('open');
+    document.getElementById(FLECHAS_ACORDEON[g]).innerText = '▼';
+  });
 }
 
 async function incorporarDatos() {
@@ -472,8 +606,8 @@ async function dividirMensaje() {
         model: 'claude-haiku-4-5-20251001', max_tokens: 2048, system: SYSTEM_PROMPT,
         messages: [
           { role: 'user', content: textoOriginal },
-          { role: 'assistant', content: '{"categoria":"...","intervencion":"menor","advertencia":"","sugerencias":[],"mensaje":"' + mensajeActual.replace(/"/g,'\\"').replace(/\n/g,'\\n') + '"}' },
-          { role: 'user', content: 'Dividí el comunicado en exactamente dos mensajes. Cada uno con apertura apropiada y cierre "LA EUGE informa 📣". Respondé con JSON: {"mensaje1":"...","mensaje2":"..."}' }
+          { role: 'assistant', content: '{"categoria":"...","hashtag":"...","intervencion":"menor","advertencia":"","sugerencias":[],"mensaje":"' + mensajeActual.replace(/"/g,'\\"').replace(/\n/g,'\\n') + '"}' },
+          { role: 'user', content: 'Dividí el comunicado en exactamente dos mensajes. Cada uno debe mantener el hashtag temático en cursiva y el emoji de categoría al inicio (según las reglas ya indicadas), con apertura apropiada y cierre "LA EUGE informa 📣". Respondé con JSON: {"mensaje1":"...","mensaje2":"..."}' }
         ]
       })
     });
@@ -485,6 +619,7 @@ async function dividirMensaje() {
     document.getElementById('msg1').innerText = parsed.mensaje1; document.getElementById('msg1').style.display = 'block';
     document.getElementById('msg2').innerText = parsed.mensaje2; document.getElementById('msg2').style.display = 'block';
     document.getElementById('mensajesDivididos').style.display = 'block';
+    document.getElementById('hashtagSelect').style.display = 'none';
     document.getElementById('btnCopiar').style.display = 'none';
     document.getElementById('btnWhatsApp').style.display = 'none';
     document.getElementById('pasoResultado').style.display = 'block';
@@ -531,7 +666,7 @@ async function aplicarAjusteDirecto(instruccion) {
   try {
     const raw = await llamarAPI([
       { role: 'user', content: textoOriginal },
-      { role: 'assistant', content: '{"categoria":"...","intervencion":"menor","advertencia":"","sugerencias":[],"mensaje":"' + mensajeActual.replace(/"/g,'\\"').replace(/\n/g,'\\n') + '"}' },
+      { role: 'assistant', content: '{"categoria":"...","hashtag":"...","intervencion":"menor","advertencia":"","sugerencias":[],"mensaje":"' + mensajeActual.replace(/"/g,'\\"').replace(/\n/g,'\\n') + '"}' },
       { role: 'user', content: instruccion }
     ]);
     mostrarResultado(raw);
@@ -545,14 +680,14 @@ function copiarMensaje() {
   const texto = document.getElementById('resultadoBox').innerText;
   const btn = document.getElementById('btnCopiar');
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(texto).then(() => { btn.innerText = '¡Copiado!'; setTimeout(() => { btn.innerText = 'Copiar mensaje'; }, 2000); }).catch(() => copiarFallback(texto, btn));
+    navigator.clipboard.writeText(texto).then(() => { btn.innerText = '✅ ¡Copiado!'; setTimeout(() => { btn.innerText = '📋 Copiar mensaje'; }, 2000); }).catch(() => copiarFallback(texto, btn));
   } else { copiarFallback(texto, btn); }
 }
 function copiarFallback(texto, btn) {
   const ta = document.createElement('textarea'); ta.value = texto; ta.style.position = 'fixed'; ta.style.opacity = '0';
   document.body.appendChild(ta); ta.focus(); ta.select();
-  try { document.execCommand('copy'); btn.innerText = '¡Copiado!'; setTimeout(() => { btn.innerText = 'Copiar mensaje'; }, 2000); }
-  catch(e) { btn.innerText = 'Error al copiar'; setTimeout(() => { btn.innerText = 'Copiar mensaje'; }, 2000); }
+  try { document.execCommand('copy'); btn.innerText = '✅ ¡Copiado!'; setTimeout(() => { btn.innerText = '📋 Copiar mensaje'; }, 2000); }
+  catch(e) { btn.innerText = 'Error al copiar'; setTimeout(() => { btn.innerText = '📋 Copiar mensaje'; }, 2000); }
   document.body.removeChild(ta);
 }
 
@@ -575,6 +710,8 @@ function nuevoMensaje() {
   document.getElementById('pasoEntrada').style.display = 'block';
   document.querySelectorAll('.dato-item input[type=checkbox]').forEach(c => c.checked = false);
   document.querySelectorAll('.dato-item').forEach(i => { i.style.background = ''; });
+  document.getElementById('hashtagSelect').value = 'InformacionGeneral';
+  cerrarTodosAcordeones();
 }
 function cerrarSesion() {
   nuevoMensaje();
