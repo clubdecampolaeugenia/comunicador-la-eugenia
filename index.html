@@ -61,7 +61,7 @@
     .chars-badge.largo { background: var(--petroleo); color: var(--naranja); font-size: 12px; padding: 5px 12px; }
     .resultado-wrap { display: none; margin-bottom: 10px; }
     .resultado-cabecera { background: var(--blanco); border-radius: 14px 14px 0 0; border: 2px solid var(--verdecl); border-bottom: none; padding: 12px 19px 12px; color: var(--petroleo); font-size: 15px; font-style: italic; line-height: 1.5; white-space: pre-wrap; }
-    .resultado-box { background: var(--blanco); border-radius: 0; border: 2px solid var(--verdecl); border-top: 1px solid #d4e8d2; border-bottom: 1px solid #d4e8d2; padding: 10px 19px; color: var(--petroleo); font-size: 15px; font-family: 'Roboto', sans-serif; line-height: 1.7; white-space: pre-wrap; min-height: 120px; width: 100%; box-sizing: border-box; display: block; resize: vertical; outline: none; }
+    .resultado-box { background: var(--blanco); border-radius: 0; border: 2px solid var(--verdecl); border-top: 1px solid #d4e8d2; border-bottom: 1px solid #d4e8d2; padding: 14px 19px 32px; color: var(--petroleo); font-size: 15px; font-family: 'Roboto', sans-serif; line-height: 1.7; white-space: pre-wrap; min-height: 170px; width: 100%; box-sizing: border-box; display: block; resize: vertical; outline: none; }
     .resultado-box:focus { border-color: var(--naranja); border-top-color: var(--naranja); border-bottom-color: var(--naranja); }
     .resultado-pie { background: var(--blanco); border-radius: 0 0 14px 14px; border: 2px solid var(--verdecl); border-top: none; padding: 12px 19px 12px; color: var(--petroleo); font-size: 15px; line-height: 1.5; }
     .editable-hint { position: absolute; bottom: 10px; right: 12px; font-size: 11px; color: var(--petroleo); opacity: 0.4; pointer-events: none; }
@@ -265,7 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
 
         <button type="button" class="btn-incorporar" onclick="incorporarDatos()">Incorporar al comunicado</button>
-        <button type="button" class="btn-ghost" style="color:var(--lima);margin-top:6px;" onclick="cerrarDatos()">Cancelar</button>
+        <button type="button" class="btn-ghost" style="color:var(--naranja);margin-top:6px;" onclick="cerrarDatos()">Cancelar</button>
       </div>
       <a class="btn-solid" id="btnWhatsApp" href="#" target="_blank" style="display:none;">Enviar por WhatsApp</a>
       <hr class="divider">
@@ -584,7 +584,7 @@ function onEditarTexto() {
     textoEditado = true;
     document.getElementById('btnAjustar').className = 'btn-correccion-on';
     document.getElementById('btnAjustar').disabled = false;
-    document.getElementById('btnAjustar').innerHTML = '✦ Corrección Final con IA';
+    document.getElementById('btnAjustar').innerHTML = 'Corrección Final con IA ✦';
     document.getElementById('correccionHint').style.display = 'block';
     document.getElementById('resultadoBox').classList.add('editado');
   }
