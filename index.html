@@ -259,8 +259,11 @@ document.addEventListener('DOMContentLoaded', function() {
             <span class="datos-acordeon-flecha" id="flechaServicios">▼</span>
           </div>
           <div class="datos-acordeon-panel" id="grupoServicios">
-            <div class="dato-item" id="di13"><input type="checkbox" id="d13" data-nombre="Energía de Misiones" data-valor="+54 9 3764 88-8295 / 0800-888-3672" data-emoji="⚡"><label class="dato-label" for="d13"><strong>⚡ Energía de Misiones</strong><span>wa.me/5493764882895 (bot)<br>0800-888-3672</span></label></div>
-            <div class="dato-item" id="di14"><input type="checkbox" id="d14" data-nombre="Emergencias" data-valor="Policía: 911 / Bomberos: 100 / Médica: 107" data-emoji="🆘"><label class="dato-label" for="d14"><strong>🆘 Emergencias</strong><span>🚔 Policía: 911<br>🚒 Bomberos: 100<br>🚑 Médica: 107</span></label></div>
+            <div class="dato-item" id="di13"><input type="checkbox" id="d13" data-nombre="Energía de Misiones" data-valor="wa.me/5493764882895 (bot)
+0800-888-3672" data-emoji="⚡"><label class="dato-label" for="d13"><strong>⚡ Energía de Misiones</strong><span>wa.me/5493764882895 (bot)<br>0800-888-3672</span></label></div>
+            <div class="dato-item" id="di14"><input type="checkbox" id="d14" data-nombre="Emergencias" data-valor="🚔 Policía: 911
+🚒 Bomberos: 100
+🚑 Médica: 107" data-emoji="🆘"><label class="dato-label" for="d14"><strong>🆘 Emergencias</strong><span>🚔 Policía: 911<br>🚒 Bomberos: 100<br>🚑 Médica: 107</span></label></div>
           </div>
         </div>
 
@@ -637,9 +640,15 @@ async function incorporarDatos() {
     if (c.dataset.nombre === 'Podas grandes') {
       return '🪓 Podas grandes (retiro particular):\nSr. Félix: +54 9 3765 12-1797\nSr. Patiño: +54 9 3764 72-6485\nSr. Aquino: +54 9 376 488-9851';
     }
-    return c.dataset.emoji + ' ' + c.dataset.nombre + ': ' + c.dataset.valor;
+    if (c.dataset.nombre === 'Emergencias') {
+      return '🆘 Emergencias:\n🚔 Policía: 911\n🚒 Bomberos: 100\n🚑 Médica: 107';
+    }
+    if (c.dataset.nombre === 'Energía de Misiones') {
+      return '⚡ Energía de Misiones:\nwa.me/5493764882895 (bot)\n0800-888-3672';
+    }
+    return c.dataset.emoji + ' ' + c.dataset.nombre + ':\n' + c.dataset.valor.replace(/https:\/\//g, '');
   });
-  const instruccion = 'INSTRUCCIÓN DEL SISTEMA: Agregá los siguientes datos al final del comunicado, antes del cierre "LA EUGE informa 📣". Formato compacto — una línea por dato salvo podas grandes que van en multilínea. Si alguno ya está en el texto, no lo dupliques.\n\nDatos:\n' + lineas.join('\n');
+  const instruccion = 'INSTRUCCIÓN DEL SISTEMA: Agregá los siguientes datos al final del comunicado, antes del cierre "LA EUGE informa 📣". Cada dato va en dos líneas: la primera con el nombre y emoji, la segunda con el valor. Dejá una línea en blanco entre cada dato. Si alguno ya está en el texto, no lo dupliques.\n\nDatos:\n' + lineas.join('\n\n');
   await aplicarAjusteDirecto(instruccion);
 }
 
