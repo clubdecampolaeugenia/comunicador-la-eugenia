@@ -242,8 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
           <div class="datos-acordeon-panel" id="grupoContactos">
             <div class="dato-item" id="di4"><input type="checkbox" id="d4" data-nombre="Email institucional" data-valor="clubdecampolaeugenia@gmail.com" data-emoji="📧"><label class="dato-label" for="d4"><strong>📧 Email institucional</strong><span>clubdecampolaeugenia@gmail.com</span></label></div>
-            <div class="dato-item" id="di5"><input type="checkbox" id="d5" data-nombre="EugenIA" data-valor="+54 9 3764 11-3300
-wa.me/5493764113300" data-emoji="🙋🏻‍♀️"><label class="dato-label" for="d5"><strong>🙋🏻‍♀️ EugenIA (asistente virtual)</strong><span>+54 9 3764 11-3300<br>wa.me/5493764113300</span></label></div>
+            <div class="dato-item" id="di5"><input type="checkbox" id="d5" data-nombre="EugenIA" data-valor="wa.me/5493764113300" data-emoji="🙋🏻‍♀️"><label class="dato-label" for="d5"><strong>🙋🏻‍♀️ EugenIA (asistente virtual)</strong><span>wa.me/5493764113300</span></label></div>
             <div class="dato-item" id="di6"><input type="checkbox" id="d6" data-nombre="Garita de seguridad" data-valor="+54 9 11 6188-8188
 wa.me/5491161888188" data-emoji="📞"><label class="dato-label" for="d6"><strong>📞 Garita de seguridad</strong><span>+54 9 11 6188-8188<br>wa.me/5491161888188</span></label></div>
             <div class="dato-item" id="di7"><input type="checkbox" id="d7" data-nombre="Administración — Raúl Toloza" data-valor="+54 9 3764 60-3432
@@ -655,6 +654,9 @@ async function incorporarDatos() {
       return '⚡ Energía de Misiones:\nwa.me/5493764882895 (bot)\n0800-888-3672';
     }
     const valor = c.dataset.valor.replace(/https:\/\//g, '').replace(/\\n/g, '\n');
+    if (c.dataset.nombre === 'EugenIA') {
+      return 'Chatea con 🙋🏻‍♀️ *EugenIA*:\nwa.me/5493764113300';
+    }
     return c.dataset.emoji + ' ' + c.dataset.nombre + ':\n' + valor;
   });
 
