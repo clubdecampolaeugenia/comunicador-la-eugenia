@@ -256,7 +256,6 @@ wa.me/5493764715400" data-emoji="📞"><label class="dato-label" for="d9"><stron
 wa.me/5492267636147" data-emoji="📞"><label class="dato-label" for="d10"><strong>📞 Gimnasio — Pablo Fackelmann</strong><span>+54 9 2267 63-6147<br>wa.me/5492267636147</span></label></div>
             <div class="dato-item" id="di11"><input type="checkbox" id="d11" data-nombre="Cantina" data-valor="+54 9 3764 68-3859
 wa.me/5493764683859" data-emoji="📞"><label class="dato-label" for="d11"><strong>📞 Cantina</strong><span>+54 9 3764 68-3859<br>wa.me/5493764683859</span></label></div>
-            <div class="dato-item" id="di12"><input type="checkbox" id="d12" data-nombre="Podas grandes" data-valor="Sr. Félix: +54 9 3765 12-1797 / Sr. Patiño: +54 9 3764 72-6485 / Sr. Aquino: +54 9 376 488-9851" data-emoji="🪓"><label class="dato-label" for="d12"><strong>🪓 Podas grandes (retiro particular)</strong><span>Félix / Patiño / Aquino</span></label></div>
           </div>
         </div>
 
@@ -266,6 +265,7 @@ wa.me/5493764683859" data-emoji="📞"><label class="dato-label" for="d11"><stro
             <span class="datos-acordeon-flecha" id="flechaServicios">▼</span>
           </div>
           <div class="datos-acordeon-panel" id="grupoServicios">
+            <div class="dato-item" id="di12"><input type="checkbox" id="d12" data-nombre="Podas grandes" data-valor="Sr. Félix: +54 9 3765 12-1797 / Sr. Patiño: +54 9 3764 72-6485 / Sr. Aquino: +54 9 376 488-9851" data-emoji="🪓"><label class="dato-label" for="d12"><strong>🪓 Podas grandes (retiro particular)</strong><span>Félix / Patiño / Aquino</span></label></div>
             <div class="dato-item" id="di13"><input type="checkbox" id="d13" data-nombre="Energía de Misiones" data-valor="wa.me/5493764882895 (bot)
 0800-888-3672" data-emoji="⚡"><label class="dato-label" for="d13"><strong>⚡ Energía de Misiones</strong><span>wa.me/5493764882895 (bot)<br>0800-888-3672</span></label></div>
             <div class="dato-item" id="di14"><input type="checkbox" id="d14" data-nombre="Emergencias" data-valor="🚔 Policía: 911
@@ -654,7 +654,7 @@ async function incorporarDatos() {
     if (c.dataset.nombre === 'Energía de Misiones') {
       return '⚡ Energía de Misiones:\nwa.me/5493764882895 (bot)\n0800-888-3672';
     }
-    const valor = c.dataset.valor.replace(/https:\/\//g, '');
+    const valor = c.dataset.valor.replace(/https:\/\//g, '').replace(/\\n/g, '\n');
     return c.dataset.emoji + ' ' + c.dataset.nombre + ':\n' + valor;
   });
 
