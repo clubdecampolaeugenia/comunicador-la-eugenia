@@ -435,9 +435,18 @@ Si no hay relevantes, devolvé [].
 Respondé SOLO con JSON válido sin backticks:
 {"categoria":"...","hashtag":"NombreHashtagSinNumeral","intervencion":"minima|menor|reescritura","advertencia":"...","sugerencias":[],"mensaje":"..."}`;
 
+document.addEventListener('DOMContentLoaded', function() {
+  if (localStorage.getItem('cgv_admin_ok') === '1') {
+    document.getElementById('pinScreen').style.display = 'none';
+    document.getElementById('mainScreen').style.display = 'block';
+    document.getElementById('mainScreen').classList.add('active');
+  }
+});
+
 function verificarPin() {
   const pin = document.getElementById('pinInput').value;
   if (pin === PIN_CORRECTO) {
+    localStorage.setItem('cgv_admin_ok', '1');
     document.getElementById('pinScreen').style.display = 'none';
     document.getElementById('mainScreen').style.display = 'block';
     document.getElementById('mainScreen').classList.add('active');
