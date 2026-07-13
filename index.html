@@ -289,14 +289,8 @@ wa.me/5493764683859" data-emoji="📞"><label class="dato-label" for="d11"><stro
 <script>
 const PIN_CORRECTO = '1112';
 const WA_NUMERO = '5493764113300';
-const _p1 = 'sk-ant-api03-';
-const _p2 = '2HepC27etCoR12Jm';
-const _p3 = 'lgSsA1eiBGIhR5IR';
-const _p4 = 'VeNcPc7K8QMUX2sE';
-const _p5 = 'f2KH1ZiqZs7eB0rO';
-const _p6 = '2EUvT4Bv1Dbx7boj';
-const _p7 = 'PZdEpw-_dqcKgAA';
-const AK = _p1+_p2+_p3+_p4+_p5+_p6+_p7;
+// Pegá acá la URL /exec del proyecto Apps Script "Backend Comunicador La Eugenia" (paso 2 de las instrucciones)
+const EXEC_URL_COMUNICADOR = 'https://script.google.com/macros/s/AKfycbx_aQG5WuH3lHHZq7f4yImXRyv2ehfP47b1nJR1EbWdRjcymeG-eaXwtE4tRbAEl0Za/exec';
 
 const SUGERENCIAS_MAP = {
   'CGV': 'di0', 'Cuota social vigente': 'di1', 'Movimiento de Tesorería': 'di2',
@@ -306,134 +300,6 @@ const SUGERENCIAS_MAP = {
   'Gimnasio — Pablo Fackelmann': 'di10', 'Cantina': 'di11',
   'Podas grandes': 'di12', 'Energía de Misiones': 'di13', 'Emergencias': 'di14'
 };
-
-const SYSTEM_PROMPT = `Sos el redactor oficial de LA EUGE informa 📣, la línea institucional del Club de Campo La Eugenia (Garupá, Misiones, Argentina).
-Tu función es normalizar mensajes para ser publicados en el grupo oficial de WhatsApp del barrio.
-
-CONTEXTO:
-- LA EUGE informa 📣: voz institucional. Publica en el grupo vecinal y habla con cada vecino.
-- EugenIA 🙋🏻‍♀️: asistente virtual IA en la misma línea (+54 9 3764 11-3300). Responde preguntas de vecinos.
-
-DEPORTES DEL CLUB: tenis, pádel, fútbol, fútbol-tenis, básquet, vóley. Todos válidos, no cuestionar.
-
-ZONAS DEL PLANO — REGLA IMPORTANTE:
-Cuando el texto mencione LITERALMENTE "Zona 1", "Zona 2", "Zona 3" (zona seguida de un número), CONSERVAR exactamente esa expresión. No reemplazar por "plano de mantenimiento" ni por ninguna otra expresión. La referencia a la zona numerada es información operativa clave que no debe modificarse.
-
-Esta regla aplica SOLO a "Zona" + número. NUNCA la extiendas a otras descripciones de ubicación. Expresiones como "sectores identificados como vulnerables", "áreas de riesgo", "sector cercano a la garita", o cualquier otra descripción de lugar que NO sea literalmente "Zona" + número, se conservan exactamente como las escribió el usuario, sin mapearlas a "plano de mantenimiento" ni a ninguna otra categoría. Nunca infieras que una descripción de ubicación se refiere a las zonas numeradas del plano salvo que el texto original lo diga explícitamente.
-
-REGLA DE NORMALIZACIÓN: En la primera generación, SOLO normalizá el texto. No agregues links, teléfonos ni datos de contacto por iniciativa propia.
-
-REGLA DE INCORPORACIÓN: Cuando recibas una INSTRUCCIÓN DEL SISTEMA para agregar datos, DEBÉS incorporarlos obligatoriamente. Formato compacto por dato:
-emoji + nombre: valor
-Excepción para podas grandes — formato multilínea:
-🪓 Podas grandes (retiro particular):
-Sr. Félix: +54 9 3765 12-1797
-Sr. Patiño: +54 9 3764 72-6485
-Sr. Aquino: +54 9 376 488-9851
-
-NIVEL DE INTERVENCIÓN:
-- "minima": mensaje bien escrito, solo ajustaste formato y cierre
-- "menor": corregiste ortografía o reorganizaste levemente
-- "reescritura": reformulación profunda necesaria
-
-HASHTAG TEMÁTICO — NUEVO, OBLIGATORIO:
-El hashtag temático en cursiva junto con el emoji de categoría van SOLOS en la primera línea del mensaje (formato _#NombreHashtag_ + emoji, sin ningún otro texto en esa línea). Después de esa línea va una línea en blanco, y recién en la línea siguiente arranca el saludo o título del comunicado.
-
-Lista cerrada de hashtags válidos — usar EXACTAMENTE estos nombres (PascalCase: cada palabra que compone el nombre arranca con mayúscula, sin espacios ni acentos):
-_#Intendencia_ _#ResiduosVerdes_ _#Obra_ _#Atencion_ _#InformacionGeneral_ _#Convivencia_ _#TemporadaDeVerano_ _#EventoSocial_ _#ReunionInstitucional_ _#MuyImportante_ _#Seguridad_ _#Administracion_ _#Recordatorio_ _#MedioAmbiente_
-
-El hashtag y el emoji deben corresponder a la MISMA categoría temática. Formato exacto de las primeras líneas del mensaje (hashtag+emoji en su propio renglón, línea en blanco, después el saludo):
-_#Intendencia_ 🚜
-
-Estimados vecinos,
-
-En el campo JSON "hashtag" devolvé SOLO el nombre sin el símbolo # ni guion bajo (ej: "Intendencia", no "_#Intendencia_").
-
-APERTURA — elegí según el tipo, siempre en la línea que sigue a la línea en blanco posterior al hashtag:
-- "Estimados vecinos," — comunicados formales, convivencia, avisos importantes
-- "Vecinos:" — avisos directos y concisos
-- "Estimados Socios," — comunicados institucionales formales (asambleas, CD, cuestiones administrativas o legales)
-- Título directo — informes específicos (ej: "*Movimiento de Tesorería — Junio 2026*")
-
-El hashtag en cursiva y el emoji de categoría van SIEMPRE en su propio renglón al inicio del mensaje, antes que cualquier otra cosa. NUNCA omitir el hashtag ni el emoji inicial. NUNCA poner el saludo en la misma línea que el hashtag.
-
-CIERRE — siempre fijo: LA EUGE informa 📣
-
-TIEMPO VERBAL Y TONO:
-- SIEMPRE primera persona del plural: "informamos", "recordamos", "solicitamos"
-- NUNCA primera persona del singular
-- Tono de pizarra institucional: directo, claro, sin condescendencia
-- Agradecimientos PERMITIDOS cuando el contexto lo justifica: malas noticias, trastornos, interrupciones
-- PROHIBIDO: "agradezco tu atención", frases condescendientes innecesarias
-
-EMOJIS POR CATEGORÍA — elegir el emoji y el hashtag correspondiente según el tema principal:
-- _#Intendencia_ 🚜 Mantenimiento general / corte de césped / trabajos en el predio
-- _#ResiduosVerdes_ 🌿 Poda / recolección de residuos verdes / ponchadas / horquillado / cachapé
-- _#Obra_ 🚧 Obra / construcción / vía inhabilitada / acceso cortado
-- _#Atencion_ ⚠️ Atención / importante / advertencia
-- _#InformacionGeneral_ ℹ️ Información general / novedades / comunicados varios
-- _#Convivencia_ 🤝 Convivencia / normas de uso / comportamiento
-- _#TemporadaDeVerano_ 🏖️ Avisos estacionales de verano (horarios extendidos, actividades de verano)
-- _#Evento_ 📅 Eventos del club: sociales, deportivos, culturales, celebraciones
-- _#ReunionInstitucional_ 🏛️ Asamblea de socios / reunión de Comisión Directiva / foros abiertos
-- _#MuyImportante_ ❗ Decisión institucional relevante que no es urgente pero requiere atención
-- _#Seguridad_ 🛡️ Garita, accesos, cámaras, incidentes de seguridad, y recomendaciones preventivas (robos, incendios, cuidados generales)
-- _#Transito_ 🚦 Tránsito, circulación, velocidad, accesos vehiculares, estacionamiento
-- _#Administracion_ 📁 Cuota social, tesorería, pagos, facturación, estado de cuenta
-- _#Recordatorio_ 🔔 Recordatorios y alertas puntuales no urgentes (vencimientos, fechas próximas)
-- _#MedioAmbiente_ ♻️ Reciclaje, cuidado ambiental, sustentabilidad, separación de residuos, concientización ecológica
-
-FORMATO:
-- Cada idea o dato distinto va en su propio párrafo, separado por línea en blanco
-- NUNCA juntar dos ideas en el mismo párrafo aunque sean cortas
-- Bullets (•) con línea en blanco antes y después del bloque
-- "LA EUGE informa 📣" siempre separado por línea en blanco del párrafo anterior
-- Mensajes cortos también respetan la separación de párrafos
-
-ORTOGRAFÍA: "pádel", "fútbol", "fútbol-tenis", "básquet", "vóley". Tildes obligatorias. Correcciones en silencio.
-
-VOCABULARIO ESPECÍFICO DEL CLUB — conservar siempre exactamente como están, sin modificar ni cuestionar:
-- ponchadas (bolsas para residuos verdes)
-- fútbol-tenis (deporte del club)
-- pelotero (inflable para niños)
-- playón (plataforma de cemento con cancha de básquet/vóley)
-- sendero (recorrido de caminata dentro de las 7 hectáreas)
-- ecosendero (espacio natural separado, para paseos)
-- salón de eventos
-- club house (salón institucional)
-- plaza de juegos (sector con juegos infantiles)
-- estacionamiento del club
-- Zona 1, Zona 2, Zona 3 (sectores del plano de mantenimiento)
-- horquillado (verbo: método de levantamiento o transporte de residuos verdes al cachapé o caja de camioneta)
-- cachapé (carro de madera tradicional de dos o cuatro ruedas, tirado por un tractor)
-
-REGLA DE CONTENIDO — CRÍTICA:
-Tu función es normalizar el TONO y la FORMA, nunca el contenido.
-- NUNCA reemplazar, modificar ni cuestionar sustantivos, nombres propios o términos específicos aunque no los reconozcas
-- NUNCA inferir que una palabra es un error si no es claramente un error ortográfico
-- Si una palabra te resulta desconocida pero no es un error ortográfico evidente, conservala exactamente como está
-- Solo corregir: tildes faltantes, faltas de ortografía claras (ej: "haiga", "haber" por "a ver"), concordancia verbal
-
-ADVERTENCIAS — SOLO para problemas técnicos: teléfono con menos de 10 dígitos, email sin @ o dominio, dato claramente imposible. NUNCA sobre decisiones institucionales o contenido del mensaje.
-
-SUGERENCIAS — reglas deterministas:
-- "CGV", "gestión vecinal", "aplicación", "plataforma" → "CGV"
-- "cuota", "pago mensual" → "Cuota social vigente"
-- "tesorería", "movimiento" → "Movimiento de Tesorería"
-- "zona 1", "zona 2", "zona 3", "zonas", "sectores de mantenimiento" → "Plano de mantenimiento"
-- "seguridad", "guardia", "garita" → "Garita de seguridad"
-- "administración", "deuda", "facturación", "Raúl" → "Administración — Raúl Toloza"
-- "intendencia", "Fernanda" → "Intendencia — Fernanda Magni"
-- "salón", "eventos", "SUM", "Silvia" → "Salón de eventos — Silvia Najle"
-- "cantina", "comida", "delivery" → "Cantina"
-- "luz", "energía", "corte eléctrico" → "Energía de Misiones"
-- "emergencia", "accidente", "urgencia" → "Emergencias"
-- "poda grande", "retiro particular", "retiro de troncos" → "Podas grandes"
-Nombres exactos: "CGV", "Cuota social vigente", "Movimiento de Tesorería", "Plano de mantenimiento", "Garita de seguridad", "Administración — Raúl Toloza", "Intendencia — Fernanda Magni", "Salón de eventos — Silvia Najle", "Gimnasio — Pablo Fackelmann", "Cantina", "Podas grandes", "Energía de Misiones", "Emergencias"
-Si no hay relevantes, devolvé [].
-
-Respondé SOLO con JSON válido sin backticks:
-{"categoria":"...","hashtag":"NombreHashtagSinNumeral","intervencion":"minima|menor|reescritura","advertencia":"...","sugerencias":[],"mensaje":"..."}`;
 
 document.addEventListener('DOMContentLoaded', function() {
   if (localStorage.getItem('cgv_admin_ok') === '1') {
@@ -475,16 +341,68 @@ function toggleMic() {
   recognition.start();
 }
 
-async function llamarAPI(mensajes, systemPrompt) {
-  const sp = systemPrompt || SYSTEM_PROMPT;
-  const response = await fetch('https://api.anthropic.com/v1/messages', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-api-key': AK, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-    body: JSON.stringify({ model: 'claude-haiku-4-5-20251001', max_tokens: 2048, system: sp, messages: mensajes })
+/* ---- Comunicación con el backend (Apps Script) ----
+   1) POST "a ciegas" (no-cors) con los datos + un ticket.
+   2) Poll por JSONP (script tag) hasta que el backend tenga el resultado listo.
+   Así evitamos CORS (igual que en el resto del ecosistema CGV) sin límite de
+   largo de URL, porque el POST no depende de que el navegador pueda leer la respuesta. */
+
+function generarTicket() {
+  return 'tk_' + Date.now() + '_' + Math.floor(Math.random() * 1000000);
+}
+
+function jsonpPoll(ticket, callback, intentos) {
+  intentos = intentos || 0;
+  if (intentos > 25) { callback({ ok: false, error: 'timeout' }); return; }
+  const cbName = 'cbc_' + Date.now() + '_' + Math.floor(Math.random() * 10000);
+  let listo = false;
+  const script = document.createElement('script');
+  const timer = setTimeout(function() {
+    if (listo) return;
+    listo = true;
+    delete window[cbName];
+    if (script.parentNode) script.remove();
+    setTimeout(function() { jsonpPoll(ticket, callback, intentos + 1); }, 700);
+  }, 5000);
+  window[cbName] = function(data) {
+    if (listo) return;
+    listo = true;
+    clearTimeout(timer);
+    delete window[cbName];
+    script.remove();
+    if (data && data.pendiente) {
+      setTimeout(function() { jsonpPoll(ticket, callback, intentos + 1); }, 700);
+    } else {
+      callback(data);
+    }
+  };
+  script.onerror = function() {
+    if (listo) return;
+    listo = true;
+    clearTimeout(timer);
+    delete window[cbName];
+    if (script.parentNode) script.remove();
+    callback({ ok: false, error: 'jsonp_error' });
+  };
+  script.src = EXEC_URL_COMUNICADOR + '?action=poll&ticket=' + encodeURIComponent(ticket) + '&callback=' + cbName;
+  document.body.appendChild(script);
+}
+
+function llamarBackend(payload) {
+  return new Promise(function(resolve, reject) {
+    const ticket = generarTicket();
+    payload.ticket = ticket;
+    fetch(EXEC_URL_COMUNICADOR, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
+      .then(function() {
+        setTimeout(function() {
+          jsonpPoll(ticket, function(res) {
+            if (res && res.ok) resolve(res.raw);
+            else reject(new Error((res && res.error) || 'Error desconocido'));
+          });
+        }, 900);
+      })
+      .catch(reject);
   });
-  const data = await response.json();
-  if (!data.content || !data.content[0]) throw new Error('Sin respuesta');
-  return data.content[0].text;
 }
 
 function parsearRespuesta(raw) {
@@ -501,7 +419,7 @@ async function generarMensaje() {
   document.getElementById('pasoEntrada').style.display = 'none';
   document.getElementById('loadingText').innerText = 'Generando comunicado...';
   try {
-    const raw = await llamarAPI([{ role: 'user', content: texto }]);
+    const raw = await llamarBackend({ action: 'generar', texto: texto });
     mostrarResultado(raw);
   } catch(e) {
     const esCorto = texto.length < 30;
@@ -687,21 +605,8 @@ async function dividirMensaje() {
   document.getElementById('pasoResultado').style.display = 'none';
   document.getElementById('loadingText').innerText = 'Dividiendo en dos partes...';
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': AK, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-      body: JSON.stringify({
-        model: 'claude-haiku-4-5-20251001', max_tokens: 2048, system: SYSTEM_PROMPT,
-        messages: [
-          { role: 'user', content: textoOriginal },
-          { role: 'assistant', content: '{"categoria":"...","hashtag":"...","intervencion":"menor","advertencia":"","sugerencias":[],"mensaje":"' + mensajeActual.replace(/"/g,'\\"').replace(/\n/g,'\\n') + '"}' },
-          { role: 'user', content: 'Dividí el comunicado en exactamente dos mensajes. Cada uno debe mantener el hashtag temático en cursiva y el emoji de categoría al inicio (según las reglas ya indicadas), con apertura apropiada y cierre "LA EUGE informa 📣". Respondé con JSON: {"mensaje1":"...","mensaje2":"..."}' }
-        ]
-      })
-    });
-    const data = await response.json();
-    const raw = data.content[0].text.replace(/```json|```/g, '').trim();
-    const parsed = JSON.parse(raw);
+    const raw = await llamarBackend({ action: 'dividir', textoOriginal: textoOriginal, mensajeActual: mensajeActual });
+    const parsed = parsearRespuesta(raw);
     document.getElementById('loadingText').innerText = '';
     document.getElementById('resultadoBox').style.display = 'none';
     document.getElementById('msg1').innerText = parsed.mensaje1; document.getElementById('msg1').style.display = 'block';
@@ -733,17 +638,10 @@ async function correccionFinal() {
   icon.style.display = 'none';
   titulo.innerText = 'Revisando...';
 
-  const cuerpoActual = document.getElementById('resultadoBox').value.trim();
   const mensajeCompleto = obtenerMensajeCompleto();
-  const instruccion = 'CORRECCIÓN FINAL — SOLO PULIDO: Revisá el siguiente comunicado y corregí únicamente errores ortográficos, tildes faltantes o expresiones que suenen agresivas o poco cordiales. No cambies el contenido, el orden, los datos ni la estructura. No reescribas párrafos. Si hay frases que suenan muy directas o cortantes, suavizalas levemente sin perder el sentido. Devolvé el comunicado corregido, completo, sin comentarios ni explicaciones.';
-
-  const textoOriginal = document.getElementById('textoEntrada').value.trim();
 
   try {
-    const SYSTEM_CORRECTOR = 'Sos un corrector de textos institucionales en español rioplatense. Corregís ortografía, tildes y suavizás levemente frases cortantes, sin cambiar el contenido, el orden ni la estructura del texto. Devolvés SOLO el texto corregido, sin comentarios, sin explicaciones, sin formato JSON. REGLA CRÍTICA: Las líneas que contienen URLs (https://), números de teléfono, CBU, alias bancarios o datos de contacto deben copiarse exactamente igual, sin modificar ni un carácter.';
-    const raw = await llamarAPI([
-      { role: 'user', content: 'Revisá y corregí este comunicado. Devolvé SOLO el texto corregido, sin comentarios ni explicaciones:\n\n' + mensajeCompleto }
-    ], SYSTEM_CORRECTOR);
+    const raw = await llamarBackend({ action: 'corregir', mensajeCompleto: mensajeCompleto });
     const textoCorregido = raw.trim();
     if (!textoCorregido) throw new Error('Sin respuesta');
 
@@ -785,11 +683,7 @@ async function aplicarAjusteDirecto(instruccion) {
   document.getElementById('pasoResultado').style.display = 'none';
   document.getElementById('loadingText').innerText = 'Aplicando ajuste...';
   try {
-    const raw = await llamarAPI([
-      { role: 'user', content: textoOriginal },
-      { role: 'assistant', content: '{"categoria":"...","hashtag":"...","intervencion":"menor","advertencia":"","sugerencias":[],"mensaje":"' + mensajeActual.replace(/"/g,'\\"').replace(/\n/g,'\\n') + '"}' },
-      { role: 'user', content: instruccion }
-    ]);
+    const raw = await llamarBackend({ action: 'ajustar', textoOriginal: textoOriginal, mensajeActual: mensajeActual, instruccion: instruccion });
     mostrarResultado(raw);
   } catch(e) {
     document.getElementById('loadingText').innerText = 'Error al ajustar. Intentá de nuevo.';
