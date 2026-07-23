@@ -287,8 +287,8 @@ wa.me/5493764683859" data-emoji="📞"><label class="dato-label" for="d11"><stro
 <a class="btn-cgv-externo" href="https://clubdecampolaeugenia.taplink.site/" target="_blank">Ir al Centro de Gestión Vecinal</a>
 
 <script>
-const PIN_CORRECTO = '1112';
 const WA_NUMERO = '5493764113300';
+const EXEC_URL_PINES_CGV_CHECK = 'https://script.google.com/macros/s/AKfycbyt4PoL_IWHaXRlMNDy2cPtWmvj7f0-DLpSe5IHir54yPDNg8osPtX_0ezoopC4aGR_7A/exec';
 // Pegá acá la URL /exec del proyecto Apps Script "Backend Comunicador La Eugenia" (paso 2 de las instrucciones)
 const EXEC_URL_COMUNICADOR = 'https://script.google.com/macros/s/AKfycbx_aQG5WuH3lHHZq7f4yImXRyv2ehfP47b1nJR1EbWdRjcymeG-eaXwtE4tRbAEl0Za/exec';
 
@@ -301,29 +301,54 @@ const SUGERENCIAS_MAP = {
   'Podas grandes': 'di12', 'Energía de Misiones': 'di13', 'Emergencias': 'di14'
 };
 
+let PIN_SESION = '';
+
 document.addEventListener('DOMContentLoaded', function() {
-  if (localStorage.getItem('cgv_admin_ok') === '1') {
-    document.getElementById('pinScreen').style.display = 'none';
-    document.getElementById('mainScreen').style.display = 'block';
-    document.getElementById('mainScreen').classList.add('active');
-  }
+  const savedPin = localStorage.getItem('cgv_pin');
+  if (!savedPin) return;
+  PIN_SESION = savedPin;
+  fetch(EXEC_URL_PINES_CGV_CHECK + '?action=validarPin&pin=' + encodeURIComponent(savedPin) + '&modulo=comunicador&callback=cbChk')
+    .catch(function(){});
+  const cbName = 'cbChk_' + Date.now();
+  window[cbName] = function(res) {
+    delete window[cbName];
+    if (res && res.ok && res.valido) {
+      document.getElementById('pinScreen').style.display = 'none';
+      document.getElementById('mainScreen').style.display = 'block';
+      document.getElementById('mainScreen').classList.add('active');
+    } else {
+      PIN_SESION = '';
+      localStorage.removeItem('cgv_pin');
+    }
+  };
+  const s = document.createElement('script');
+  s.src = EXEC_URL_PINES_CGV_CHECK + '?action=validarPin&pin=' + encodeURIComponent(savedPin) + '&modulo=comunicador&callback=' + cbName;
+  document.body.appendChild(s);
 });
 
 function verificarPin() {
-  const pin = document.getElementById('pinInput').value;
-  if (pin === PIN_CORRECTO) {
-    localStorage.setItem('cgv_admin_ok', '1');
-    document.getElementById('pinScreen').style.display = 'none';
-    document.getElementById('mainScreen').style.display = 'block';
-    document.getElementById('mainScreen').classList.add('active');
-    document.getElementById('pinError').innerText = '';
-  } else {
-    document.getElementById('pinError').innerText = 'PIN incorrecto. Intentá de nuevo.';
-    document.getElementById('pinInput').value = '';
-    const pinEl = document.getElementById('pinInput');
-    pinEl.classList.add('error');
-    setTimeout(() => pinEl.classList.remove('error'), 400);
-  }
+  const intento = document.getElementById('pinInput').value;
+  const cbName = 'cbLogin_' + Date.now();
+  window[cbName] = function(res) {
+    delete window[cbName];
+    if (res && res.ok && res.valido) {
+      PIN_SESION = intento;
+      localStorage.setItem('cgv_pin', intento);
+      document.getElementById('pinScreen').style.display = 'none';
+      document.getElementById('mainScreen').style.display = 'block';
+      document.getElementById('mainScreen').classList.add('active');
+      document.getElementById('pinError').innerText = '';
+    } else {
+      document.getElementById('pinError').innerText = 'PIN incorrecto. Intentá de nuevo.';
+      document.getElementById('pinInput').value = '';
+      const pinEl = document.getElementById('pinInput');
+      pinEl.classList.add('error');
+      setTimeout(() => pinEl.classList.remove('error'), 400);
+    }
+  };
+  const s = document.createElement('script');
+  s.src = EXEC_URL_PINES_CGV_CHECK + '?action=validarPin&pin=' + encodeURIComponent(intento) + '&modulo=comunicador&callback=' + cbName;
+  document.body.appendChild(s);
 }
 document.getElementById('pinInput').addEventListener('keydown', e => { if (e.key === 'Enter') verificarPin(); });
 
@@ -392,6 +417,7 @@ function llamarBackend(payload) {
   return new Promise(function(resolve, reject) {
     const ticket = generarTicket();
     payload.ticket = ticket;
+    payload.pin = PIN_SESION;
     fetch(EXEC_URL_COMUNICADOR, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
       .then(function() {
         setTimeout(function() {
@@ -765,6 +791,8 @@ function reproducirSonidoMagico() {
 
 function cerrarSesion() {
   nuevoMensaje();
+  localStorage.removeItem('cgv_pin');
+  PIN_SESION = '';
   document.getElementById('mainScreen').style.display = 'none';
   document.getElementById('mainScreen').classList.remove('active');
   document.getElementById('pinScreen').style.display = 'block';
